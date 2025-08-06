@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Espen Sirnes">
+<meta name="dcterms.date" content="2024-09-18">
+
+<title>3 - Matrices, Optimal Portfolios</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="3-lecture_optport_files/libs/clipboard/clipboard.min.js"></script>
+<script src="3-lecture_optport_files/libs/quarto-html/quarto.js"></script>
+<script src="3-lecture_optport_files/libs/quarto-html/popper.min.js"></script>
+<script src="3-lecture_optport_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="3-lecture_optport_files/libs/quarto-html/anchor.min.js"></script>
+<link href="3-lecture_optport_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="3-lecture_optport_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="3-lecture_optport_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="3-lecture_optport_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="3-lecture_optport_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="3-lecture_optport.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="3-lecture_optport.ipynb" download="3-lecture_optport.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">3 - Matrices, Optimal Portfolios</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Espen Sirnes </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 18, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This lecture explores the strategic behavior of an investor in the stock market, particularly under the assumption of risk aversion, as discussed in the previous note on utility theory. Risk lovers generally prefer the most risky assets, while risk-neutral investors opt for assets with the highest returns. In contrast, a risk-averse investor seeks to maximize returns without disproportionately increasing volatility, typically measured as variance.</p>
+<section id="matrices" class="level1">
+<h1>Matrices</h1>
+<p>To calculate optimal portfolios for any number of assets, a basic understanding of matrix algebra <span class="citation" data-cites="Cayley1858">(<a href="#ref-Cayley1858" role="doc-biblioref">Cayley 1858</a>)</span> is essential. Matrix algebra simplifies the resolution of several equations simultaneously, a process that becomes increasingly complex with the addition of variables. Using matrix functions in software like Excel and various statistical packages allows us to solve systems of equations efficiently without manually computing each one.</p>
+<p>Matrices not only streamline the computation but also simplify notation, making the formulation of equations for optimal portfolios more manageable.</p>
+<p>A matrix is a structured array of numbers arranged in rows and columns, essentially a set of vectors. Here’s an example of a vector:</p>
+<div id="85abeac2" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>array([30, 73, 35])</code></pre>
+</div>
+</div>
+<p>Combining several vectors side-by-side forms a matrix:</p>
+<div id="67a6e276" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>array([[ 9,  5, 65],
+       [27, 10, 58]])</code></pre>
+</div>
+</div>
+<p>This format is sometimes denoted as <span class="math inline">\(\mathbf{X}_{N \times K}\)</span> to indicate the number of rows (<span class="math inline">\(N\)</span>) and columns (<span class="math inline">\(K\)</span>).</p>
+</section>
+<section id="algebra-with-matrices" class="level1">
+<h1>Algebra with Matrices</h1>
+<p>Matrix algebra operates under similar principles to ordinary algebra—allowing addition, subtraction, multiplication, and division (through inversion)—but it also requires adherence to specific rules.</p>
+<section id="matrix-multiplication" class="level2">
+<h2 class="anchored" data-anchor-id="matrix-multiplication">Matrix Multiplication</h2>
+<p>The core operation in matrix algebra is matrix multiplication, which combines elements from the rows of the first matrix with the columns of the second. For example, multiplying a <span class="math inline">\(2 \times 3\)</span> matrix by a <span class="math inline">\(3 \times 2\)</span> matrix yields:</p>
+<div id="75bf3ad3" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">3</span>,<span class="dv">2</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> X <span class="op">@</span> Y</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Y)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1 2 2]
+ [0 4 2]]
+[[4 0]
+ [4 3]
+ [2 2]]
+[[16 10]
+ [20 16]]</code></pre>
+</div>
+</div>
+<p>What happens is that we sum the product of the elements in each row of the first matrix and each column of the second. You can for example check that element [0,0] of the result is the sum of the product of the first row of the first matrix, and the first column of the second. An easy way to remember this is to think of the multiplication of <span class="math inline">\(A \times B\)</span> is to follow the lines of the letters: <img src="img/multrule.png" title="Muliplication rule" class="img-fluid" alt="multiplication rule"></p>
+<p>Due to the rules for matrix multiplication, it requires the number of columns in the first matrix to match the number of rows in the second.</p>
+<p>The matrix multiplication is different from the normal multiplication in Python. Normal multiplicaiton can be done with the normal multiplication operator <code>*</code>. It will then multiply each element in X with the corresponding element of Y, and both matrices must be of the same size:</p>
+<div id="00012ffb" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> X<span class="op">*</span>Y</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Y)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[0 2 1]
+ [3 2 1]]
+[[0 0 3]
+ [4 1 2]]
+[[ 0  0  3]
+ [12  2  2]]</code></pre>
+</div>
+</div>
+<p>The reason for using the former method, is that the former is required for solving sets of equations.</p>
+</section>
+<section id="adding-and-subtracting-matrices" class="level2">
+<h2 class="anchored" data-anchor-id="adding-and-subtracting-matrices">Adding and Subtracting Matrices</h2>
+<p>Adding or subtracting matrices is straightforward; simply add or subtract corresponding elements. In Python, the multiplication requires numpy function, but if the matrices are numpy variables, subtraction and addition can be done with the normal operators.</p>
+<div id="60d85cd7" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Addition of matrices</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"X:</span><span class="ch">\n</span><span class="sc">{</span>X<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Y:</span><span class="ch">\n</span><span class="sc">{</span>Y<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"X+Y:</span><span class="ch">\n</span><span class="sc">{</span>X<span class="op">+</span>Y<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>X:
+[[33 12]
+ [80 10]]
+Y:
+[[95 10]
+ [58 62]]
+X+Y:
+[[128  22]
+ [138  72]]</code></pre>
+</div>
+</div>
+</section>
+<section id="dividing-with-a-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="dividing-with-a-matrix">Dividing with a Matrix</h2>
+<p>While direct division isn’t defined in matrix operations, we can achieve a similar result by multiplying by the inverse of a matrix. The inverse of a matrix <span class="math inline">\(\mathbf{X}\)</span>, denoted <span class="math inline">\(\mathbf{X}^{-1}\)</span>, satisfies:</p>
+<p><span id="eq-matrix_example"><span class="math display">\[
+\mathbf{X} \times \mathbf{X}^{-1} = \mathbf{I} =
+\begin{pmatrix}
+1 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 1
+\end{pmatrix}
+\tag{1}\]</span></span></p>
+<p>where <span class="math inline">\(\mathbf{I}\)</span> is the identity matrix. Multiplying any matrix by <span class="math inline">\(\mathbf{I}\)</span> results in the original matrix, akin to multiplying any number by 1.</p>
+<p>In practice, while the concept is straightforward, the actual calculation of a matrix inverse can become complex for larger matrices and is typically handled by computers. We will not go through the method of obtaining the inverse in this course, we will in stead just utilize the numpy funciton for calculating the inverse. Specifically, we use <code>np.linalg.inv(X)</code>. We can check that it actually complies with the definition like this:</p>
+<div id="51327abb" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">10</span>,(<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating inverse of X</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>X_inv <span class="op">=</span> np.linalg.inv(X)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Testing</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">round</span>(X_inv <span class="op">@</span> X,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="solving-equations-with-matrix-algebra" class="level2">
+<h2 class="anchored" data-anchor-id="solving-equations-with-matrix-algebra">Solving Equations with Matrix Algebra</h2>
+<p>The foundation we’ve established for matrix algebra now allows us to efficiently solve systems of equations. Consider solving the following pair of simultaneous equations:</p>
+<p><span id="eq-equation_system"><span class="math display">\[
+x_{11}a_{1} + x_{12}a_{2} = b_{1} \\
+x_{21}a_{1} + x_{22}a_{2} = b_{2}
+\tag{2}\]</span></span></p>
+<p>Here, we know the values of <span class="math inline">\(x\)</span> and <span class="math inline">\(b\)</span> but need to find the values of <span class="math inline">\(a\)</span>. These equations can be succinctly expressed using matrix notation:</p>
+<p><span id="eq-Xab"><span class="math display">\[
+\mathbf{X \times a} = \mathbf{b}
+\tag{3}\]</span></span></p>
+<p>where <span class="math inline">\(\mathbf{a}\)</span> and <span class="math inline">\(\mathbf{b}\)</span> are column vectors. Let us define the right hand side vector <code>b</code> and the coeficient matrix <code>X</code> randomly in python as</p>
+<div id="fe4e57f3" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span>  np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define matrix X</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span>  np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[48 25]
+ [ 4 21]]
+[[34]
+ [19]]</code></pre>
+</div>
+</div>
+<p>To solve for <span class="math inline">\(\mathbf{a}\)</span>, we use the inverse of <span class="math inline">\(\mathbf{X}\)</span>, provided it exists, and multiplies it with the left and right hand sides of the equation, just as we would divide with X on both sides to solve for a single equation:</p>
+<p><span id="eq-matrix_inverse"><span class="math display">\[
+\mathbf{X}^{-1} \times \mathbf{X} \times \mathbf{a} = \mathbf{X}^{-1}\mathbf{b}
+\tag{4}\]</span></span></p>
+<p>Since we know that <span class="math inline">\(\mathbf{X}^{-1}\)</span> is the solution to <span class="math inline">\(\mathbf{X}^{-1} \times \mathbf{X} = \mathbf{I}\)</span>, premultiplying with <span class="math inline">\(\mathbf{X}^{-1}\)</span> yields:</p>
+<p><span id="eq-matrix_inversion"><span class="math display">\[
+\mathbf{a} = \mathbf{X}^{-1}\mathbf{b}
+\tag{5}\]</span></span></p>
+<p>Hence, we have found an easy way to solve any linear equation. We can test that it works in python. Let us first find <code>a</code> using this approach:</p>
+<div id="b767f60e" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.linalg.inv(X) <span class="op">@</span> b</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>array([[0.26321586],
+       [0.85462555]])</code></pre>
+</div>
+</div>
+<p>If you get a “Singular matrix” error its because we are generating <code>X</code> with a few random integers, which sometimes creates unsolvable systems, so just generate <code>X</code> and <code>b</code> again.</p>
+<p>Now we can test, if the solution for a actually works, by applying it on the original equation <span class="math inline">\(\mathbf{X \times a} = \mathbf{b}\)</span>. This should yield the right hand side of th equation, <code>b</code>:</p>
+<div id="d38d6a50" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">@</span> a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>array([[34.],
+       [19.]])</code></pre>
+</div>
+</div>
+<p>Compare this with the actual <code>b</code>:</p>
+<div id="bfb430c9" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>array([[34],
+       [19]])</code></pre>
+</div>
+</div>
+<p>Thus, we have identified an effective method to solve any system of equations, provided that <span class="math inline">\(\mathbf{X}\)</span> is invertible. If <span class="math inline">\(\mathbf{X}\)</span> cannot be inverted, it indicates that two or more equations are essentially identical, leading to an “underdetermined” system. In such cases, some equations are redundant, and there are not enough independent equations to determine the values of all variables. Remember the fundamental rule: we need an equal number of equations and unknowns to uniquely solve for each variable.</p>
+</section>
+<section id="transposing" class="level2">
+<h2 class="anchored" data-anchor-id="transposing">Transposing</h2>
+<p>Transposing a matrix involves swapping its rows and columns. For example, a <span class="math inline">\(2 \times 3\)</span> matrix:</p>
+<p><span id="eq-matrix_2x3"><span class="math display">\[
+\mathbf{X}_{2 \times 3} =
+\begin{pmatrix}
+x_{11} &amp; x_{12} &amp; x_{13} \\
+x_{21} &amp; x_{22} &amp; x_{23}
+\end{pmatrix}
+\tag{6}\]</span></span></p>
+<p>transposes to:</p>
+<p><span id="eq-matrix_3x2"><span class="math display">\[
+\mathbf{X}_{2 \times 3}^{\prime} =
+\begin{pmatrix}
+x_{11} &amp; x_{21} \\
+x_{12} &amp; x_{22} \\
+x_{13} &amp; x_{23}
+\end{pmatrix}
+\tag{7}\]</span></span></p>
+<p>where <span class="math inline">\(^{\prime}\)</span> denotes the transposed matrix. For a column vector <span class="math inline">\(\mathbf{a}\)</span>, transposing and then multiplying by itself, <span class="math inline">\(\mathbf{a}^{\prime}\mathbf{a}\)</span>, calculates the sum of squares of its components.</p>
+<div id="e7e29832" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of matrix transposition</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>X_2x3 <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>X_transposed <span class="op">=</span> X_2x3.T</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>X_transposed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>array([[28, 75],
+       [45, 75],
+       [85, 33]])</code></pre>
+</div>
+</div>
+<p>Transposition is often used to conform to the requirements of matrix multiplication, where the number of columns in the first matrix must match the number of rows in the second. If this is not the case, one might transpose the first matrix to facilitate multiplication.</p>
+</section>
+</section>
+<section id="calculus-and-matrices" class="level1">
+<h1>Calculus and matrices</h1>
+<p>Deriving matrices follows similar principles to deriving polynomials <span class="citation" data-cites="Cayley1858">(<a href="#ref-Cayley1858" role="doc-biblioref">Cayley 1858</a>)</span>. For instance:</p>
+<p><span id="eq-scalar_deriv"><span class="math display">\[
+\frac{d\left( a^{2} \sigma^{2} \right)}{da} = 2a \sigma^{2}
+\tag{8}\]</span></span></p>
+<p>applies to scalar variables, and for a matrix <span class="math inline">\(\Sigma\)</span> and a column vector <span class="math inline">\(\mathbf{a}\)</span>, we have:</p>
+<p><span id="eq-matrix_deriv"><span class="math display">\[
+\frac{d\left(\mathbf{a}^{\prime}{\Sigma}\mathbf{a}\right)}{d\mathbf{a}^{\prime}} =2{\Sigma}\mathbf{a}
+\tag{9}\]</span></span></p>
+<p>assuming <span class="math inline">\({\Sigma}\)</span> is symmetric. In practical terms, the derivative with respect to <code>a</code> here, given some values for <code>a</code>, is</p>
+<div id="c84d4f04" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Derivation with matrix and vector</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Sigma <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Derivative of a' Sigma a with respect to a</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>derivative <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> Sigma <span class="op">@</span> a</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>derivative</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>array([[13100],
+       [ 8672]])</code></pre>
+</div>
+</div>
+<p>We can rewrite the matrix formulation in scalar form, to check that the rule is correct. The scalar form of <span class="math inline">\(\mathbf{a}^{\prime} {\Sigma}\mathbf{a}\)</span> is</p>
+<p><span id="eq-matrix_vec_matr_vec_prod"><span class="math display">\[
+\mathbf{a}^{\prime} {\Sigma} \mathbf{a} = \sum_{j=0}^{N} a_j \left( \sum_{i=0}^{N} a_i \sigma_{ij} \right)
+\tag{10}\]</span></span></p>
+<p>You can verify that</p>
+<p><span id="eq-matrix_vec_matr_vec_prod_long"><span class="math display">\[
+\frac{d(\mathbf{a}^{\prime} {\Sigma} \mathbf{a}) }{d\mathbf{a}}= 2 [\sum_{i=0}^{N} a_i \sigma_{i0}, ..., \sum_{i=0}^{N} a_i \sigma_{iN}]
+\tag{11}\]</span></span></p>
+</section>
+<section id="optimal-portfolios-with-more-than-one-asset" class="level1">
+<h1>Optimal portfolios with more than one asset</h1>
+<p>We remember from above the previous chapter that with one asset, the optimal portfolio was</p>
+<p><span id="eq-opt_port"><span class="math display">\[
+a_{opt}=\frac{(\mu -r)}{\lambda \sigma^2}
+\tag{12}\]</span></span></p>
+<p>From this we concluded that:</p>
+<ol type="1">
+<li>The more risk-averse the person is, the less they should invest.</li>
+<li>The larger the expected return of the asset, the more should be invested.</li>
+<li>The greater the risk associated with the asset, represented by <span class="math inline">\(\sigma^2\)</span>, the less should be invested.</li>
+</ol>
+<p>Now, let us consider the optimal investments if we have more than one asset, as developed by <span class="citation" data-cites="Markowitz1952">Markowitz (<a href="#ref-Markowitz1952" role="doc-biblioref">1952</a>)</span>.</p>
+<section id="optimal-portfolios-with-any-number-of-assets" class="level2">
+<h2 class="anchored" data-anchor-id="optimal-portfolios-with-any-number-of-assets">Optimal Portfolios with Any Number of Assets</h2>
+<p>Let us now assume that the investor in the previous section has a portfolio of <span class="math inline">\(N\)</span> assets, not just one. Their wealth next period, assuming the entire amount is borrowed, is then expressed in matrix notation as:</p>
+<p><span id="eq-opt_port"><span class="math display">\[
+W_1 = \mathbf{a}'\mathbf{x} - \mathbf{1}r
+\tag{13}\]</span></span></p>
+<p>where <span class="math inline">\(\mathbf{a}\)</span> represents the portfolio weights, <span class="math inline">\(\mathbf{x}\)</span> represents the returns, and <span class="math inline">\(\mathbf{1}\)</span> is a column vector of ones, such that <span class="math inline">\(\mathbf{1}r\)</span> is a column vector of the risk-free interest rate <span class="math inline">\(r\)</span>. Recall from earlier that the investor aims to maximize the difference between expected return and variance:</p>
+<p><span id="eq-opt_port_max_prob"><span class="math display">\[
+\max_{\mathbf{a}} Z = \mathbb{E}W_1 - \lambda \frac{1}{2} \operatorname{var}(W_1)  
+\tag{14}\]</span></span></p>
+<p><span class="math inline">\(\mathbf{x}\)</span> now is a column vector of many normally distributed variables with different variances and expectations. We denote the expected returns by <span class="math inline">\(\mu_i\)</span> for asset <span class="math inline">\(i\)</span>, and the associated vector of these returns by <span class="math inline">\(\mathbf{\mu}\)</span>. Given a portfolio <span class="math inline">\(\mathbf{a}\)</span>, the expected return on the portfolio then becomes:</p>
+<p><span id="eq-opt_port_FOC"><span class="math display">\[
+\mathbb{E}W_1 = \mathbf{a}^{\prime}(\mathbb{E}\mathbf{x}-\mathbf{1}r) = \mathbf{a}^{\prime}({\mu} - \mathbf{1}r)
+\tag{15}\]</span></span></p>
+<p>For the variance, the risk free return <span class="math inline">\(r\)</span> is not relevant, since means are subtracted anyway. We define the covariance matrix, all the combinations of variance and covariance between the stocks as</p>
+<p><span id="eq-covar_matrix"><span class="math display">\[
+\operatorname{var}W_1 =  \mathbf{a}^{\prime}{\Sigma} \mathbf{a} =
+\mathbf{a}^{\prime}
+\begin{bmatrix}
+\sigma_00 &amp; \sigma_12 &amp; \cdots &amp; \sigma_1N \\
+\sigma_12 &amp; \sigma_22 &amp; \cdots &amp; \vdots \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_1N &amp; \cdots &amp; \cdots &amp; \sigma_{NN}
+\end{bmatrix}
+\mathbf{a}
+\tag{16}\]</span></span></p>
+<p>Where <span class="math inline">\(\sigma_{ij}\)</span> is the covariance between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, and <span class="math inline">\(\sigma_i^2\)</span> is the variance of asset <span class="math inline">\(i\)</span>. This is the covariance matrix, denoted by the capital sigma, <span class="math inline">\({\Sigma}\)</span>.</p>
+<p>When a vector is normally distributed we write it as <span class="math inline">\(\mathbf{x} \sim N({\mu}, {\Sigma})\)</span>.</p>
+<p>We have now derived expressions for <span class="math inline">\(\mathbb{E}(W_1)\)</span> and <span class="math inline">\(\operatorname{var}(W_1)\)</span> using matrix notation. Building on the concepts from the previous lecture, we can now formulate our portfolio optimization problem as:</p>
+<p><span id="eq-opt_port_max_problem"><span class="math display">\[
+\max_{\mathbf{a}} Z = \mathbf{a}^{\prime}({\mu} - \mathbf{1}r) - \lambda \frac{1}{2} \mathbf{a}^{\prime}{\Sigma}\mathbf{a}
+\tag{17}\]</span></span></p>
+<p>Taking the derivative with respect to <span class="math inline">\(\mathbf{a}^{\prime}\)</span> yields the <span class="math inline">\(N\)</span> first order conditions:</p>
+<p><span id="eq-opt_port_FOC"><span class="math display">\[
+\frac{dZ}{d\mathbf{a}} = ({\mu} - \mathbf{1}r) - \lambda {\Sigma a} = 0
+\tag{18}\]</span></span></p>
+<p>Hence, in optimum:</p>
+<p><span id="eq-opt_port_FOC2"><span class="math display">\[
+{\Sigma} \mathbf{a}= \frac{1}{\lambda}({\mu} - \mathbf{1}r)
+\tag{19}\]</span></span></p>
+<p>By premultiplying with the inverse of <span class="math inline">\({\Sigma}\)</span>, we obtain the optimal portfolio:</p>
+<p><span id="eq-opt_port_sol"><span class="math display">\[
+\mathbf{a_{opt}} = \frac{1}{\lambda} {\Sigma}^{-1}({\mu} - \mathbf{1}r)
+\tag{20}\]</span></span></p>
+<p>Note that this formula looks very similar to the formula for an optimal portfolio with only one asset:</p>
+<p><span id="eq-opt_port_scalar"><span class="math display">\[
+a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
+\tag{21}\]</span></span></p>
+<p>In general, we may draw the same conclusions as in the case of one asset:</p>
+<ol type="1">
+<li>The more risk-averse the person is (large <span class="math inline">\(\lambda\)</span>), the less they should invest.</li>
+<li>The larger the expected return the asset has, the more should be invested.</li>
+<li>The more risk is associated with the asset, the less should be invested.</li>
+</ol>
+</section>
+</section>
+<section id="empirical-example---optimal-porfolio-and-the-portfolio-front" class="level1">
+<h1>Empirical example - optimal porfolio and the portfolio front</h1>
+<p>We will now create an optimal portfolio using data from Titlon, and draw the “portfolio front” <span class="citation" data-cites="Markowitz1952">(<a href="#ref-Markowitz1952" role="doc-biblioref">Markowitz 1952</a>)</span>. The portfolio front are the smallest possible volatility of a set of assets, for all return leves. We use the script feature of Titlon to fetch the data, and storing it in <code>'output/stocks.df'</code></p>
+<div id="898ef6a7" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>con <span class="op">=</span> pymysql.<span class="ex">connect</span>(host<span class="op">=</span><span class="st">'titlon.uit.no'</span>, </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                    user<span class="op">=</span><span class="st">"user@name.com"</span>, </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                    password<span class="op">=</span><span class="st">"passwordfromtitlon"</span>, </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                    database<span class="op">=</span><span class="st">'OSE'</span>)  </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>crsr<span class="op">=</span>con.cursor()</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>crsr.execute(<span class="st">"SET SESSION MAX_EXECUTION_TIME=60000;"</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>crsr.execute(<span class="st">"""</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT  * FROM `OSE`.`equity` </span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE year(`Date`) &gt;= 2016</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="st">    ORDER BY `Name`,`Date`</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>r<span class="op">=</span>crsr.fetchall()</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.DataFrame(<span class="bu">list</span>(r), </span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>            columns<span class="op">=</span>[i[<span class="dv">0</span>] <span class="cf">for</span> i <span class="kw">in</span> crsr.description])</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="co">#YOU NEED TO BE CONNECTED TO YOUR INSTITUTION VIA VPN,</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="co"># OR BE AT THE INSTITUTION, FOR THIS CODE TO WORK</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">'output'</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'output/stocks.df'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now reload the data, and pick the four stocks<br>
+1. has been traded at the first and last day of the sample 2. that are most traded (sorted on sum of <code>Turnover</code>)</p>
+<p>We can obtain that with this code:</p>
+<div id="edaa13cd" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'output/stocks.df'</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining annual risk free rate. </span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> df[<span class="st">'NOWA_DayLnrate'</span>].mean()<span class="op">*</span><span class="dv">7</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifying the ISINs with dates both at the beginning</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># and the end of the data set</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>isin_with_first_date <span class="op">=</span> (</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    df[df[<span class="st">'Date'</span>] <span class="op">==</span> df[<span class="st">'Date'</span>].<span class="bu">min</span>()][<span class="st">'ISIN'</span>].unique()</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>isin_with_last_date <span class="op">=</span> (</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    df[df[<span class="st">'Date'</span>] <span class="op">==</span> df[<span class="st">'Date'</span>].<span class="bu">max</span>()][<span class="st">'ISIN'</span>].unique()</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>valid_isins <span class="op">=</span> (</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">set</span>(isin_with_first_date)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    .intersection(isin_with_last_date)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">'ISIN'</span>].isin(valid_isins)]</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="co"># creating a new column - the combination of Name and ISIN</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Name (ISIN)'</span>] <span class="op">=</span> (</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'Name'</span>].<span class="bu">str</span>.upper().<span class="bu">str</span>.strip() <span class="op">+</span> <span class="st">'('</span> <span class="op">+</span> df[<span class="st">'ISIN'</span>] <span class="op">+</span> <span class="st">')'</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="co"># keeping only the most traded shares</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> (</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>        df.groupby([<span class="st">'Name (ISIN)'</span>])</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>        .agg({<span class="st">'Turnover'</span>: <span class="st">'sum'</span>})</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>        .sort_values(by<span class="op">=</span><span class="st">'Turnover'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.merge(res.head(<span class="dv">4</span>), on<span class="op">=</span>[<span class="st">'Name (ISIN)'</span>], </span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>                                how<span class="op">=</span><span class="st">'inner'</span>)</span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>res.head(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Turnover</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name (ISIN)</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">EQUINOR(NO0010096985)</td>
+<td>1.523274e+12</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">NORSK HYDRO(NO0005052605)</td>
+<td>5.525255e+11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">TELENOR(NO0010063308)</td>
+<td>4.934189e+11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">YARA INTERNATIONAL(NO0010208051)</td>
+<td>4.753943e+11</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="the-historic-mean-and-covariance-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="the-historic-mean-and-covariance-matrix">The historic mean and covariance matrix</h2>
+<p>We will now calculate the covariance matrix and the mean vector. To begin, we’ll create a function that reformats the data from its long format (where stock prices are listed sequentially in a single column) to a wide format. In this wide format, unique dates will be in the first column, with subsequent columns containing prices for each stock.</p>
+<div id="6922f309" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_matrix(df, field):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Converts the df to a matrix df that can </span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">    be used to calculate the covariance matrix"""</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    df_unique <span class="op">=</span> df.drop_duplicates(</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                        subset<span class="op">=</span>[<span class="st">'Date'</span>, <span class="st">'ISIN'</span>])</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    pivot_df <span class="op">=</span> df_unique.pivot(index<span class="op">=</span><span class="st">'Date'</span>, </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>                                columns<span class="op">=</span><span class="st">'Symbol'</span>, </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>                                values<span class="op">=</span>field)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    pivot_df <span class="op">=</span> pivot_df.dropna()</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Annualized weekly returns</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    df_weekly <span class="op">=</span> pivot_df.resample(<span class="st">'W'</span>).<span class="bu">sum</span>()</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df_weekly</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co">#X is a matrxi with e</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>X_df <span class="op">=</span> get_matrix(df, <span class="st">'lnDeltaP'</span>) </span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>X_df <span class="op">=</span> X_df.sort_index()</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>X_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Symbol</th>
+<th data-quarto-table-cell-role="th">EQNR</th>
+<th data-quarto-table-cell-role="th">NHY</th>
+<th data-quarto-table-cell-role="th">TEL</th>
+<th data-quarto-table-cell-role="th">YAR</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2016-01-10</td>
+<td>-0.118288</td>
+<td>-0.137636</td>
+<td>-0.008125</td>
+<td>-0.058065</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2016-01-17</td>
+<td>-0.060966</td>
+<td>-0.054818</td>
+<td>-0.085838</td>
+<td>-0.047905</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2016-01-24</td>
+<td>0.060966</td>
+<td>0.023505</td>
+<td>0.049143</td>
+<td>0.001741</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2016-01-31</td>
+<td>0.074498</td>
+<td>0.024710</td>
+<td>-0.007077</td>
+<td>-0.053584</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2016-02-07</td>
+<td>0.027490</td>
+<td>0.065780</td>
+<td>-0.029552</td>
+<td>0.024170</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-03-10</td>
+<td>0.026170</td>
+<td>0.016989</td>
+<td>-0.026157</td>
+<td>-0.040846</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2024-03-17</td>
+<td>0.023882</td>
+<td>0.038669</td>
+<td>0.019681</td>
+<td>0.016898</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-03-24</td>
+<td>0.032784</td>
+<td>0.048790</td>
+<td>0.022694</td>
+<td>0.026865</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2024-03-31</td>
+<td>-0.003143</td>
+<td>-0.023257</td>
+<td>0.026117</td>
+<td>-0.004525</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-04-07</td>
+<td>0.046639</td>
+<td>0.126744</td>
+<td>0.025854</td>
+<td>0.044496</td>
+</tr>
+</tbody>
+</table>
+
+<p>431 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<p>Wit this data, it is relatively easy to calculate covariance and the means vector</p>
+<div id="79ef46fe" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting X to a numpy array:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array(X_df)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the covariance</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>cov_matrix <span class="op">=</span> np.cov(X, rowvar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the means vector, and reshaping it to a </span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># column vector. </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> np.mean(X, axis<span class="op">=</span><span class="dv">0</span>).reshape((X.shape[<span class="dv">1</span>],<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-the-portfolio-front" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-the-portfolio-front">Plotting the portfolio front</h2>
+<p>We now turn to portfolio front. The portfolio front represents the volatility of the portfolio with the least variance, for a given portfolio return. Hence, we want a function of portfolio return that represent the minimum variance portfolios.</p>
+<p>It turns out that by defining a few simple scalars, there is a reasonably simple expression for the set of minimum variance portfolios. The scalars are:</p>
+<p><span id="eq-opt_port_A"><span class="math display">\[
+A = \mathbf{1}^{\prime}{\Sigma}^{-1}\mathbf{1}
+\tag{22}\]</span></span></p>
+<p><span id="eq-opt_port_B"><span class="math display">\[
+B = \mathbf{1}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
+\tag{23}\]</span></span></p>
+<p><span id="eq-opt_port_C"><span class="math display">\[
+C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
+\tag{24}\]</span></span></p>
+<p>With these definition, the portfolio front, representing all minimum variance portfolios for a given expected return and a total investment of 1, is</p>
+<p><span id="eq-opt_port_front"><span class="math display">\[
+{\sigma}_{opt} =\frac{1}{A}+\frac{ \left(\mu_{opt}-\frac{B}{A}\right)^2}{C-\frac{B^2}{A}}
+\tag{25}\]</span></span></p>
+<p>where <span class="math inline">\(\mu_{opt}={\mu}^{\prime}\mathbf{a}\)</span></p>
+<p>This formula automatically ensures that the sum of all the portfolio weights are 1. Now, let us define these variables, and the function. A, B and C in python:</p>
+<div id="2551215d" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ones <span class="op">=</span> np.ones((<span class="bu">len</span>(means),<span class="dv">1</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> (ones.T <span class="op">@</span> np.linalg.inv(cov_matrix) <span class="op">@</span> ones)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> (ones.T <span class="op">@</span> np.linalg.inv(cov_matrix) </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                                <span class="op">@</span> (means<span class="op">-</span>rf))[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> ((means.T<span class="op">-</span>rf) <span class="op">@</span> np.linalg.inv(cov_matrix) </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                                <span class="op">@</span> (means<span class="op">-</span>rf))[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>rf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>0.0003898151962814265</code></pre>
+</div>
+</div>
+<p>The portfolio front function, that returns the volatility associated with the minimum variance portfolio for a given <code>expected_excess_return</code> can then be defined as:</p>
+<div id="8c06c774" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> portfolio_front(expected_excess_return, a, b, c):</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> expected_excess_return</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    minimum_variance <span class="op">=</span> (<span class="dv">1</span><span class="op">/</span>a </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">+</span> ((r <span class="op">-</span> <span class="bu">abs</span>(b)<span class="op">/</span>a)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (c <span class="op">-</span> b<span class="op">**</span><span class="dv">2</span><span class="op">/</span>a))</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    minimum_volatility <span class="op">=</span> minimum_variance<span class="op">**</span><span class="fl">0.5</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> minimum_volatility</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With a defined portfolio frontier function, we can now plot the portfolio frontier. To make the weekly returns comparable on an annual scale, we multiply them by a scaling factor, <code>plot_scale</code>, set to 52. We can simply multiply the returns, because returns in Titlon are conveniently defined as log returns, calculated as <span class="math inline">\(\log(x_{t}) - \log(x_{t-1})\)</span>, rather than the typical relative return <span class="math inline">\(\frac{x_{t} - x_{t-1}}{x_{t-1}}\)</span>.</p>
+<div id="4d76da93" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating plot</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>plot_scale <span class="op">=</span> <span class="dv">52</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>MAX_AXIS <span class="op">=</span> <span class="fl">0.005</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co">#applying the function</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>rp_values <span class="op">=</span> np.linspace(<span class="dv">0</span>, MAX_AXIS<span class="op">-</span>rf, <span class="dv">100</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>sigma_values <span class="op">=</span> portfolio_front(rp_values, A, B, C)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#plotting, after annualizing the weekly data</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>ax.plot(plot_scale<span class="op">**</span><span class="fl">0.5</span><span class="op">*</span>(sigma_values), </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>            plot_scale<span class="op">*</span>(rp_values<span class="op">+</span>rf), </span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="st">'Efficient Frontier'</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co">#plot settings:</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>ax.set_xlim([<span class="dv">0</span>, np.<span class="bu">max</span>(sigma_values<span class="op">*</span>plot_scale<span class="op">**</span><span class="fl">0.5</span>)])</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>ax.set_ylim([<span class="dv">0</span>, (np.<span class="bu">max</span>(rp_values)<span class="op">+</span>rf)<span class="op">*</span>plot_scale])</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Sigma (Risk)'</span>)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Rp (Return)'</span>)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Efficient Frontier'</span>)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3-lecture_optport_files/figure-html/cell-20-output-1.png" width="821" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A key advantage of using log returns is that they account for symmetry in gains and losses. For example, with relative returns, a 10% gain followed by a 10% loss results in a net loss of 1%. However, with log returns, a 10% gain and a 10% loss precisely offset each other, leaving you with no net change from the starting point.</p>
+</section>
+<section id="adding-the-optimal-portfolio-to-the-chart" class="level2">
+<h2 class="anchored" data-anchor-id="adding-the-optimal-portfolio-to-the-chart">Adding the optimal portfolio to the chart</h2>
+<p>Let us now add the point for the optimal portfolio. The optimal portfolio is</p>
+<p><span id="eq-opt_port_sol2"><span class="math display">\[
+\mathbf{a}_{opt} = \frac{1}{\lambda}{\Sigma}^{-1}({\mu} - \mathbf{1}r)
+\tag{26}\]</span></span></p>
+<p>The total cost (sum) of this portfolio is <span id="eq-sum_eq"><span class="math display">\[
+\mathbf{1}^{\prime}\mathbf{a}_{opt} = \frac{1}{\lambda} \mathbf{1}^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r) = B
+\tag{27}\]</span></span></p>
+<p>Where the last equality follows from Equation <span class="math inline">\(\ref{eq:B}\)</span>. The normalized optimal portfolio is then</p>
+<p><span id="eq-norm_opt"><span class="math display">\[
+\mathbf{a}_{norm}  = \frac{ {\Sigma}^{-1}({\mu} - \mathbf{1}r) }
+{ \mathbf{1}^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r)} = \frac{ 1 }
+{B}{\Sigma}^{-1}({\mu} - \mathbf{1}r)
+\tag{28}\]</span></span></p>
+<p>The expected return of the optimal portfolio on the frontier, is then</p>
+<p><span id="eq-opt_port_sol_exp_ret"><span class="math display">\[
+\mu_{port}=({\mu} - \mathbf{1}r)^{\prime}\mathbf{a_{norm}}  = \frac{({\mu} - \mathbf{1}r)^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r)}{ \mathbf{1}^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r)}
+\tag{29}\]</span></span></p>
+<p>Which is simply, according to the previous definitions of B and C: <span id="eq-opt_port_sol_exp_ret_simple"><span class="math display">\[
+\mu_{port}=\frac{C}{B}
+\tag{30}\]</span></span></p>
+<p>Let us add that to the plot</p>
+<div id="e6ab5789" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the tangency point of the normalized </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># optimal portfolio</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>tangency_sigma <span class="op">=</span>  portfolio_front(C<span class="op">/</span>B, A, B, C)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#plotting it, after annualizing the weekly data</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>ax.plot(plot_scale<span class="op">**</span><span class="fl">0.5</span><span class="op">*</span>tangency_sigma, </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>                    plot_scale<span class="op">*</span>(C<span class="op">/</span>B <span class="op">+</span> rf), </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'ro'</span>,label<span class="op">=</span><span class="st">'Tangency Point'</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+<figure class="figure">
+<p><img src="3-lecture_optport_files/figure-html/cell-21-output-1.png" width="821" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="adding-the-tangency-line" class="level2">
+<h2 class="anchored" data-anchor-id="adding-the-tangency-line">Adding the tangency line</h2>
+<p>Let us now draw a tangency line from the risk free interest rate <code>rf</code> to the optimal portfolio point. The slope will be the Sharp-ratio <span class="citation" data-cites="Sharpe1964">(<a href="#ref-Sharpe1964" role="doc-biblioref">Sharpe 1964</a>)</span></p>
+<p><span id="eq-opt_port_sol_sharpe"><span class="math display">\[
+S=\frac{C/B}{f(C/B)}
+\tag{31}\]</span></span></p>
+<p>where <span class="math inline">\(f(C/B)\)</span> is the portfolio front function <code>portfolio_front(C/B, A, B, C)</code> at <code>C/B</code></p>
+<div id="cell-fig-cml" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sigma_range <span class="op">=</span> np.linspace(<span class="dv">0</span>, np.<span class="bu">max</span>(sigma_values), <span class="dv">100</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the portfolio front, after annualizing the </span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># weekly data</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ax.plot(plot_scale<span class="op">**</span><span class="fl">0.5</span><span class="op">*</span>sigma_range, plot_scale<span class="op">*</span>(rf </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                <span class="op">+</span> sigma_range<span class="op">*</span>(C<span class="op">/</span>B)<span class="op">/</span>tangency_sigma), </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>                label<span class="op">=</span><span class="st">'Capital Market Line'</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div id="fig-cml" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cml-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="3-lecture_optport_files/figure-html/fig-cml-output-1.png" width="821" height="523" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cml-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Capital Market Line and Portfolio Front
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-cml" class="quarto-xref">Figure&nbsp;1</a> illustrates the concept of the separation theorem as described by <span class="citation" data-cites="Tobin1958">Tobin (<a href="#ref-Tobin1958" role="doc-biblioref">1958</a>)</span>. Once the optimal portfolio is identified, it can be combined with a risk-free asset, allowing the investor to choose any point on the red capital allocation line.</p>
+<p>The optimal portfolio represents the tangency point of this line with the portfolio front. Investors cannot select any asset above or to the left of the portfolio front, as such positions are not feasible. Any point within the front is considered inefficient, as better trade-offs between risk and return are attainable. The capital allocation line, therefore, must begin at the risk-free return and have the steepest possible slope while touching the portfolio front, as depicted in <a href="#fig-cml" class="quarto-xref">Figure&nbsp;1</a>.</p>
+</section>
+<section id="adding-the-stocks-spanning-the-portfolio-front" class="level2">
+<h2 class="anchored" data-anchor-id="adding-the-stocks-spanning-the-portfolio-front">Adding the stocks spanning the portfolio front</h2>
+<p>It is interesting to check where the original stocks that span the front, are in the picture. Let us add the cooridnates of these. We first calcualate their mean and standard devaition, and then plot them.</p>
+<div id="7bb51e67" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>expected <span class="op">=</span> X_df.mean()<span class="op">*</span><span class="dv">52</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>std <span class="op">=</span> X_df.std()<span class="op">*</span><span class="dv">52</span><span class="op">**</span><span class="fl">0.5</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> series <span class="kw">in</span> expected.index:</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        ax.scatter(std[series], expected[series], label<span class="op">=</span>series)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>        ax.text(std[series], expected[series], series, fontsize<span class="op">=</span><span class="dv">8</span>, ha<span class="op">=</span><span class="st">'right'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<div>
+<figure class="figure">
+<p><img src="3-lecture_optport_files/figure-html/cell-23-output-1.png" width="821" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-optimal-portfolio" class="level2">
+<h2 class="anchored" data-anchor-id="the-optimal-portfolio">The optimal portfolio</h2>
+<p>Finally, we might want to evaluate the actual amounts that we should invest in each company, if we wanted to invest in the optimal portfolio. The actual portfolio, normalized to sum to one, is as previously implied</p>
+<p><span id="eq-opt_port_sol_norm2"><span class="math display">\[
+\mathbf{a}_{norm}  = \frac{1}
+{B} {\Sigma}^{-1}({\mu} - \mathbf{1}r)
+\tag{32}\]</span></span></p>
+<p>where <span class="math inline">\(B\)</span> is the sum of the optimal portfolio, as previously defined in <span class="math inline">\(\ref{eq:B}\)</span></p>
+<p>We can code that as</p>
+<div id="2d6da0b9" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculating the normalized optimal portfolio</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>opt_port <span class="op">=</span> np.linalg.inv(cov_matrix) <span class="op">@</span> (means<span class="op">-</span>rf)<span class="op">/</span>B</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculating the returns of the optimal portfolio:</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>X_df[<span class="st">'Optimal'</span>] <span class="op">=</span> X <span class="op">@</span> opt_port</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Saving the dataframe for later use:</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(X_df, <span class="st">'output/X.df'</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># inserting the portfolio into a data frame for display</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {}</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(opt_port)):</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    d[X_df.columns[i]] <span class="op">=</span> [</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(opt_port[i][<span class="dv">0</span>]<span class="op">*</span><span class="dv">100</span>,<span class="dv">0</span>)<span class="sc">}</span><span class="ss">%"</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hence the optimal portfolio in this case is"</span>)</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hence the optimal portfolio in this case is</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">EQNR</th>
+<th data-quarto-table-cell-role="th">NHY</th>
+<th data-quarto-table-cell-role="th">TEL</th>
+<th data-quarto-table-cell-role="th">YAR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>93.0%</td>
+<td>22.0%</td>
+<td>-7.0%</td>
+<td>-8.0%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong><em>Coding Challenges:</em></strong></p>
+<ul>
+<li><p><strong>Challenge 1</strong>: Obtain a three or four time series with asset returns, and calculate the variance-covariance matrix and the means</p></li>
+<li><p><strong>Challenge 2</strong>: Use your calculated covariance matrix and means, and the code provided above, to draw a portfolio front.</p></li>
+<li><p><strong>Challenge 3</strong>: Use the same information to plot the points of each portfolio in the same chart.</p></li>
+<li><p><strong>Challenge 4</strong>: Calculate the optimal portfolio and place it in the chart, together with the capital market line</p></li>
+</ul>
+</section>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Cayley1858" class="csl-entry" role="listitem">
+Cayley, Arthur. 1858. <span>“A Memoir on the Theory of Matrices.”</span> <em>Philosophical Transactions of the Royal Society of London</em> 148: 17–37. <a href="https://doi.org/10.1098/rstl.1858.0002">https://doi.org/10.1098/rstl.1858.0002</a>.
+</div>
+<div id="ref-Markowitz1952" class="csl-entry" role="listitem">
+Markowitz, Harry. 1952. <span>“Portfolio Selection.”</span> <em>The Journal of Finance</em> 7 (1): 77–91. <a href="https://doi.org/10.2307/2975974">https://doi.org/10.2307/2975974</a>.
+</div>
+<div id="ref-Sharpe1964" class="csl-entry" role="listitem">
+Sharpe, William F. 1964. <span>“Capital Asset Prices: A Theory of Market Equilibrium Under Conditions of Risk.”</span> <em>The Journal of Finance</em> 19 (3): 425–42. <a href="https://doi.org/10.2307/2977928">https://doi.org/10.2307/2977928</a>.
+</div>
+<div id="ref-Tobin1958" class="csl-entry" role="listitem">
+Tobin, James. 1958. <span>“Liquidity Preference as Behavior Towards Risk.”</span> <em>The Review of Economic Studies</em> 25 (2): 65–86. <a href="https://doi.org/10.2307/2296205">https://doi.org/10.2307/2296205</a>.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

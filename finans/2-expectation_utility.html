@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Espen Sirnes">
+<meta name="dcterms.date" content="2024-09-18">
+
+<title>2 - Utility and investor types</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="2-expectation_utility_files/libs/clipboard/clipboard.min.js"></script>
+<script src="2-expectation_utility_files/libs/quarto-html/quarto.js"></script>
+<script src="2-expectation_utility_files/libs/quarto-html/popper.min.js"></script>
+<script src="2-expectation_utility_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="2-expectation_utility_files/libs/quarto-html/anchor.min.js"></script>
+<link href="2-expectation_utility_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="2-expectation_utility_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="2-expectation_utility_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="2-expectation_utility_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="2-expectation_utility_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="2-expectation_utility.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="2-expectation_utility.ipynb" download="2-expectation_utility.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">2 - Utility and investor types</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Espen Sirnes </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 18, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="expected-utility" class="level1">
+<h1>Expected Utility</h1>
+<p>In finance, the utility function is typically defined as the utility derived from a certain amount <span class="math inline">\(x\)</span>. It is generally assumed that greater wealth yields higher utility, hence the utility function should be increasing, meaning <span class="math inline">\(U'(x) &gt; 0\)</span>. In situations involving risk, such as holding shares with uncertain future values, it becomes useful calculate the <em>expected utility</em> of a set of possible outcomes <span class="math inline">\(x_i\)</span> with probabilities <span class="math inline">\(P(x_i)\)</span> and utilities <span class="math inline">\(u(x_i)\)</span> <span class="citation" data-cites="vonNeumann1947">(<a href="#ref-vonNeumann1947" role="doc-biblioref">Neumann and Morgenstern 1947</a>)</span>.</p>
+<p>This builds on the general notion of expectations in statistics. For a set of outcomes <span class="math inline">\(x_i\)</span> and probabilities <span class="math inline">\(P(x_i)\)</span> for example, the expected value is <span class="math inline">\(X=\{ x_0, x_1,\dots,x_n \}\)</span> is</p>
+<p><span id="eq-descrete_exp"><span class="math display">\[
+\mathbb{E}[X] = \sum_{i=0}^{N} P(x_i) x_i
+\tag{1}\]</span></span></p>
+<p>For example</p>
+<div id="d6ece4bc" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>])</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">3</span>,<span class="dv">10</span>, <span class="dv">20</span>])</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(p<span class="op">*</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>9.5</code></pre>
+</div>
+</div>
+<p>In the same way, the descrete expected utility for a set of outcomes <span class="math inline">\(x_i\)</span> with probabilities <span class="math inline">\(P(x_i)\)</span> is defined as follows:</p>
+<p><span id="eq-descrete_exp"><span class="math display">\[
+U(X) = \mathbb{E}[u(X)] = \sum_{i=0}^{N} P(x_i) u(x_i)
+\tag{2}\]</span></span></p>
+<p>where <span class="math inline">\(P(x_i)\)</span> is the probability that <span class="math inline">\(X\)</span> assumes the value <span class="math inline">\(x_i\)</span>, and <span class="math inline">\(u(x_i)\)</span> represents the utility derived if that event occurs.</p>
+<p>For example, say utilities 2,-4 and 6 occur with probabilities 0.5,0.2 and 0.3, then the expected utility is</p>
+<div id="5265650c" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="op">-</span><span class="dv">4</span>, <span class="dv">6</span>])</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>u)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>U</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>1.9999999999999998</code></pre>
+</div>
+</div>
+<p>For a continuous distribution, the idea is the same. We multipliy each utility state <span class="math inline">\(u(x_i)\)</span> with the probability it occurs <span class="math inline">\(f(x)dx\)</span>. The integral sign <span class="math inline">\(\int_{-\infty}^{\infty} \dots \,\)</span> <span class="citation" data-cites="Leibniz1969">(<a href="#ref-Leibniz1969" role="doc-biblioref">Leibniz 1969</a>)</span>, is the equvalent of a sum for continous variables. The expected utility is therefore given by:</p>
+<p><span id="eq-cont_exp"><span class="math display">\[
+U(X) = \mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx,
+\tag{3}\]</span></span></p>
+<p>where <span class="math inline">\(f(x)\)</span> is the density function of <span class="math inline">\(X\)</span>, such as the normal distribution.</p>
+<section id="expectation-of-the-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="expectation-of-the-normal-distribution">Expectation of the normal distribution</h2>
+<p>To make this a bit more tangible, let us assume f(x) represents the standard normal distribution (variance=1 and mean=0), and assume we collect the outcomes x into five intervals. According to the normal distribution <span class="citation" data-cites="Gauss1809">(<a href="#ref-Gauss1809" role="doc-biblioref">Gauss 1809</a>)</span>, each outcome will then have the probabilities shown in the following figure (the code to is to long to have in this document, but it can be found in the local module <code>utility.py</code> in this repository):</p>
+<p><em>Figure 1</em>:</p>
+<div id="cell-fig-discrete-normal" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>maxmin <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>fig, ax, p, x <span class="op">=</span> utility.normaldist(dx, maxmin)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Probabilities: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(dx<span class="op">*</span>p,<span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Outcomes: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(x,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Probabilities: [0.    0.108 0.798 0.108 0.   ]
+Outcomes: [-4 -2  0  2  4]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-discrete-normal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-discrete-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="2-expectation_utility_files/figure-html/fig-discrete-normal-output-2.png" width="598" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-discrete-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Descrete version of the normal distribution
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The argument <code>dx</code> is the widht of the bars in the figure, and <code>maxmin</code> determines which range of values should be plottet. <code>maxmin = 4</code> means that values from -4 to 4 are plotted.</p>
+<p>The probability of each outcome (bar) and the associated outcmes, are returned as p and x, respectively.</p>
+<p>The probabilities do not sum exactly to one, as expected for a probability distribution. This discrepancy arises due to the coarse nature of the discrete categories.</p>
+<p><em>Coding Challenges:</em></p>
+<ul>
+<li><p><strong>Challenge 1</strong>: Reduce the interval size <span class="math inline">\(dx\)</span> and sum the probabilities to observe if the total approaches 1.</p></li>
+<li><p><strong>Challenge 2</strong>: Now, assume the utility function is <span class="math inline">\(f(x) = -\mathrm{e}(-\rho x)\)</span> (the natural logarithm). What is the expected utility for different values of <span class="math inline">\(dx\)</span>?</p></li>
+</ul>
+<p>As demonstrated above, decreasing the interval size <span class="math inline">\(dx\)</span> brings the discrete distribution closer to the continuous one. The continuous distribution serves as an approximation when outcomes are real numbers, which is often the case in investment scenarios.</p>
+<p>The primary advantage of continuous variables over discrete ones is that we can apply powerful mathematical tools, such as derivatives and integrals, from calculus.</p>
+</section>
+<section id="a-descrete-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-descrete-example">A descrete example</h2>
+<p>A key outcome of this model is that with a concave utility function, an individual will always prefer a guaranteed cash flow over a speculative investment with the same expected return. This behavior is illustrated by the following example.</p>
+<p>Consider an individual with an exponential <span class="citation" data-cites="Euler1748">(<a href="#ref-Euler1748" role="doc-biblioref">Euler 1748</a>)</span> utility function:</p>
+<p><span id="eq-CARA_utility"><span class="math display">\[
+u(x) = -\mathrm{e}^{-\rho\cdot x}
+\tag{4}\]</span></span></p>
+<p>which is increasing and concave, as shown by its first and second derivatives:</p>
+<p><span id="eq-CARA_utility_derivative"><span class="math display">\[
+u'(x) = -\rho \cdot u(x)&gt;0
+\tag{5}\]</span></span> <span id="eq-CARA_utility_2derivative"><span class="math display">\[
+u''(x) = \rho^2 \cdot u(x)&lt; 0
+\tag{6}\]</span></span></p>
+<p>Suppose there is a 50% chance of <span class="math inline">\(x=0.5\)</span> and a 50% chance of <span class="math inline">\(x=1.5\)</span>. That is, the possible outcomes are given by <span class="math inline">\(X = \{0.5, 1.5\}\)</span>, with associated probabilities <span class="math inline">\(P(X) = \{0.5, 0.5\}\)</span>. The expected value is then <span class="math inline">\(\frac{1}{2}(-\mathrm{e}^{-\rho\cdot 0.5}-\mathrm{e}^{-\rho\cdot 1.5})\)</span>.</p>
+<p>Below is the utility function defiend as the function <code>ufunc(x, rho)</code>, and both the expected utitlity and the utility of the expected value are calculated, assuming <span class="math inline">\(\rho = 1.0\)</span>:</p>
+<div id="b182a7ad" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Values and probabilities</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>x_gamble <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">1.5</span>])  <span class="co"># Outcomes of the </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="co"># gamble</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>p_gamble <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.5</span>])  <span class="co"># Probabilities</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#utility function</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> u_func(x, rho):</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.exp(<span class="op">-</span>rho<span class="op">*</span>x)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected utility</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p_gamble <span class="op">*</span> </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                                u_func(x_gamble, RHO))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>expected_value <span class="op">=</span> np.<span class="bu">sum</span>(p_gamble <span class="op">*</span> </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>                                x_gamble)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>utility_exp_value <span class="op">=</span> u_func(expected_value, RHO)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected utility: </span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected value: </span><span class="sc">{</span>expected_value<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Utility of expected value: </span><span class="sc">{</span>utility_exp_value<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Expected utility: -0.04131904149702332
+Expected value: 1.0
+Utility of expected value: -0.006737946999085467</code></pre>
+</div>
+</div>
+<p>By comparing the utility of the expected value of 1.0 with the expected utility, you can veryfy that the utility of expected value is greater than the expected utility:</p>
+<p><span id="eq-CARA_utility_expected_diff"><span class="math display">\[
+u(\mathbb{E}X) = \mathrm{e}^{\rho\cdot 1} &gt; \frac{1}{2}\mathrm{e}^{\rho\cdot 0.5}+\frac{1}{2}\mathrm{e}^{\rho\cdot 1.5} = \mathbb{E}u(X),
+\tag{7}\]</span></span></p>
+<p>This example demonstrates that the utility of a certain outcome <span class="math inline">\((-\mathrm{e}^{\rho})\)</span> is preferred over the expected utility of a gamble . This preference underscores risk aversion. The situation is illustrated in the following plot:</p>
+<div id="cell-fig-graphical-risk-prem" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> utility.plot(RHO, x_gamble, p_gamble)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-graphical-risk-prem" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-graphical-risk-prem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="2-expectation_utility_files/figure-html/fig-graphical-risk-prem-output-1.png" width="834" height="518" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-graphical-risk-prem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Graphical illustration of the risk premium
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The code is a bit to long to be included here, but can be found in the local module <code>utility.py</code> in this repository.</p>
+<p>As we can see, the utility at wealth 1 is 0, while the mean utility is lower. If you draw a line between the utility of 0.5 and 1.5, you will see that the indicated expected utility, is where that line intersects 1.</p>
+<p>Hence, with a concave uitlity function, a person will allways prefere a sure amount rather than a bet with the same expected payoff. In this case, the risk-averse investor will invariably prefer the certain payment of 1 over the gamble.</p>
+<p>The difference indicated by <span class="math inline">\(\rho\)</span> in the figure, is the certainty equivalence. It is the amount that you would need to compensate the investor, in order to take the gamble. In a real market, this is the premium that investors demand to hold risky assets to safe bills. It is usually about 2-4% on average for the whole market.</p>
+</section>
+<section id="a-continous-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-continous-example">A continous example</h2>
+<p>Let us now calculate the expecte utility with more than two outcomes. We remember from the calculation of <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a> and calculation of descrete expectations in <a href="#eq-descrete_exp" class="quarto-xref">Equation&nbsp;2</a> that a descrete version of the continous normal distribution can be calculated as</p>
+<div id="cell-fig-descrete-nomrmal_2" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>fig, ax, p, x <span class="op">=</span> utility.normaldist(dx, minmax) </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>utility.u_func(x, RHO))</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="fl">0.0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Exact expected utility:-268337.2865208745
+Approximate expected utility:-132238.79351363966</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-descrete-nomrmal_2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-descrete-nomrmal_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="2-expectation_utility_files/figure-html/fig-descrete-nomrmal_2-output-2.png" width="598" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-descrete-nomrmal_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Graphical illustration of the risk premium
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Given these descrete probabilties and outcomes, we can calculate the expected utility of <span class="math inline">\(u(x) = - \mathrm{e}(-\rho x)\)</span> by multiplying probabilites by outcomes in terms of utility:</p>
+<div id="cebbec39" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>utility.u_func(x, RHO))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Approximate expected utility:-132238.79351363966</code></pre>
+</div>
+</div>
+<p>Now, the normal distribution is defined as</p>
+<p><span id="eq-normal_density"><span class="math display">\[
+\frac{1}{\sigma \sqrt{2 \rho}}e^{-\frac{(x-\mu)^2}{2 \sigma}}
+\tag{8}\]</span></span></p>
+<p>If we calculate the expected utility by taking the integral, it turns out that</p>
+<p><span id="eq-exp_utility"><span class="math display">\[
+\mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx = e^{-\rho(\mu-\frac{1}{2}\rho \sigma^2)}
+\tag{9}\]</span></span></p>
+<p>Let us now try to compare this with our apporxmated expeted utility above. If we have a standard normal distribution, so <span class="math inline">\(\sigma=1\)</span> and <span class="math inline">\(\mu=0\)</span>. The risk aversion coefficient is <span class="math inline">\(\rho=5\)</span>. The exact and approximate expected utility is</p>
+<div id="336a7b05" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="dv">0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span>  np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>utility.u_func(x, RHO))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Exact expected utility:-268337.2865208745
+Approximate expected utility:-132238.79351363966</code></pre>
+</div>
+</div>
+<p>As we can clearly see fromn above, the approximation is not good. The problem is that the discret normal probability function that we have used, is too coarse. We therefore need to try smaller intervals for the bars. Also, we want to calculate a wider range than +/-4. Let us try with bar witdht of 0.25 and a range +/- 8:</p>
+<div id="cell-fig-descrete-normal_fine" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.25</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>fig, ax, p, x <span class="op">=</span> utility.normaldist(dx, minmax) </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>utility.u_func(x, RHO))</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="fl">0.0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Exact expected utility:-268337.2865208745
+Approximate expected utility:-268105.24655357056</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div id="fig-descrete-normal_fine" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-descrete-normal_fine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="2-expectation_utility_files/figure-html/fig-descrete-normal_fine-output-2.png" width="611" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-descrete-normal_fine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Graphical illustration of the risk premium
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We see now in <a href="#fig-descrete-normal_fine" class="quarto-xref">Figure&nbsp;4</a> that the descrete distribution is quite similar to the continous one, and the approximation is also very close to the analytical exact expected utility.</p>
+</section>
+<section id="the-objective-function" class="level2">
+<h2 class="anchored" data-anchor-id="the-objective-function">The objective function</h2>
+<p>The most important lesson here, is what is inside the brackets in equation(<a href="#eq-exp_utility" class="quarto-xref">Equation&nbsp;9</a>). That expression determines in effect the utility, so let us rewrite it here:</p>
+<p><span id="eq-mean-variance"><span class="math display">\[
+\mu-\frac{1}{2}\rho \sigma^2
+\tag{10}\]</span></span></p>
+<p>This is therefore usually assumed to be the <em>objective function</em> of any investor.</p>
+<p>Hence, if returns are normally distributed, then investors would want to maximize the difference between the meand and the variance. This is true for any utility function if returns are normally distributed, but it is not in general true if returns are distributed differently.</p>
+<p><em>Coding Challenges:</em></p>
+<ul>
+<li><strong>Challenge 1</strong>: Calculate the approximate expected utility with some other parameters and a non standard normal distribution (<span class="math inline">\(\sigma&lt;&gt;1\)</span> and <span class="math inline">\(\mu&lt;&gt;1\)</span>, and see if the approxmate is still a good approximation.</li>
+</ul>
+</section>
+</section>
+<section id="optimal-portfolio-with-one-asset" class="level1">
+<h1>Optimal Portfolio with One Asset</h1>
+<p>With the knowledge from <a href="#eq-mean-variance" class="quarto-xref">Equation&nbsp;10</a>, we can actually calculate the optimal level of investment for one risky asset and a risk free allocation <span class="citation" data-cites="Tobin1958">(<a href="#ref-Tobin1958" role="doc-biblioref">Tobin 1958</a>)</span>. We will later see that the method for doing that, is very similar to how we calcualte optmal portfolios with many different assets. For now, we will assume we only consider one asset, for example the market index. Say you buy shares for <span class="math inline">\(w\)</span> NOK. Then, we can use the method in the previoius section to find that the expected utility depends on</p>
+<p><span id="eq-mean-variance2"><span class="math display">\[
+w\mu-\frac{w^2}{2}\rho \sigma^2
+\tag{11}\]</span></span></p>
+<p>Taking the derivative of <a href="#eq-mean-variance2" class="quarto-xref">Equation&nbsp;11</a>, which we assume is a concave and increasing function, we get</p>
+<p><span id="eq-mean-variance-diff"><span class="math display">\[
+\frac{d(w\mu-\frac{w^2}{2}\rho \sigma^2)}{dw} = \mu-w\rho \sigma^2
+\tag{12}\]</span></span></p>
+<p>Setting <a href="#eq-mean-variance-diff" class="quarto-xref">Equation&nbsp;13</a> equal to zero and solving for <span class="math inline">\(w\)</span> gives</p>
+<p><span id="eq-mean-variance-diff"><span class="math display">\[
+w=\frac{\mu}{\rho \sigma^2}
+\tag{13}\]</span></span></p>
+<p>From this, we conclude: 1. Higher risk aversion leads to lesser investment. 2. Greater expected returns encourage more investment. 3. Increased risk (<span class="math inline">\(\sigma^2\)</span>) discourages investment.</p>
+<p>In the next lecture, we will extend these principles to portfolios with multiple assets using matrix algebra.</p>
+<section id="investor-types" class="level2">
+<h2 class="anchored" data-anchor-id="investor-types">Investor Types</h2>
+<p>The shape of a utility function critically influences how individuals respond to risk. This subsection discusses three primary types of investors based on their risk preferences and the corresponding shapes of their utility functions.</p>
+<ul>
+<li><p><strong>Risk-Averse Investors:</strong> These individuals have concave utility functions, as in the example above, indicating a preference for certain outcomes over uncertain ones with the same expected value. Commonly modeled in financial theory, risk-averse investors prioritize minimizing risk over maximizing returns. They tend to diversify their portfolios across various asset classes to reduce volatility. Even with the option of unlimited borrowing, they typically opt to limit their investment exposure.</p></li>
+<li><p><strong>Risk-Neutral Investors:</strong> For risk-neutral individuals, volatility is inconsequential. Their utility functions are linear, reflecting indifference to the level of risk associated with any investment. They focus solely on maximizing expected returns and are likely to invest in the asset with the highest expected payoff, irrespective of the associated risks. This type of investor is willing to allocate as much capital as possible to maximize potential gains.</p></li>
+<li><p><strong>Risk-Loving (Risk-Seeking) Investors:</strong> Risk lovers have convex utility functions and engage in behaviors akin to gambling, where the expected return is typically negative. They derive satisfaction from the risk itself and often pursue investments that offer the highest possible returns, irrespective of the high levels of risk involved. Such behavior is commonly seen in speculative ventures and high-stakes gambling.</p></li>
+</ul>
+<p>Interestingly, it is not uncommon for individuals to display traits of both risk-averse and risk-seeking behaviors, a phenomenon that may seem paradoxical. For instance, the same person might purchase insurance (a risk-averse action) while also indulging in lottery gambling (a risk-seeking behavior). This can be explained by the utility function’s varying shape at different levels of wealth or stakes: a person might be risk-seeking with small, disposable amounts of money but risk-averse with larger, life-impacting sums. This dual nature influences how individuals choose to allocate their investments across different risk levels.</p>
+</section>
+<section id="assumptions-in-a-financial-market" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions-in-a-financial-market">Assumptions in a Financial Market</h2>
+<p>In financial theory, the assumption typically made about market participants is that they are predominantly risk averse. This assumption is crucial as portfolio optimization and related strategies largely rely on this characteristic. Risk-neutral or risk-loving investors, who either disregard risk or actively seek it, are considered exceptions rather than the norm in these models. This foundational assumption allows for the development of investment strategies that aim to maximize returns while minimizing risk, aligning with the preferences of risk-averse individuals.</p>
+</section>
+</section>
+<section id="the-risk-premium" class="level1">
+<h1>The Risk Premium</h1>
+<p>We understand that a risk-averse individual has a concave utility function, indicated by <span class="math inline">\(u^{\prime \prime}(x) &lt; 0\)</span>. But how do we quantify the degree of risk aversion?</p>
+<p>A direct approach might be to use the second derivative of the utility function, <span class="math inline">\(u^{\prime \prime}(x)\)</span>, as a measure of risk aversion. However, this method has limitations, particularly at higher wealth levels. The issue arises because the curvature of the utility function tends to flatten as wealth increases, implying a decrease in relative risk aversion. If we solely relied on <span class="math inline">\(u^{\prime \prime}(x)\)</span> for measuring risk aversion, it might inaccurately suggest that wealthier individuals become nearly risk-neutral, due to the diminishing curvature in their utility functions. This phenomenon can be explained by the principle of decreasing marginal utility, which asserts that the incremental value or utility derived from each additional unit of wealth diminishes at higher wealth levels.</p>
+<section id="absolute-risk-aversion-ara" class="level2">
+<h2 class="anchored" data-anchor-id="absolute-risk-aversion-ara">Absolute Risk Aversion (ARA)</h2>
+<p>A more nuanced measure of risk aversion is defined through the Absolute Risk Aversion (ARA) <span class="citation" data-cites="Pratt1964 Arrow1971">(<a href="#ref-Pratt1964" role="doc-biblioref">Pratt 1964</a>; <a href="#ref-Arrow1971" role="doc-biblioref">Arrow 1971</a>)</span> index, given by:</p>
+<p><span id="eq-ARA_def"><span class="math display">\[
+\rho_{ARA}(x) = -\frac{u''(x)}{u'(x)}
+\tag{14}\]</span></span></p>
+<p>This metric, also known as the Arrow-Pratt measure of risk aversion, remains robust against the non-linear scaling of wealth. As wealth increases, both the second derivative <span class="math inline">\(u''(x)\)</span> and the first derivative <span class="math inline">\(u'(x)\)</span> typically decrease, but their ratio, representing the ARA, adjusts proportionally. Thus, the measure of risk aversion does not necessarily approach zero as wealth grows, providing a more reliable indicator across different wealth levels.</p>
+<p>This measure is intrinsically linked to the concept of the risk premium.</p>
+<section id="constant-absolute-risk-aversion-cara" class="level3">
+<h3 class="anchored" data-anchor-id="constant-absolute-risk-aversion-cara">Constant Absolute Risk Aversion (CARA)</h3>
+<p>If ARA is constant, we refer to it as Constant Absolute Risk Aversion (CARA). The utility function aligning with CARA can be derived by solving the differential equation $ _{CARA} = -u’‘/u’ $, which gives:</p>
+<p><span id="eq-CARA_def"><span class="math display">\[
+u(x) = -e^{-x \cdot \rho_{CARA}}
+\tag{15}\]</span></span></p>
+<p>This is the exact same utility function as in the previoius examples. Although the CARA utility function is negative, it should not be interpreted as the individual deriving negative utility from wealth. Instead, it serves as a ranking mechanism among different wealth levels, ensuring $ u(x) &gt; u(y) $ whenever $ x &gt; y $, and $ u(x) &gt; u(y) $ whenever $ var(x) &gt; var(y)$ and <span class="math inline">\(x=y\)</span></p>
+<p>This utility specification simplifies calculations and is extensively used due to its mathematical tractability. It also implies that for a CARA utility function, the risk premium can be calculated exactly as <span class="math inline">\(\frac{1}{2} \pi_{ARA} \sigma^2\)</span>.</p>
+</section>
+</section>
+<section id="relative-risk-aversion-rra" class="level2">
+<h2 class="anchored" data-anchor-id="relative-risk-aversion-rra">Relative Risk Aversion (RRA)</h2>
+<p>Relative Risk Aversion (RRA) is more applicable when the risky decision involves a proportion of an individual’s wealth, rather than a fixed amount. This measure is particularly relevant when returns are expressed as a percentage of wealth, aligning more closely with practical financial scenarios. RRA is mathematically defined as:</p>
+<p><span id="eq-RRA_def"><span class="math display">\[
+\pi_{RRA}(x) = -x \frac{u''(x)}{u'(x)}
+\tag{16}\]</span></span></p>
+<p>The choice between using Absolute Risk Aversion (ARA) and RRA depends on the nature of the risk involved. RRA is preferred when analyzing bets that are proportional to wealth, while ARA is more suitable for fixed-level bets.</p>
+<p>The constant RRA utility, is a Cobb-Douglas-type function:</p>
+<p><span id="eq-CRRA_def"><span class="math display">\[
+u_{CRRA}(x) = x^{1-\pi_{CRRA}}
+\tag{17}\]</span></span></p>
+</section>
+</section>
+<section id="the-normal-distribution-and-risk" class="level1">
+<h1>The Normal Distribution and risk</h1>
+<p>As mentioned, if the distribution of the returns is normal, the investor should allways maximize the difference between mean and variance. However, if the returns are distributed differently, that is not the case.</p>
+<p>It is well known that returns in financial markets are not normally distributed.For example, under the assumption that returns on the Oslo Stock Exchange follow a normal distribution, statistically extreme changes exceeding 10% would be exceedingly rare—estimated to occur once every 17,000 years. Yet, during the 2008 financial crisis, such anomalies were observed twice.</p>
+<p>This is called “fat tails”. It means that extreme events are much more likely in actual financial markets, than in the normal distribution world.</p>
+<p>However, in most cases, we can represent the empirical distribution with a “mixed normal distribution”. A mixed normal distribution, is a linear combination of normal distirbutino with different mean and varinaces.</p>
+<div id="c20f459f" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Set range</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>MAX_MIN <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="op">-</span>MAX_MIN, MAX_MIN, <span class="dv">1000</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot using fig and ax</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean and std:</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>rmean <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>rstd <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Normal distribution and mixed normal distribution:</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>norm_dist    <span class="op">=</span>     norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>fat_tails <span class="op">=</span> (<span class="fl">0.8</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="fl">0.5</span>) </span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>           <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, norm_dist, label<span class="op">=</span><span class="st">"Normal Distribution"</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, fat_tails, label<span class="op">=</span><span class="st">"Mixed Normal (Fat Tails)"</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title, labels, and grid and legend</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Mixed Normal Distribution Illustrating Fat Tails'</span>)</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'X'</span>)</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Probability Density'</span>)</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="2-expectation_utility_files/figure-html/cell-11-output-1.png" width="659" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>Coding Challenges:</em></p>
+<ul>
+<li><strong>Challenge 1</strong>: Use data from <a href="https://titlon.uit.no">https://titlon.uit.no</a> to create a histogram, and overlay the normal distribution to see if the empirical distribution has fat tails.</li>
+<li><strong>Challenge 2</strong>: Try to fit a mixed normal distribution to the empirical distribution.</li>
+</ul>
+<p><em>Solution:</em></p>
+<p>We start by fetching data for the OSEBX index from <a href="https://titlon.uit.no">titlon.uit.no</a></p>
+<div id="5def81e3" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>con <span class="op">=</span> pymysql.<span class="ex">connect</span>(host<span class="op">=</span><span class="st">'titlon.uit.no'</span>, </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                    user<span class="op">=</span><span class="st">"user@name.com"</span>, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                    password<span class="op">=</span><span class="st">"passwordfromtitlon"</span>, </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                    database<span class="op">=</span><span class="st">'OSE'</span>)  </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>crsr<span class="op">=</span>con.cursor()</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>crsr.execute(<span class="st">"""</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT </span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">    `Date`, `OSEBXLinked`, `OBXLinked`, `OSEFX`, `ID` </span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `OSE`.`equityindex_linked` </span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE year(`Date`) &gt;= 1980</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>r<span class="op">=</span>crsr.fetchall()</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.DataFrame(<span class="bu">list</span>(r), </span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span>[i[<span class="dv">0</span>] <span class="cf">for</span> i <span class="kw">in</span> crsr.description])</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">#YOU NEED TO BE CONNECTED TO YOUR INSTITUTION VIA VPN, </span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co">#OR BE AT THE INSTITUTION, FOR THIS CODE TO WORK</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'output/index.df'</span>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span> <span class="co">#in order to avoid memory problems</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can then calculate the return series and creating a histogram. The period mean and standard deviation is also calculated.</p>
+<div id="7cc9757b" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'output/index.df'</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the plot using fig and ax</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#fixing Date, setting index and calculate returns</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'Date'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Returns'</span>] <span class="op">=</span> df[<span class="st">'OSEBXLinked'</span>].pct_change()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean and std:</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>rmean <span class="op">=</span> np.mean(df[<span class="st">'Returns'</span>])</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>rstd <span class="op">=</span> np.std(df[<span class="st">'Returns'</span>])</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the histogram intervals (dx = 0.01)</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.002</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> <span class="bu">int</span>((<span class="fl">0.2</span> <span class="op">-</span> (<span class="op">-</span><span class="fl">0.2</span>)) <span class="op">/</span> dx)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>ax.hist(df[<span class="st">'Returns'</span>].dropna(), bins<span class="op">=</span>bins, </span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">range</span><span class="op">=</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>), density<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Set x-axis limits</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span>MAX_MIN, MAX_MIN)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="2-expectation_utility_files/figure-html/cell-13-output-1.png" width="660" height="411" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The normal distribution and the mixed normal is now calculated, based on the estimated mean and standard deviation, and some assumptions on how the mixed normal distributions deviate form the single normal. In this example, it is just done by trail and error, which lead to a weight of 80% on a normal distribution with 40% of the estimated volatility, and 20% on a normal distribution with 200% of the estimated volatility.</p>
+<p>This is then addd to the existing chart:</p>
+<div id="bbf2a7d3" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Defining the range of x-values:</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>MAX_MIN <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="op">-</span>MAX_MIN, MAX_MIN, <span class="dv">1000</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate normal dist and the mixed normal dist:</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>norm_dist    <span class="op">=</span>     norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>fat_tails <span class="op">=</span> (<span class="fl">0.8</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="fl">0.4</span>) <span class="op">+</span> </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>             <span class="fl">0.2</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting normal dist and mixed normal dist</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, norm_dist, </span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="st">"Normal Distribution"</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, fat_tails, </span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="st">"Mixed Normal (Fat Tails)"</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title, labels and legend</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Mixed Normal Distribution'</span> </span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>                <span class="st">'Illustrating Fat Tails'</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'X'</span>)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Probability Density'</span>)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+<figure class="figure">
+<p><img src="2-expectation_utility_files/figure-html/cell-14-output-1.png" width="678" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Arrow1971" class="csl-entry" role="listitem">
+Arrow, Kenneth J. 1971. <em>Essays in the Theory of Risk-Bearing</em>. Chicago: Markham Publishing Company.
+</div>
+<div id="ref-Euler1748" class="csl-entry" role="listitem">
+Euler, Leonhard. 1748. <em>Introductio in Analysin Infinitorum</em>. Lausanne: Marc Michel Bousquet.
+</div>
+<div id="ref-Gauss1809" class="csl-entry" role="listitem">
+Gauss, Carl Friedrich. 1809. <em>Theoria Motus Corporum Coelestium in Sectionibus Conicis Solem Ambientium</em>. Hamburg: Perthes; Besser.
+</div>
+<div id="ref-Leibniz1969" class="csl-entry" role="listitem">
+Leibniz, Gottfried Wilhelm. 1969. <em>Leibniz: The Early Mathematical Manuscripts</em>. Edited by Joseph E. Hofmann. New York: Dover Publications.
+</div>
+<div id="ref-vonNeumann1947" class="csl-entry" role="listitem">
+Neumann, John von, and Oskar Morgenstern. 1947. <em>Theory of Games and Economic Behavior</em>. 2nd ed. Princeton, NJ: Princeton University Press.
+</div>
+<div id="ref-Pratt1964" class="csl-entry" role="listitem">
+Pratt, John W. 1964. <span>“Risk Aversion in the Small and in the Large.”</span> <em>Econometrica</em> 32 (1/2): 122–36. <a href="https://doi.org/10.2307/1913738">https://doi.org/10.2307/1913738</a>.
+</div>
+<div id="ref-Tobin1958" class="csl-entry" role="listitem">
+Tobin, James. 1958. <span>“Liquidity Preference as Behavior Towards Risk.”</span> <em>The Review of Economic Studies</em> 25 (2): 65–86. <a href="https://doi.org/10.2307/2296205">https://doi.org/10.2307/2296205</a>.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

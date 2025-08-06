@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-09-13">
+
+<title>Linear Model in Economics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="apa3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="apa3_files/libs/quarto-html/quarto.js"></script>
+<script src="apa3_files/libs/quarto-html/popper.min.js"></script>
+<script src="apa3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="apa3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="apa3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="apa3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="apa3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="apa3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="apa3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="apa3.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Linear Model in Economics</h1>
+<p class="subtitle lead">Part 1: Applied Prodcution Analysis</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Tapas Kundu </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            UiT
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 13, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="section-1" class="level1">
+<h1>Section 1</h1>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The first part of this course focuses on applied production analysis. We study microeconomic production theory and explore empirical applications. For the empirical component, we will be using R.</p>
+<p>Supplementary reading materials include <em>Introduction to Econometric Production Analysis with R</em> (sixth draft version) by Arne Henningsen <span class="citation" data-cites="henningsen2024introduction">(<a href="#ref-henningsen2024introduction" role="doc-biblioref">Henningsen 2024, chaps. 1–5</a>)</span>, and for the theoretical component, <em>Microeconomic Analysis</em> by Hal Varian <span class="citation" data-cites="varian1992microeconomic">(<a href="#ref-varian1992microeconomic" role="doc-biblioref">Varian 1992, chaps. 1–6</a>)</span>.</p>
+<p>The core question involves estimating production technology based on observational micro-level data of firms’ behavior. This methodology can be applied in various contexts, including profit-motivated firms in the private sector, the performance of non-profit organizations, and across different industries such as agriculture, manufacturing, and services.</p>
+<p>There are essentially four different methods used in the applied production analysis.</p>
+<ol type="1">
+<li>Least square methods for estimation of production functions</li>
+<li>Total-factor productivity (TFP) indices</li>
+<li>Data envelopment analysis (DEA)</li>
+<li>Stochastic frontier analysis (SFA)</li>
+</ol>
+<p>In this course, we will focus on the first two methods, which assume that all firms are technically efficient. In contrast, methods three and four provide measures of relative efficiency among a group of firms, which implicitly assume not all firms are technically efficient.</p>
+<section id="efficiency-and-productivity" class="level2">
+<h2 class="anchored" data-anchor-id="efficiency-and-productivity">Efficiency and productivity</h2>
+<p>Efficiency and productivity are distinct technical concepts. The following diagram may help illustrate these distinctions.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/figure1.1.png" class="img-fluid figure-img" width="389"></p>
+<figcaption class="figure-caption">Productivity and technical efficiency</figcaption>
+</figure>
+</div>
+<p>Consider a simple illustration of production method that converts an input x to an output y, and the relationship is given by the curve OF in Figure 1. There are three firms who are engaged in this productive activity, and their input-output combinations are given by A, B, and C, respectively. We can say that firm producing at A is technically inefficient compared to the firm producing at B, since the former is not producing as much output as the other one, even if both are using the same volume of input. By this argument, any production point below the OF curve are technically inefficient. Are all technically efficient points equally productive? Not necessarily! If we measure productivity by output produced per unit of input, then the firm producing at C has the productive use of its input.</p>
+<p>Allocative efficiency is another important concept, which requires choosing the optimal combination of inputs to produce a given quantity of output. Allocative and technical efficiency together provide an overall efficiency measure.</p>
+</section>
+<section id="data-set" class="level2">
+<h2 class="anchored" data-anchor-id="data-set">Data set</h2>
+<p>We will be using a simple dataset for the empirical analysis of the theoretical concepts. The data set is shared in the <em>micEcon</em> R package <span class="citation" data-cites="micecon:2005">(<a href="#ref-micecon:2005" role="doc-biblioref">Henningsen 2005</a>)</span>. The data set consists of production data of 140 French apple producers from the year 1986. These data are extracted from a panel data studied in <span class="citation" data-cites="ivaldi1996">(<a href="#ref-ivaldi1996" role="doc-biblioref">Ivaldi et al. 1996</a>)</span>.</p>
+<div class="cell" data-linebreak="80">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(micEcon); <span class="fu">library</span>(psych); <span class="fu">library</span>(lmtest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+If you have questions, suggestions, or comments regarding one of the 'micEcon' packages, please use a forum or 'tracker' at micEcon's R-Forge site:
+https://r-forge.r-project.org/projects/micecon/</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: zoo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>( <span class="st">"appleProdFr86"</span>, <span class="at">package =</span> <span class="st">"micEcon"</span> )</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(<span class="st">"appleProdFr86"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> appleProdFr86</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(appleProdFr86)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)  <span class="co"># A truncated preview of the data set</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    vCap   vLab   vMat  qApples qOtherOut      qOut     pCap     pLab     pMat
+1 219183 323991 303155 1.391803  0.977272 1374063.5 2.607756 0.899811 8.893672
+2 130572 187956 262017 0.863985  1.072186 1122979.2 3.292048 0.752518 6.418985
+3  81301 134147  90592 3.316798  0.404785 2158518.1 2.194315 0.956237 3.740465
+4  34007 105794  59833 0.438498  0.436311  507389.2 1.602476 1.268100 3.167017
+5  38702  83717 104159 1.831252  0.014982 1070815.7 0.866295 0.938286 7.221408
+       pOut adv
+1 0.6603515   0
+2 0.7155490   0
+3 0.9367494   1
+4 0.5969751   1
+5 0.8253856   1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          vars   n       mean         sd     median    trimmed        mad
+vCap         1 140  102576.24   79992.28   84114.50   89202.88   55160.87
+vLab         2 140  237199.39  194867.78  175871.00  199077.29   71095.12
+vMat         3 140  201250.06  208054.52  136291.50  160457.37   92486.81
+qApples      4 140       3.07       5.46       1.37       1.87       1.68
+qOtherOut    5 140       1.50       1.32       1.07       1.29       0.95
+qOut         6 140 2649825.38 3300778.29 1773989.17 2005998.00 1440430.19
+pCap         7 140       1.30       0.79       1.11       1.20       0.56
+pLab         8 140       1.01       0.20       0.96       1.00       0.20
+pMat         9 140       6.77       2.64       6.25       6.55       2.75
+pOut        10 140       1.01       0.53       0.83       0.91       0.31
+adv         11 140       0.52       0.50       1.00       0.53       0.00
+               min         max       range  skew kurtosis        se
+vCap       8951.00   452146.00   443195.00  1.90     4.23   6760.58
+vLab      79569.00  1682201.00  1602632.00  4.10    23.24  16469.33
+vMat      27781.00  1523776.00  1495995.00  3.15    13.50  17583.82
+qApples       0.00       37.98       37.98  4.03    19.59      0.46
+qOtherOut     0.01        5.96        5.95  1.44     1.59      0.11
+qOut      95391.44 24210263.82 24114872.38  3.79    18.36 278966.68
+pCap          0.17        4.48        4.32  1.66     3.71      0.07
+pLab          0.49        1.72        1.23  0.42     0.29      0.02
+pMat          2.70       15.71       13.01  0.85     0.64      0.22
+pOut          0.46        2.94        2.49  1.66     2.10      0.05
+adv           0.00        1.00        1.00 -0.08    -2.01      0.04</code></pre>
+</div>
+</div>
+<p>The data frame contains the following columns:</p>
+<p>vCap: costs of capital (including land).</p>
+<p>vLab: costs of labour (including remuneration of unpaid family labour).</p>
+<p>vMat: costs of intermediate materials (e.g.&nbsp;seedlings, fertilizer, pesticides, fuel).</p>
+<p>qApples: quantity index of produced apples.</p>
+<p>qOtherOut: quantity index of all other outputs.</p>
+<p>qOut: quantity index of all outputs (not in the original data set, calculated as 580,000 ⋅⋅ (<code>qApples</code> + <code>qOtherOut</code>)).</p>
+<p>pCap: price index of capital goods pLab: price index of labour.</p>
+<p>pMat: price index of materials.</p>
+<p>pOut: price index of the aggregate output (not in the original data set, artificially generated).</p>
+<p>adv: dummy variable indicating the use of an advisory service (not in the original data set, artificially generated).</p>
+<p>Note that the firms were engaged in multi-output production. Analyzing this can be challenging, as firms optimize the mix of both inputs and outputs based on relative returns. As discussed in <span class="citation" data-cites="ivaldi1996">(<a href="#ref-ivaldi1996" role="doc-biblioref">Ivaldi et al. 1996</a>)</span>, non-specialization was a crucial aspect of the agricultural production process.</p>
+</section>
+<section id="primal-versus-dual-approach" class="level2">
+<h2 class="anchored" data-anchor-id="primal-versus-dual-approach">Primal versus dual approach</h2>
+<p>Duality is a fundamental concept in optimization, particularly in linear programming and game theory. The essence of duality is that every optimization problem (referred to as the <em>primal</em> problem) can be associated with a corresponding <em>dual</em> problem, where the solution to one provides bounds to the solution of the other.</p>
+<p>Since the study of economics draws heavily on optimization theory, it is no surprise that duality plays a significant role in economics as well. For example, in the context of producer behavior, the primal approach involves studying how firms can optimally decide on the input mix for a given production technology to achieve an objective, such as minimizing expenses to produce a certain volume of output. The resulting optimal expense is referred to as the cost function, which characterizes the minimum expenditure needed to produce a specific quantity. Duality tells us that the cost function is sufficiently informative, allowing us to confidently trace back the production technology under mild conditions.</p>
+<p>Prior to 1970, economists mostly followed Samuelson’s classic treatment of profit-maximizing firms, where firms face technological constraints, typically modeled with a smooth production function, and standard optimization techniques are used to infer producer responses to price perturbations. This approach is often referred to as the primal approach. Later, the dual approach gained prominence, where exploring cost, profit, or revenue functions allows us to trace back the technological constraints.</p>
+<p>In this course, we will first explore the primal approach, both theoretically and empirically. Later, we will conduct similar exercises using the dual approach.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="production-technology" class="level1">
+<h1>Production technology</h1>
+<p>The set of all combinations of inputs and outputs that comprise a technologically feasible way to produce is called a <strong><em>production (possibility) set</em></strong>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The function describing the boundary of this set is known as the <strong><em>production function</em></strong>. It measures the maximum possible output from a given amount of input.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/figure1.2.png" class="img-fluid figure-img" width="389"></p>
+<figcaption class="figure-caption">Production set and production function</figcaption>
+</figure>
+</div>
+<p>As discussed before, a point in the interior of the production set represents a case of technically inefficient production. In the two-input case there is a convenient way to depict production relations in the form of an isoquant or indifference curve. An <strong><em>isoquant</em></strong> is the set of all possible combinations of inputs <span class="math inline">\((x_1,...,x_n)\)</span> producing a given amount of output <span class="math inline">\(y\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/figure1.3.png" width="576" height="250" class="figure-img"></p>
+<figcaption class="figure-caption">Isoquants—Linear, Cobb-Douglas, and Leontief production technology</figcaption>
+</figure>
+</div>
+<p>The isoquants move in the top-right direction as <span class="math inline">\(y\)</span> goes up, since we need more inputs to produce more output. The top-right section of the isoquants, and including the points on the isoquants, are often referred to as the <strong><em>input requirement set</em></strong>. Observe that for a given volume of output <em>y</em>, the input requirement set consists of all points on all the isoquants corresponding to the output level <em>y</em> or higher.</p>
+<p>A technology is called <strong><em>convex</em></strong> if the input requirement set is convex. For a convex technology, a convex combination of input choices increases the output volume.</p>
+<p>A technology is called <strong><em>monotone</em></strong> if its input requirement set satisfies the <em>monotonicity</em> property, which suggests that for any input vector <span class="math inline">\(\mathbf{x}\)</span> belonging to the input requirement set, all input vectors weakly greater than <span class="math inline">\(\mathbf{x}\)</span> must belong to the input requirement set. The idea is that if we increase the amount of each input beyond what is required to produce a certain volume of output, we can produce an output at least as large as the initial volume.</p>
+<p>While a production function is a useful way to characterize the production possibility in one-output case, a general representation of multi-output and multi-input production possibility is given by a <strong><em>transformation function</em></strong> <span class="math inline">\(T:R^{n+m}\rightarrow R\)</span> such that <span class="math inline">\(T(\mathbf{x},\mathbf{q})=0\)</span> represents a relationship where an input vector <span class="math inline">\(\mathbf{x}\)</span> is used to produce an output vector <span class="math inline">\(\mathbf{q}\)</span>.</p>
+<section id="some-examples-of-useful-production-functions" class="level2">
+<h2 class="anchored" data-anchor-id="some-examples-of-useful-production-functions">Some examples of useful production functions</h2>
+<p>Linear: <span class="math inline">\(y=\beta_0+\sum_{i=1}^{N}{\beta_i x_i}\)</span></p>
+<p>Cobb-Douglas: <span class="math inline">\(y=\beta_0\prod_{i=1}^{N}{x_i}^{\beta_i}\)</span>, or equivalently, <span class="math inline">\(\ln y=\beta_0+\sum_{i=1}^{N}{\beta_i \ln x_i}\)</span></p>
+<p>Leontief: <span class="math inline">\(y=\min_{i=1}^{N} \{ {\beta_i x_i} \}\)</span></p>
+<p>CES: <span class="math inline">\(y=\left[\sum_{i=1}^{N}{\beta_i x_i^\rho}\right]^\frac{1}{\rho}\)</span></p>
+<p>Quadratic: <span class="math inline">\(y=\beta_0+\sum_{i}{\beta_i x_i}+ \frac{1}{2} \sum_{i}\sum_{j}{\beta_{ij} x_i x_j}\)</span></p>
+<p>Translog: <span class="math inline">\(\ln y=\beta_0+\sum_{i}{\beta_i \ln x_i}+ \frac{1}{2} \sum_{i}\sum_{j}{\beta_{ij} \ln x_i \ln x_j}\)</span></p>
+</section>
+<section id="returns-to-scale" class="level2">
+<h2 class="anchored" data-anchor-id="returns-to-scale">Returns to scale</h2>
+<p>Consider the following experiment: Let’s scale the amount of all inputs up by some constant factor <em>k</em>; what will happen to the output?</p>
+<p>If the output goes up by the same factor <em>k</em>, we call it a <strong><em>constant returns to scale (CRS)</em></strong> technology. Mathematically, a CRS technology exhibits <span class="math inline">\(f(k \mathbf{x})=k\mathbf{f(x)}\)</span>.</p>
+<p>If the output increases less than k times, we call it a <strong><em>decreasing returns to scale (DRS)</em></strong> technology. Mathematically, a DRS technology exhibits <span class="math inline">\(f(k \mathbf{x})&lt;k\mathbf{f(x)}\)</span>.</p>
+<p>If the output increases more than <em>k</em> times, we call it an <strong><em>increasing returns to scale (IRS)</em></strong> technology. Mathematically, an IRS technology exhibits <span class="math inline">\(f(k \mathbf{x})&gt;k\mathbf{f(x)}\)</span>.</p>
+<p><em>Test exercise:</em> Consider the following Cobb-Douglas production function is given by <span class="math inline">\(f(x_1,x_2) = Ax_1^{a}x_2^{b}\)</span>. Find conditions under which the technology exhibits different kinds of returns to scale.</p>
+</section>
+</section>
+<section id="productivity" class="level1">
+<h1>Productivity</h1>
+<section id="average-and-marginal-product" class="level2">
+<h2 class="anchored" data-anchor-id="average-and-marginal-product">Average and marginal product</h2>
+<p><em>Single-input case:</em></p>
+<p>Consider a production relationship given by <span class="math inline">\(y=f(x)\)</span> .</p>
+<p>The <strong><em>average productivity</em></strong> of the input <span class="math inline">\(x\)</span> is defined by <span class="math inline">\(AP=f(x)/x\)</span> .</p>
+<p>The <strong><em>marginal productivity</em></strong> of the input <span class="math inline">\(x\)</span> is defined by <span class="math inline">\(MP=\partial{f(x)}/\partial{x}\)</span>.</p>
+<p><em>Multi-input case:</em></p>
+<p>As in the single-input case, we can define the average product or marginal product of the <span class="math inline">\(i^{\text{th}}\)</span> input with respect to each inputs. However, these measures then reflect simply partial productivity measures, and they can only be computed for some given values of other inputs.</p>
+<p><span class="math display">\[
+\begin{aligned}
+AP_i &amp; = \frac{y}{x_i}= \frac{f(\mathbf{x})}{x_i} \\
+MP_i &amp;= \frac{\partial y}{\partial x_i} = \frac{\partial f(\mathbf{x})}{\partial x_i}=f_i
+\end{aligned}
+\]</span></p>
+</section>
+<section id="output-elasticity" class="level2">
+<h2 class="anchored" data-anchor-id="output-elasticity">Output elasticity</h2>
+<p>The <strong><em>output elasticity of an input</em></strong><span class="math inline">\(x_i\)</span> measures the percentage changes in output because of a percentage change in input <span class="math inline">\(x_i\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\varepsilon_i &amp;= \frac{\partial f(\mathbf{x})/ f(\mathbf{x})}{\partial x_i/x_i} = \frac{MP_i}{AP_i}
+\end{aligned}
+\]</span></p>
+<p>Observe that output elasticities are free of the unit of measurement.</p>
+<p>The <strong><em>elasticity of scale</em></strong> is the sum of output elasticities of all input: <span class="math inline">\(\varepsilon=\sum_i \varepsilon_i\)</span>.</p>
+<p>A technology exhibiting IRS, CRS, and DRS has the elasticity of scale <span class="math inline">\(\varepsilon &gt; 1\)</span>, <span class="math inline">\(\varepsilon = 1\)</span>, and <span class="math inline">\(\varepsilon &lt; 1\)</span>, respectively. Using calculus, it can be derived that if a firm has an elasticity of scale as <span class="math inline">\(1\)</span> at its current size of production and if the elasticity of scale only monotonically decreases with further increase in size, then the firm has the most productive scale size at the current level.</p>
+</section>
+<section id="total-factor-productivity" class="level2">
+<h2 class="anchored" data-anchor-id="total-factor-productivity">Total factor productivity</h2>
+<p>In multi-input production process, it is often desirable to calculate the <strong><em>total factor productivity (TFP)</em></strong> by aggregating inputs into an input index:</p>
+<p><span class="math display">\[
+TFP=\frac{y}{X},
+\]</span></p>
+<p>where <span class="math inline">\(X\)</span> is a quantity aggregating index of all inputs.</p>
+</section>
+<section id="indexing" class="level2">
+<h2 class="anchored" data-anchor-id="indexing">Indexing</h2>
+<p>Indexing is used for measuring changes in a set of related variables. Conceptually, it can be used for comparison over time or space or both. Examples include price indices for measuring changes to consumer price, export or import prices, quantity indices measuring changes in output volume by a firm or industry over time or across firms.</p>
+<p>As an illustration, consider a formula for measuring the change of the value of a basket consisting of <span class="math inline">\(n\)</span> goods between the two period <span class="math inline">\(t\)</span> and <span class="math inline">\(s\)</span> can be measured by</p>
+<p><span class="math display">\[
+X=\frac{\sum_{i=1}^{n} x_{it}p_{it}}{\sum_{i=1}^{n} x_{is}p_{is}}.
+\]</span></p>
+<p>However, as time changes between <span class="math inline">\(s\)</span> and <span class="math inline">\(t\)</span>, it is unclear whether the change in value is driven by the changes in <span class="math inline">\(p_i\)</span> or changes in <span class="math inline">\(x_i\)</span>. To address this issue, we can fix one of the two variables, and look at the value index. For example, if we fix the prices (either to current or old prices), we get a measure due to changes in quantity, and it then reflects a quantity index. Similarly, if we fix the quantity (either to current or old quantity levels), we will get a price index. Although we consider changes with respect to time, we can use the concept for other types of changes, for example, variation across firms.</p>
+</section>
+<section id="various-quantity-indices" class="level2">
+<h2 class="anchored" data-anchor-id="various-quantity-indices">Various (quantity) indices:</h2>
+<p>Denoting the good by subscript <span class="math inline">\(i\)</span>, the sample observation by subscript <span class="math inline">\(j\)</span>, and a base observational value (for example, the mean of the sample observations) by <span class="math inline">\(0\)</span>, we measure</p>
+<p>Laspeyres quantity index:</p>
+<p><span class="math display">\[
+X_j^{L}=\frac{\sum_{i} x_{ij}p_{i0}}{\sum_{i} x_{i0}p_{i0}}
+\]</span></p>
+<p>Paasche quantity index:</p>
+<p><span class="math display">\[
+X_j^{P}=\frac{\sum_{i} x_{ij}p_{ij}}{\sum_{i} x_{i0}p_{ij}}
+\]</span></p>
+<p>Fisher’s quantity index:</p>
+<p><span class="math display">\[
+X_j^{F}=\sqrt{X_j^{L} \times X_j^{P}}
+\]</span></p>
+<div class="cell" data-linebreak="80">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate input quantities</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>qCap <span class="ot">&lt;-</span> dat<span class="sc">$</span>vCap <span class="sc">/</span> dat<span class="sc">$</span>pCap</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>qLab <span class="ot">&lt;-</span> dat<span class="sc">$</span>vLab <span class="sc">/</span> dat<span class="sc">$</span>pLab</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>qMat <span class="ot">&lt;-</span> dat<span class="sc">$</span>vMat <span class="sc">/</span> dat<span class="sc">$</span>pMat</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating quantity indices</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>XP <span class="ot">&lt;-</span> <span class="fu">with</span>( dat, ( vCap <span class="sc">+</span> vLab <span class="sc">+</span> vMat ) <span class="sc">/</span> ( <span class="fu">mean</span>( qCap ) <span class="sc">*</span> pCap <span class="sc">+</span> <span class="fu">mean</span>( qLab ) <span class="sc">*</span> pLab <span class="sc">+</span> <span class="fu">mean</span>( qMat ) <span class="sc">*</span> pMat ) ) <span class="co"># Paasche Index</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>XL <span class="ot">&lt;-</span> <span class="fu">with</span>( dat, ( qCap <span class="sc">*</span> <span class="fu">mean</span>( pCap ) <span class="sc">+</span> qLab <span class="sc">*</span> <span class="fu">mean</span>( pLab ) <span class="sc">+</span> qMat <span class="sc">*</span> <span class="fu">mean</span>( pMat ) ) <span class="sc">/</span> ( <span class="fu">mean</span>( qCap ) <span class="sc">*</span> <span class="fu">mean</span>( pCap ) <span class="sc">+</span> <span class="fu">mean</span>( qLab ) <span class="sc">*</span> <span class="fu">mean</span>( pLab ) <span class="sc">+</span> <span class="fu">mean</span>( qMat ) <span class="sc">*</span> <span class="fu">mean</span>( pMat ) ) ) <span class="co"># Laspeyres Index</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>X <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( dat<span class="sc">$</span>XP <span class="sc">*</span> dat<span class="sc">$</span>XL ) <span class="co"># Fisher Index</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># You can also generate these indices directly using micEconIndex package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="data-ap-and-tfp" class="level3">
+<h3 class="anchored" data-anchor-id="data-ap-and-tfp">Data: AP and TFP</h3>
+<div class="cell" data-linebreak="80">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Measuring (partial) average product</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>apCap <span class="ot">&lt;-</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>qCap</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>apLab <span class="ot">&lt;-</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>qLab</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>apMat <span class="ot">&lt;-</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>qMat</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>apCap )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>apLab )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>apMat )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Average product measures vary considerably across firms, with most firms falling into the relatively low-productivity range.</p>
+<div class="cell" data-linebreak="80">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting average partial productivity of one input against another across firms</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>apCap, dat<span class="sc">$</span>apLab )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>apCap, dat<span class="sc">$</span>apMat )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>apLab, dat<span class="sc">$</span>apMat )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It appears that the average products of the three inputs are positively correlated.</p>
+<div class="cell" data-linebreak="80">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting partial average products against output</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>qOut, dat<span class="sc">$</span>apCap, <span class="at">log =</span> <span class="st">"x"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>qOut, dat<span class="sc">$</span>apLab, <span class="at">log =</span> <span class="st">"x"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>qOut, dat<span class="sc">$</span>apMat, <span class="at">log =</span> <span class="st">"x"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We did not have data on firm size. Assuming the volume of output as a proxy for firm size, we examined the plot of partial average products of each input against output. It appears that firms producing more also exhibit higher output per unit of input used.</p>
+<div class="cell" data-linebreak="80">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Measuring total factor productivity</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>tfp <span class="ot">&lt;-</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>X <span class="co"># using Fisher index</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>tfpP <span class="ot">&lt;-</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>XP <span class="co"># using Paasche Index</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>tfpL <span class="ot">&lt;-</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>XL <span class="co"># using Laspeyres Index</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>tfp )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>TFP varies considerably across firms, with the majority falling into the relatively low-TFP range.</p>
+<div class="cell" data-linebreak="80">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting tfp against output and input quantity index</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>qOut, dat<span class="sc">$</span>tfp, <span class="at">log =</span> <span class="st">"x"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>X, dat<span class="sc">$</span>tfp, <span class="at">log =</span> <span class="st">"x"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>These plots indicate that larger firms, characterized by higher output volumes, are typically associated with greater TFP. However, the plot of TFP against the aggregate input index shows only a mild positive association between the two.</p>
+<div class="cell" data-linebreak="80">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Does advisory service (a dummy) affects tfp?</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>( tfp <span class="sc">~</span> adv, <span class="at">data =</span> dat )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>( <span class="fu">log</span>(qOut) <span class="sc">~</span> adv, <span class="at">data =</span> dat )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Some firms used advisory services. It appears that firms with or without advisory services use similar input quantities; however, those with advisory services are associated with a slightly higher TFP (in terms of expected value).</p>
+</section>
+</section>
+</section>
+<section id="input-substitution" class="level1">
+<h1>Input substitution</h1>
+<p>What might cause variation in the input mix chosen by different firms? Are all firms operating with allocative efficiency?</p>
+<section id="marginal-rate-of-technical-substitution" class="level2">
+<h2 class="anchored" data-anchor-id="marginal-rate-of-technical-substitution">Marginal rate of technical substitution</h2>
+<p>Suppose that we are operating at an input mix <span class="math inline">\((x_1,x_2)\)</span> and that we consider substituting a little bit of input 1 with input 2 to produce the same amount of output y. How much extra of input 2 do we need? Mathematically, this is measured by the slope of the isoquant; we refer to it as the <strong><em>Marginal Rate of Technical Substitution (MRTS)</em></strong>.</p>
+<p>Setting <span class="math inline">\({d}y=f_1dx_1+f_{2}dx_2=0\)</span>, we define MRTS as</p>
+<p><span class="math display">\[
+\begin{aligned}
+MRTS= \frac{dx_2}{dx_1} &amp;=-\frac{f_1}{f_2}=-\frac{MP_1}{MP_2}.
+\end{aligned}
+\]</span></p>
+<p>Note that in some books, it might be measured as <span class="math inline">\(dx_1/dx_2\)</span>. However, what is more important is how we interpret the formula once it is defined. In the current definition, it is interpreted as the amount of <span class="math inline">\(x_2\)</span> needed to substitute for one unit of <span class="math inline">\(x_1\)</span>, while keeping the output at a constant level.</p>
+</section>
+<section id="relative-marginal-rate-of-technical-substitution" class="level2">
+<h2 class="anchored" data-anchor-id="relative-marginal-rate-of-technical-substitution">Relative marginal rate of technical substitution</h2>
+<p>The <strong><em>relative marginal rate of technical substitution</em></strong> is defined as the ratio of MRTS and input ratio:</p>
+<p><span class="math display">\[
+RMRTS=\frac{MRTS}{x_2/x_1}=-\frac{MP_1}{MP_2}\frac{x_1}{x_2}
+\]</span></p>
+<p>It can be interpreted as relative percentage change in one input (say, capital) needed to compensate for a relative percentage change in another input (say, labour) while maintaining the same level of output. Divide both sides by <span class="math inline">\(y\)</span> and using the definition of output elasticity, we can rewrite the above formula as</p>
+<p><span class="math display">\[
+RMRTS=-\frac{MP_1}{y/x_1}\frac{y/x_2}{MP_2}=-\frac{MP_1}{AP_1}\frac{AP_2}{MP_2}=-\frac{\varepsilon_1}{\varepsilon_2}
+\]</span></p>
+</section>
+<section id="elasticity-of-substitution" class="level2">
+<h2 class="anchored" data-anchor-id="elasticity-of-substitution">Elasticity of substitution</h2>
+<p>The importance of input substitution led to various definition of <em>elasticities of substitutions</em>. The elasticity of substitution between two inputs measures how easily one input can be substituted for another in response to changes in their relative prices, holding output constant. It is a measure of the curvature of the isoquant. Hicks <span class="citation" data-cites="hicks1963theory">(<a href="#ref-hicks1963theory" role="doc-biblioref">Hicks 1963</a>)</span> offers the following definition of elasticity <span class="math inline">\(\sigma\)</span> between inputs <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sigma= \frac{d(x_2/x_1)}{d(f_1/f_2)}\frac{(f_1/f_2)}{(x_2/x_1)}=\frac{\%\text{ change in input ratio}}{\%\text{ change in MRTS}}.
+\end{aligned}
+\]</span></p>
+<p>To compute the elasticity, we typically express <span class="math inline">\(MRTS\)</span> in terms of the input ratio, or <span class="math inline">\(\text{ln} (MRTS)\)</span> in terms of <span class="math inline">\(\text{ln} ({x_j}/{x_i})\)</span>, to find the corresponding derivative.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sigma= \frac{MRTS}{(x_2/x_1)}(1/\frac{dMRTS}{d(x_2/x_1)})=1/\frac{d\text{ ln}MRTS}{d\text{ ln}(x_2/x_1)}.
+\end{aligned}
+\]</span></p>
+<p><em>Test exercise:</em></p>
+<p>Consider a regular Cobb-Douglas production and show that it has an elasticity of substitution of <span class="math inline">\(1\)</span>.</p>
+<p>An equivalent representation of <span class="math inline">\(\sigma\)</span> is</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sigma= \frac{-f_1f_2(x_1f_1+x_2f_2)}{x_1x_2(f_{11}f_2^2-2f_{12}f_1f_2+f_{22}f_1^2)},
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(f_i\)</span> and <span class="math inline">\(f_{ii}\)</span> are the first- and second-order partial derivatives, and <span class="math inline">\(f_{ij}\)</span> is the second-order cross derivative.</p>
+<p>The measure of elasticity provides insight into how easily one input can be substituted for another. When dealing with multiple inputs, we generalize this measure. To do so, the following equivalent representation of the formula, expressed in matrix notation, will be useful.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sigma= \frac{x_1f_1+x_2f_2}{x_1x_2}\frac{F_{12}}{F},
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(F\)</span> is the determinant of the bordered Hessian of the production function:</p>
+<p><span class="math display">\[
+F=\left|\begin{array}{ccc}
+0 &amp; f_1 &amp; f_2 \\
+f_1 &amp; f_{11} &amp; f_{12} \\
+f_2 &amp; f_{12} &amp; f_{22}
+\end{array}\right|,
+\]</span></p>
+<p>and <span class="math inline">\(F_{12}\)</span> is the associated co-factor of <span class="math inline">\(f_{12}\)</span>.</p>
+<p>With multiple inputs, we can consider the same formula—replacing <span class="math inline">\(1\)</span> by <span class="math inline">\(i\)</span> and <span class="math inline">\(2\)</span> by <span class="math inline">\(j\)</span>—to compute the elasticity of substitution <span class="math inline">\(\sigma_{ij}^D\)</span> for any pair of inputs <span class="math inline">\(x_i\)</span> and <span class="math inline">\(x_j\)</span>.</p>
+<p>Two observations to note: (i) This measure then implicitly assumes that we are holding all other inputs constant; (ii) When the production is continuously differentiable, the cross-derivatives are symmetric, implying that <span class="math inline">\(\sigma_{ij}^D=\sigma_{ji}^D\)</span>. As we hold other inputs constant, this measure is also referred to as <strong><em>short-run elasticity of substitution</em></strong> (because of first point) or <strong><em>Direct elasticity of substitution</em></strong>.</p>
+<p>A generalization of the above measure of elasticity of substitution is <strong><em>Allen partial elasticity of substitution</em></strong>, which is defined as</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sigma_{ij}= \frac{\sum_{i}x_if_i}{x_ix_j}\frac{F_{ij}}{F},
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(F\)</span> is the determinant of the bordered Hessian matrix:</p>
+<p><span class="math display">\[
+F=\left|\begin{array}{ccccc}
+0 &amp; f_1 &amp; f_2 &amp; \cdots &amp; f_n  \\
+f_1 &amp; f_{11} &amp; f_{12} &amp; \cdots &amp; f_{1n} \\
+f_2 &amp; f_{12} &amp; f_{22} &amp; \cdots &amp; f_{2n}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+f_n &amp; f_{1n} &amp; f_{2n} &amp; \cdots &amp; f_{nn}
+\end{array}\right|,
+\]</span></p>
+<p>and <span class="math inline">\(F_{ij}\)</span> is the co-factor of <span class="math inline">\(f_{ij}\)</span>.</p>
+<p>The final elasticity measure is the <strong><em>Morishima elasticity of substitution</em></strong>, which is given by</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sigma_{ij}^M= \frac{f_i}{x_i}\frac{F_{ij}}{F}-\frac{f_j}{x_j}\frac{F_{jj}}{F}=\frac{x_jf_j}{\sum_{i}x_if_i}(\sigma_{ij}-\sigma_{jj}),
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(\sigma_{ij}\)</span> (without the superscript) denote the Allen elasticity measure.</p>
+<p>Observe that unlike Allen elasticity measure, Morishima measure is not symmetric. Further, a pair of goods can be complements in terms of Allen elasticity, whereas the corresponding Morishima measure could class them as substitutes.</p>
+<p>In our analysis below, we will only calculate the direct elasticity of substitution between inputs. For guidance on determining the Allen and Morishima elasticities of substitution, please see <span class="citation" data-cites="henningsen2024introduction">(<a href="#ref-henningsen2024introduction" role="doc-biblioref">Henningsen 2024</a>)</span>.</p>
+<hr>
+<p><strong><em>Reading materials:</em></strong></p>
+<ul>
+<li><p>Henningsen, chapter 2</p></li>
+<li><p>Varian, Chapter 1</p></li>
+</ul>
+<hr>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="section-2" class="level1">
+<h1>Section 2</h1>
+</section>
+<section id="supply-behavior-of-a-firm-facing-a-competitive-market" class="level1">
+<h1>Supply behavior of a firm facing a competitive market</h1>
+<p>A fundamental assumption in most economic analyses of firm behavior is that a firm acts to maximize its profits. This means it chooses its productive activities—such as input choices, volume of production, and so on—in a way that maximizes revenue net of costs.</p>
+<p>Note that this assumption can be easily relaxed without altering the basic principles of analysis. We can consider other objectives for the firm, such as maximizing consumer surplus, or expand the set of possible activities, such as choosing specific technologies that meet regulatory standards.</p>
+<p>Consider a firm that takes prices as given in both its output and input markets. The firm produces a single output <span class="math inline">\(y\)</span> using inputs <span class="math inline">\(\mathbf{x} = (x_1, x_2, \dots, x_n)\)</span>, and the technology of the firm is represented by a production function <span class="math inline">\(f(\mathbf{x})\)</span>.</p>
+<ul>
+<li><p><strong>Revenue</strong>: The total revenue <span class="math inline">\(TR\)</span> is given by: <span class="math inline">\(TR = p \cdot y = p \cdot f(\mathbf{x})\)</span> where <span class="math inline">\(p\)</span> is the output price.</p></li>
+<li><p><strong>Cost</strong>: The total cost <span class="math inline">\(TC\)</span> is given by: <span class="math inline">\(TC = C(\mathbf{x})\)</span> where <span class="math inline">\(C(\mathbf{x})\)</span> represents the cost function, typically assumed to be <span class="math inline">\(C(\mathbf{x}) = \sum_{i=1}^n w_i x_i\)</span>, with <span class="math inline">\(w_i\)</span> being the price of input <span class="math inline">\(x_i\)</span> .</p></li>
+<li><p><strong>Profit</strong>: The profit <span class="math inline">\(\pi\)</span> is: <span class="math inline">\(\pi(\mathbf{x}) = p \cdot f.(\mathbf{x}) - C(\mathbf{x})\)</span>.</p></li>
+</ul>
+<section id="profit-maximization" class="level2">
+<h2 class="anchored" data-anchor-id="profit-maximization">Profit maximization</h2>
+<p>The firm’s problem is to choose <span class="math inline">\(\mathbf{x}\)</span> to maximize profit: <span class="math display">\[
+\max_{\mathbf{x}} \pi(\mathbf{x}) = p \cdot f(\mathbf{x}) - \sum_{i=1}^{n} w_i x_i
+\]</span></p>
+<section id="first-order-conditions-foc" class="level3">
+<h3 class="anchored" data-anchor-id="first-order-conditions-foc">First-Order Conditions (FOC)</h3>
+<p>To find the optimal input levels <span class="math inline">\(\mathbf{x}^{*}\)</span>, we take the partial derivative of the profit function with respect to each input <span class="math inline">\(x_i\)</span> and set it equal to zero:</p>
+<p><span class="math inline">\(\frac{\partial \pi}{\partial x_i} = p \cdot \frac{\partial f(\mathbf{x})}{\partial x_i} - w_i = 0, &nbsp;\forall i = 1, 2, \dots, n\)</span></p>
+<p>Rearranging the terms, we get the marginal condition:</p>
+<p><span class="math inline">\(p \cdot \frac{\partial f(\mathbf{x}^*)}{\partial x_i} = w_i, &nbsp;\forall i = 1, 2, \dots, n\)</span></p>
+<p>The condition can be expressed as: <span class="math display">\[
+w_i=p\cdot MP_{i}=MVP_{i},
+\]</span></p>
+<p>where <span class="math inline">\(MVP_{i}\)</span> is the marginal value product of input <span class="math inline">\(i\)</span>.</p>
+</section>
+<section id="second-order-conditions-soc-for-a-maximum" class="level3">
+<h3 class="anchored" data-anchor-id="second-order-conditions-soc-for-a-maximum">Second-Order Conditions (SOC) for a Maximum</h3>
+<p>The second-order conditions ensure that the solution found using the first-order conditions is indeed a maximum (rather than a minimum or saddle point). The SOC requires that the Hessian matrix of second derivatives of the profit function with respect to the inputs is negative semi-definite.</p>
+<p>For profit maximization, <span class="math inline">\(H\)</span> must be negative semi-definite at <span class="math inline">\(\mathbf{x}^{*}\)</span>.</p>
+</section>
+<section id="implications-of-foc" class="level3">
+<h3 class="anchored" data-anchor-id="implications-of-foc">Implications of FOC</h3>
+<p>A direct implication of profit maximizing behavior is that the ratio of prices equals the absolute value of marginal rate of technical substitution: <span class="math display">\[
+\frac{w_i}{w_j}=\frac{MP_i}{MP_j}=-MRTS_{ij}
+\]</span></p>
+<p>In addition, denoting the cost share of input <span class="math inline">\(i\)</span> by <span class="math inline">\(s_i\)</span> where <span class="math inline">\(s_i=w_i x_i/\sum_{k=1}^{n} w_k x_k\)</span>, we can express the ratio of cost share by a profit maximization firm as</p>
+<p><span class="math display">\[
+\frac{s_i}{s_j}=\frac{w_i x_i}{w_j x_j}=-\frac{MRTS_{ij}}{x_j/x_i}=-RMRTS_{ij}
+\]</span></p>
+<p>Recall the definition of <span class="math inline">\(RMRTS=-\varepsilon_i/\varepsilon_j\)</span>, which gives us</p>
+<p><span class="math display">\[
+\frac{s_i}{s_j}=\frac{\varepsilon_i}{\varepsilon_j}
+\]</span></p>
+<p>The above relation along with the fact that <span class="math inline">\(\sum_{i} s_i=1\)</span> implies that for a profit maximizing firm the cost share of each input must equal the ratio of output elasticity over the elasticity of scale:</p>
+<p><span class="math display">\[
+s_i=\frac{\varepsilon_i}{\varepsilon}
+\]</span></p>
+</section>
+<section id="input-demand-function" class="level3">
+<h3 class="anchored" data-anchor-id="input-demand-function">Input demand function</h3>
+<p>If we solve the simultaneous equations represented by the FOCs, we get the <strong><em>input demand function</em></strong> as a function of the output price and the input/factor prices:</p>
+<p><span class="math display">\[
+x_i=x_i(p,\mathbf{w})
+\]</span></p>
+</section>
+<section id="supply-function" class="level3">
+<h3 class="anchored" data-anchor-id="supply-function">Supply function</h3>
+<p>Replacing the inputs by the input demand functions in the production, we can derive the output <strong><em>supply function</em></strong> as a function of the output price and the input/factor prices:</p>
+<p><span class="math display">\[
+y=f(x_1(p,\mathbf{w}),\dots,x_n(p,\mathbf{w}))=y(p,\mathbf{w})
+\]</span></p>
+<p>As the derived input demand and output functions are expressions of prices (output and input prices), we can derive the price elasticities of demand and supply:</p>
+<p><span class="math display">\[
+\varepsilon_{ij}(p,\mathbf{w})=\frac{\partial x_i(p,\mathbf{w})}{\partial w_j}\frac{w_j}{x_i (p,\mathbf{w})} \text{ : elasticity of input $i$ w.r.t the price of input $j$}
+\]</span></p>
+<p><span class="math display">\[
+\varepsilon_{yi}(p,\mathbf{w})=\frac{\partial y(p,\mathbf{w})}{\partial w_i}\frac{w_i}{y (p,\mathbf{w})} \text{ : elasticity of output $y$ w.r.t the price of input $i$}
+\]</span></p>
+<p><span class="math display">\[
+\varepsilon_{yp}(p,\mathbf{w})=\frac{\partial y(p,\mathbf{w})}{\partial p}\frac{p}{y (p,\mathbf{w})} \text{ : elasticity of output $y$ w.r.t the output price $p$}
+\]</span></p>
+<p><span class="math display">\[
+\varepsilon_{ip}(p,\mathbf{w})=\frac{\partial x_i(p,\mathbf{w})}{\partial p}\frac{p}{x_i (p,\mathbf{w})} \text{ : elasticity of input $i$ w.r.t the output price $p$}
+\]</span></p>
+</section>
+<section id="profit-function" class="level3">
+<h3 class="anchored" data-anchor-id="profit-function">Profit function</h3>
+<p>Replacing the inputs by the input demand functions and output by the supply function, we can determine the <strong><em>profit function</em></strong>, which characterizes the maximum profit as a function of the output price and the input/factor prices:</p>
+<p><span class="math display">\[
+\pi (p, \mathbf{w}) = p \cdot y(p,\mathbf{w}) - \sum_{i=1}^{n} w_i x_i(p,\mathbf{w})
+\]</span></p>
+<p>We will later explore the properties of the profit function, which are useful for examining the dual approach.</p>
+</section>
+</section>
+</section>
+<section id="supply-behavior-with-output-constraint" class="level1">
+<h1>Supply behavior with output constraint</h1>
+<p>While maximizing profit, a firm can freely choose all inputs, which in turn determines the optimal volume of production. Consider a situation where the firm is required to produce a specific volume of output, either due to a contractual obligation or because altering the output level is not feasible in the short run. In this case, the firm must make optimal input choices to maximize profit under these constraints.</p>
+<p>Given that the revenue components are fixed, the firm’s optimization problem can be reformulated as a cost minimization problem with the constraint <span class="math inline">\(y=f(\mathbf{x})\)</span>.</p>
+<section id="cost-minimization" class="level2">
+<h2 class="anchored" data-anchor-id="cost-minimization">Cost minimization</h2>
+<p>The firm’s problem is to choose <span class="math inline">\(\mathbf{x}\)</span> to minimize costs</p>
+<p><span class="math display">\[
+\min_{\mathbf{x}} \sum_{i=1}^{n} w_i x_i \text{ such that } y = f(\mathbf{x})
+\]</span></p>
+<p>The constrained optimization problem can be solved by Lagrangian approach:</p>
+<p><span class="math display">\[
+\min_{\mathbf{x},\lambda} \mathcal{L} = \sum_{i=1}^{n} w_i x_i + \lambda (y- f(\mathbf{x}))
+\]</span></p>
+<section id="first-order-conditions-foc-1" class="level3">
+<h3 class="anchored" data-anchor-id="first-order-conditions-foc-1">First-Order Conditions (FOC)</h3>
+<p>To find the optimal input levels <span class="math inline">\(\mathbf{x}^{*}\)</span>, we take the partial derivative of the profit function with respect to each input <span class="math inline">\(x_i\)</span> and <span class="math inline">\(\lambda\)</span> and set them equal to zero:</p>
+<p><span class="math inline">\(\frac{\partial \mathcal{L}}{\partial x_i} = w_i - \lambda \cdot \frac{\partial f(\mathbf{x})}{\partial x_i} = 0, &nbsp;\forall i = 1, 2, \dots, n\)</span></p>
+<p>and <span class="math inline">\(\frac{\partial \mathcal{L}}{\partial \lambda} = y- f(\mathbf{x}) = 0\)</span></p>
+<p>Rearranging the terms, we get the marginal condition:</p>
+<p><span class="math display">\[
+w_i=\lambda\cdot MP_{i}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\frac{w_i}{w_j}=\frac{MP_i}{MP_j}=-MRTS_{ij}
+\]</span></p>
+<p>As we observed in the profit-maximization analysis, it can also be shown that the ratio of cost shares equals the absolute value of the RMRTS (Rate of Marginal Rate of Technical Substitution). This consistency between the findings from the analyses of profit-maximizing and cost-minimizing behavior is not coincidental; it arises because profit maximization leads to the optimal volume of production at minimum cost.</p>
+</section>
+<section id="conditional-input-demand-function" class="level3">
+<h3 class="anchored" data-anchor-id="conditional-input-demand-function">Conditional input demand function</h3>
+<p>The solutions to the cost minimization problem are called the <strong><em>conditional input demand function</em></strong>, expressed as a function of the output volume <span class="math inline">\(y\)</span> and the input/factor prices:</p>
+<p><span class="math display">\[
+x_i=x_i(y,\mathbf{w})
+\]</span></p>
+<p>From these derived demand, we can determine the elasticities with respect to input prices and output volume:</p>
+<p><span class="math display">\[
+\varepsilon_{ij}(y,\mathbf{w})=\frac{\partial x_i(y,\mathbf{w})}{\partial w_j}\frac{w_j}{x_i (y,\mathbf{w})} \text{ : elasticity of conditional input demand $i$ w.r.t the price of input $j$}
+\]</span></p>
+<p><span class="math display">\[
+\varepsilon_{iy}(p,\mathbf{w})=\frac{\partial x_i(y,\mathbf{w})}{\partial y}\frac{y}{x_i (y,\mathbf{w})} \text{ : elasticity of conditional input demand $i$ w.r.t output $y$}
+\]</span></p>
+</section>
+<section id="cost-function" class="level3">
+<h3 class="anchored" data-anchor-id="cost-function">Cost function</h3>
+<p>Replacing the inputs by the conditional input demand functions in the firm’s cost expression, we can determine the <strong><em>cost function</em></strong>, which characterizes the minimum costs as a function of the output volume and the input/factor prices:</p>
+<p><span class="math display">\[
+c(y, \mathbf{w}) = \sum_{i=1}^{n} w_i x_i(y,\mathbf{w})
+\]</span></p>
+<p>Later, while examining the dual approach, we will further explore the properties of the cost function.</p>
+</section>
+</section>
+</section>
+<section id="emprical-estimation-of-production-function" class="level1">
+<h1>Emprical estimation of production function</h1>
+<p>In this course, we will use linear model estimation techniques. Given a set of firm-level observations on production and costs, when can we appropriately estimate a production function using econometric methods such as OLS?</p>
+<p>Several conditions must be met:</p>
+<ol type="1">
+<li><p><strong>Firms must operate under similar conditions</strong>. If this is not the case, the differences should be incorporated into the econometric model.</p></li>
+<li><p><strong>The sample must be free of selection bias</strong>. When studying a specific industry based on a representative sample of firms, it is crucial that the sample is representative and unbiased.</p></li>
+<li><p><strong>All firms in the data set must produce at the maximum output level given the inputs</strong>. We implicitly assume that any deviation from the production frontier reflects random noise (firm-specific shocks).</p></li>
+<li><p><strong>No perfect multicollinearity</strong>. There should be no perfect linear relationship between the independent variables.</p></li>
+<li><p><strong>All input quantities must be uncorrelated with the error terms</strong>. Input quantities should not be correlated with the residuals of the model.</p></li>
+</ol>
+<p>When estimate a specific form of production function with our data, we will check the properties of the estimated model and evaluate the followings:</p>
+<ul>
+<li><p>Theoretical consistency</p></li>
+<li><p>Productivity and output elasticity</p></li>
+<li><p>Returns to scale</p></li>
+<li><p>Input substitution</p></li>
+<li><p>Profit-maximizing and cost-minimizing behavior</p></li>
+</ul>
+<p>We will start with a production function in linear form.</p>
+<section id="linear-technology" class="level2">
+<h2 class="anchored" data-anchor-id="linear-technology">Linear technology</h2>
+<p>We can estimate the following linear production function with N inputs based on our data:</p>
+<p><span class="math display">\[
+y=\beta_0+\sum_{i=1}^{N}{\beta_i x_i}+\epsilon
+\]</span></p>
+<section id="estimation" class="level3">
+<h3 class="anchored" data-anchor-id="estimation">Estimation</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting a linear model</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>prodlinear <span class="ot">&lt;-</span> <span class="fu">lm</span>( qOut <span class="sc">~</span> qCap <span class="sc">+</span> qLab <span class="sc">+</span> qMat, <span class="at">data =</span> dat )</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( prodlinear )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = qOut ~ qCap + qLab + qMat, data = dat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-3888955  -773002    86119   769073  7091521 
+
+Coefficients:
+                Estimate   Std. Error t value             Pr(&gt;|t|)    
+(Intercept) -1615978.639   231771.709  -6.972 0.000000000123189025 ***
+qCap               1.788        1.995   0.896                0.372    
+qLab              11.831        1.272   9.300 0.000000000000000315 ***
+qMat              46.668       11.234   4.154 0.000057378294854380 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1541000 on 136 degrees of freedom
+Multiple R-squared:  0.7868,    Adjusted R-squared:  0.7821 
+F-statistic: 167.3 on 3 and 136 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+</div>
+<p>The regression results show that the coefficients for labor and materials are positive and significant, but the coefficient for capital is not. Whether we should drop capital from our estimated model is a complex issue. If capital is an essential input in the true underlying relationship, then dropping it from the model would lead to biased and inconsistent estimates of other input coefficients. On the other hand, including an insignificant variable like capital would result in less efficient estimates (making other estimates less precise), but they would still remain unbiased and consistent (converges to the true coefficient if sample size increases).</p>
+</section>
+<section id="is-it-a-good-fit" class="level3">
+<h3 class="anchored" data-anchor-id="is-it-a-good-fit">Is it a good fit?</h3>
+<p>In the absence of comparable models, it remains unclear whether a linear production function is a goof fit for our data. However, we can still infer the strength of our model based on some simple observation. For example, the residual/error term, captures the difference between observed and predicted values. This error term arises due to measurement error, omitted variable bias, and other random shocks. A high R² value provides some evidence of a better fit.</p>
+<p>A plot of predicted values against the observed ones helps visualize how well the predicted values align with the observed values. If the regression model is a good fit, the points should cluster around the 45-degree line (where predicted equals observed). Deviations from the 45-degree line can indicate systematic errors in the model. If the points form a curved pattern instead of clustering around the line, this could indicate that a linear model may not be appropriate. The plot can also help identify outliers—points that are far from the line—which may disproportionately affect the regression results. However, it should be used in conjunction with other tools, such as residual plots, to fully assess the model’s performance. Relying solely on this plot may not reveal all potential issues, such as heteroscedasticity or multicollinearity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted vs. observed plot</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(miscTools)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>qOutLin <span class="ot">&lt;-</span> <span class="fu">fitted</span>( prodlinear )</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>qOut, dat<span class="sc">$</span>qOutLin )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Due to some extreme values, most of the data points appear clustered toward the origin. One way to address this issue is by scaling the axes, for example, using a logarithmic scale. However, since the logarithm of negative values is undefined, we would need to exclude those negative values from the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted vs. observed (logarithmic scaling of axes)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>( dat<span class="sc">$</span>qOutLin <span class="sc">&gt;=</span> <span class="dv">0</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+FALSE  TRUE 
+    1   139 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>qOut[ dat<span class="sc">$</span>qOutLin <span class="sc">&gt;</span> <span class="dv">0</span> ], dat<span class="sc">$</span>qOutLin[ dat<span class="sc">$</span>qOutLin <span class="sc">&gt;</span> <span class="dv">0</span> ], <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The deviations from observed values looks random (okay) in both scatter plots.</p>
+<p>Next, we perform consistency checks on our estimated production technology to ensure alignment with theoretical predictions derived from microeconomic principles.</p>
+</section>
+<section id="theoretical-consistency" class="level3">
+<h3 class="anchored" data-anchor-id="theoretical-consistency">Theoretical consistency</h3>
+<p><em>Essentiality:</em> Weak essentiality means that each input in the production function has some non-zero contribution to the output when other inputs are held constant. A <em>strict essentiality</em>, on the other hand, is a stronger condition, which requires that the production function collapses to zero output if any one of the inputs is not present. In other words, every input is strictly necessary for production to take place.</p>
+<p>Positive input coefficients for labour and materials are evidence of essentiality of these inputs. The negative and significant intercept term violates weak essentiality condition.</p>
+<p><em>Monotonicity:</em> The monotonicity condition refers to the requirement that the output should not decrease as the quantity of any input increases, holding all other inputs constant. The positive and significant coefficients of labour and materials satisfy the monotonicity condition.</p>
+<p><em>Quasi-concavity:</em> A production function is quasi-concave if its isoquants are convex, or equivalently, if the input requirement set is convex. In the case of a linear production function, the isoquants are straight lines, which means they are both concave and convex, and thus inherently convex. Consequently, the input requirement set is also convex. Therefore, quasi-concavity is trivially satisfied due to the linear nature of the production function.</p>
+<p><em>Non-negativity:</em> The production function should yield non-negative output values for any non-negative input choices. However, the negative intercept in our estimated production function violates this non-negativity assumption. Also, we are going to see below that there is one negative predicted output value for one firm, violating non-negativity condition.</p>
+</section>
+<section id="studying-properties-of-the-production-function" class="level3">
+<h3 class="anchored" data-anchor-id="studying-properties-of-the-production-function">Studying properties of the production function</h3>
+</section>
+<section id="productivityoutput-elasticity" class="level3">
+<h3 class="anchored" data-anchor-id="productivityoutput-elasticity">Productivity–Output elasticity</h3>
+<p>Note that the estimated linear production function implicitly assumes the marginal productivity of an input is the same across firms, and it is measured by the estimated coefficient. Any variation in marginal productivity across firms, even if it exists, cannot be addressed by these coefficients. To account for this variation, we can calculate the output elasticity by dividing each input coefficient by the corresponding average product and then examine how this elasticity measures may vary across firms.</p>
+<p>In contrast, when estimating a Cobb-Douglas production function, the elasticity of output with respect to each input is directly represented by the regression coefficients. Then, plots of marginal products derived from a Cobb-Douglas function will typically show variation across firms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Caclulate output elasticity, compute mean and meadian, plot histograms</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>eCap <span class="ot">&lt;-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qCap"</span>] <span class="sc">/</span> dat<span class="sc">$</span>apCap</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>eLab <span class="ot">&lt;-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qLab"</span>] <span class="sc">/</span> dat<span class="sc">$</span>apLab</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>eMat <span class="ot">&lt;-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qMat"</span>] <span class="sc">/</span> dat<span class="sc">$</span>apMat</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>( <span class="fu">subset</span>( dat, , <span class="fu">c</span>( <span class="st">"eCap"</span>, <span class="st">"eLab"</span>, <span class="st">"eMat"</span> ) ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     eCap      eLab      eMat 
+0.1202721 2.0734793 0.8631936 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colMedians</span>( <span class="fu">subset</span>( dat, , <span class="fu">c</span>( <span class="st">"eCap"</span>, <span class="st">"eLab"</span>, <span class="st">"eMat"</span> ) ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      eCap       eLab       eMat 
+0.08063406 1.28627208 0.58741460 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>eCap , <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>( dat<span class="sc">$</span>eCap <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>eLab , <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>( dat<span class="sc">$</span>eLab <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 87</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>eMat , <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>( dat<span class="sc">$</span>eMat <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 36</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>( dat<span class="sc">$</span>eCap <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">sum</span>( dat<span class="sc">$</span>eLab <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">sum</span>( dat<span class="sc">$</span>eMat <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 124</code></pre>
+</div>
+</div>
+<p>Recall that the elasticity measures percentage change in output due to a percentage change in input. The marginal effect of capital on the output is rather small for most firms (mostly between 0 to 0,2 percent), there are many firms with implausibly high output elasticities of labor (for most, it is between 0,5 to 3) and materials (for most, it is between 0,2 to 1,2). There are many firms with implausibly high output elasticities (<span class="math inline">\(\varepsilon_i&gt;1\)</span>) of labour and materials. We computed the total number of firms exhibiting an output elasticity of some inputs at a level more than one–the number is quite high, 124 out of 140.</p>
+</section>
+<section id="returns-to-scale-1" class="level3">
+<h3 class="anchored" data-anchor-id="returns-to-scale-1">Returns to scale</h3>
+<p>Recall that the elasticity of scale reflects the returns to scale of a production technology: <span class="math inline">\(\varepsilon&lt;1\)</span> implies DRS, <span class="math inline">\(\varepsilon=1\)</span> implies CRS, and <span class="math inline">\(\varepsilon&gt;1\)</span> implies IRS. Since firms will have different elasticities, we will see variation of <span class="math inline">\(\varepsilon\)</span> values across firms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate elasticity of scale, compute mean and median, plot histograms, both based on observed average productivity and predicted average productivity</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>eScale <span class="ot">&lt;-</span> <span class="fu">with</span>( dat, eCap <span class="sc">+</span> eLab <span class="sc">+</span> eMat )</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colMeans</span>( <span class="fu">subset</span>( dat, , <span class="fu">c</span>( <span class="st">"eScale"</span> ) ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  eScale 
+3.056945 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colMedians</span>( <span class="fu">subset</span>( dat, , <span class="fu">c</span>( <span class="st">"eScale"</span> ) ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  eScale 
+1.941536 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>eScale, <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>( dat<span class="sc">$</span>eScale <span class="sc">&gt;</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67</code></pre>
+</div>
+</div>
+<p>Based on the median values, we can conclude that most firms exhibit increasing returns to scale. The histogram shows that the majority have an elasticity of scale between 1 and 2, with 67 firms showing implausibly high returns (<span class="math inline">\(\varepsilon&gt;2\)</span>) to scale.</p>
+<p>Which firms exhibit high returns to scale? We plot elasticity of scale against size proxies, such as output and an input index.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot elasticity of scale against input index and output index</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>qOut, dat<span class="sc">$</span>eScale, <span class="at">log =</span> <span class="st">"x"</span> )</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="dv">1</span>, <span class="dv">0</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>( dat<span class="sc">$</span>X, dat<span class="sc">$</span>eScale, <span class="at">log =</span> <span class="st">"x"</span> )</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="dv">1</span>, <span class="dv">0</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The scatter plots typically show that firms employing smaller input levels exhibit increasing returns to scale, which is expected. A few firms display decreasing returns to scale, and this is observed among firms using both high and low input volumes.</p>
+</section>
+<section id="input-substitutionmrts-and-rmrts" class="level3">
+<h3 class="anchored" data-anchor-id="input-substitutionmrts-and-rmrts">Input substitution–MRTS and RMRTS</h3>
+<p>In a linear production function, the Marginal Rate of Technical Substitution (MRTS) is constant and can be measured as the ratio of the coefficients of the inputs. The relative MRTS (RMRTS) will however vary across firms, due to the variation in output elasticities. Furthermore, since we do not know the units of measurement for the input variables, the interpretation of MRTS is not meaningful. In this context, RMRTS is more useful. As we have shown earlier, it can be expressed as the ratio of output elasticities and is therefore interpreted in a unit-free manner.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MRTS</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>mrtsCapLab <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qLab"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qCap"</span>]</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>mrtsLabCap <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qCap"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qLab"</span>]</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>mrtsCapMat <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qMat"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qCap"</span>]</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>mrtsMatCap <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qCap"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qMat"</span>]</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>mrtsLabMat <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qMat"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qLab"</span>]</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>mrtsMatLab <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qLab"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qMat"</span>]</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate RMRTS</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>rmrtsCapLab <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>eLab <span class="sc">/</span> dat<span class="sc">$</span>eCap</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>rmrtsLabCap <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>eCap <span class="sc">/</span> dat<span class="sc">$</span>eLab</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>rmrtsCapMat <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>eMat <span class="sc">/</span> dat<span class="sc">$</span>eCap</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>rmrtsMatCap <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>eCap <span class="sc">/</span> dat<span class="sc">$</span>eMat</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>rmrtsLabMat <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>eMat <span class="sc">/</span> dat<span class="sc">$</span>eLab</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>rmrtsMatLab <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>eLab <span class="sc">/</span> dat<span class="sc">$</span>eMat</span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw histogram of RMRTS</span></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>rmrtsCapLab, <span class="dv">20</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>rmrtsLabCap, <span class="dv">20</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>rmrtsCapMat, <span class="dv">20</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-15-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>rmrtsMatCap, <span class="dv">20</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-15-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>rmrtsLabMat, <span class="dv">20</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-15-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>rmrtsMatLab, <span class="dv">20</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-15-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In our data set, most firms require approximately twenty percentage more capital or around two percentage more materials to make up for a one percentage reduction in labor.</p>
+</section>
+<section id="profit-maximizing-behavior" class="level3">
+<h3 class="anchored" data-anchor-id="profit-maximizing-behavior">Profit-maximizing behavior</h3>
+<p>According to the profit-maximizing principle, the marginal value products—calculated as the output price multiplied by the marginal products—must equal the input prices at the optimal input choices. We plot marginal value products against the input prices across firms (we scale the axes for better viewing).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MVP, plot MVP against input prices</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mvpCap <span class="ot">&lt;-</span> dat<span class="sc">$</span>pOut <span class="sc">*</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qCap"</span>]</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mvpLab <span class="ot">&lt;-</span> dat<span class="sc">$</span>pOut <span class="sc">*</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qLab"</span>]</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mvpMat <span class="ot">&lt;-</span> dat<span class="sc">$</span>pOut <span class="sc">*</span> <span class="fu">coef</span>(prodlinear)[<span class="st">"qMat"</span>]</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pCap, dat<span class="sc">$</span>mvpCap, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pLab, dat<span class="sc">$</span>mvpLab, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pMat, dat<span class="sc">$</span>mvpMat, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-16-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The scatter plot All firms could increase their profits by using more labor and materials, and some could also benefit from using more capital. Since most firms operate under increasing returns to scale, it is not surprising that many would gain from increasing most—or even all—input quantities. Why do not they do so? It might be possible there is imperfections in the input markets so that input prices do not perfectly reflect the marginal contributions.</p>
+</section>
+<section id="cost-minimizing-behavior" class="level3">
+<h3 class="anchored" data-anchor-id="cost-minimizing-behavior">Cost-minimizing behavior</h3>
+<p>According to the cost-minimizing principle, the ratio of input prices must equal the absolute value of the MRTS between two inputs, which is constant in the case of a linear production function (the ratio of the coefficients). We create a histogram of input price ratios and compare it to the MRTS, represented by a solid vertical line.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw histogram of input price ratios</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>pCap <span class="sc">/</span> dat<span class="sc">$</span>pLab )</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">v =</span> <span class="sc">-</span> mrtsLabCap, <span class="at">lwd =</span> <span class="dv">3</span>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>pCap <span class="sc">/</span> dat<span class="sc">$</span>pMat )</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">v =</span> <span class="sc">-</span> mrtsMatCap, <span class="at">lwd =</span> <span class="dv">3</span>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>pLab <span class="sc">/</span> dat<span class="sc">$</span>pMat )</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">v =</span> <span class="sc">-</span> mrtsMatLab, <span class="at">lwd =</span> <span class="dv">3</span>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-17-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>pLab <span class="sc">/</span> dat<span class="sc">$</span>pCap )</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">v =</span> <span class="sc">-</span> mrtsCapLab, <span class="at">lwd =</span> <span class="dv">3</span>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-17-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>pMat <span class="sc">/</span> dat<span class="sc">$</span>pCap )</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">v =</span> <span class="sc">-</span> mrtsCapMat, <span class="at">lwd =</span> <span class="dv">3</span>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-17-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>pMat <span class="sc">/</span> dat<span class="sc">$</span>pLab )</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>( <span class="at">v =</span> <span class="sc">-</span> mrtsLabMat, <span class="at">lwd =</span> <span class="dv">3</span>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-17-6.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>All plots provide evidence that most firms could benefit from substituting capital with labor, and capital with materials. When comparing labor and materials, most firms would benefit from substituting materials with labor. These observations align with our findings based on the profit-maximizing principle.</p>
+</section>
+</section>
+<section id="other-production-function" class="level2">
+<h2 class="anchored" data-anchor-id="other-production-function">Other production function</h2>
+<p>Using similar techniques, we can estimate other production function forms with our data and evaluate the following:</p>
+<ul>
+<li><p>Theoretical consistency</p></li>
+<li><p>Productivity and output elasticity</p></li>
+<li><p>Returns to scale</p></li>
+<li><p>Input substitution</p></li>
+<li><p>Profit-maximizing and cost-minimizing behavior</p></li>
+</ul>
+<p>Below, we will estimate another form: the Cobb-Douglas and compare the two estimated models. Additional specifications (Quadratic form and Translog form) can be found in <span class="citation" data-cites="henningsen2024introduction">(<a href="#ref-henningsen2024introduction" role="doc-biblioref">Henningsen 2024</a>)</span>.</p>
+</section>
+<section id="cobb-douglas-production-function" class="level2">
+<h2 class="anchored" data-anchor-id="cobb-douglas-production-function">Cobb-Douglas production function</h2>
+<p>The specification of a Cobb-Douglas production function with N inputs is</p>
+<p><span class="math display">\[
+y=A\prod_{i=1}^{N}{x_i}^{\alpha_i}
+\]</span></p>
+<p>Although the specification is not linear, a simple modification allows us to express the relationship in a linear form, enabling us to estimate all parameters using linear regression techniques.</p>
+<p>Taking natural log on both sides, we can express the above form (replacing <span class="math inline">\(\ln A\)</span> by <span class="math inline">\(\alpha_0\)</span>) as</p>
+<p><span class="math display">\[
+\ln y=\alpha_0 + \sum_{i=1}^{N}{\alpha_i \ln x_i}
+\]</span></p>
+<section id="estimation-1" class="level3">
+<h3 class="anchored" data-anchor-id="estimation-1">Estimation</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fitting a linear model</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>prodCD <span class="ot">&lt;-</span> <span class="fu">lm</span>( <span class="fu">log</span>( qOut ) <span class="sc">~</span> <span class="fu">log</span>( qCap ) <span class="sc">+</span> <span class="fu">log</span>( qLab ) <span class="sc">+</span> <span class="fu">log</span>( qMat ), <span class="at">data =</span> dat )</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( prodCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(qOut) ~ log(qCap) + log(qLab) + log(qMat), data = dat)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.67239 -0.28024  0.00667  0.47834  1.30115 
+
+Coefficients:
+            Estimate Std. Error t value   Pr(&gt;|t|)    
+(Intercept) -2.06377    1.31259  -1.572     0.1182    
+log(qCap)    0.16303    0.08721   1.869     0.0637 .  
+log(qLab)    0.67622    0.15430   4.383 0.00002327 ***
+log(qMat)    0.62720    0.12587   4.983 0.00000187 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.656 on 136 degrees of freedom
+Multiple R-squared:  0.5943,    Adjusted R-squared:  0.5854 
+F-statistic: 66.41 on 3 and 136 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+</div>
+<p>The regression results show that the coefficients for ln(labor) and ln⁡(materials) are positive and significant, while the coefficient for ln⁡(capital) is not. However, from a theoretical perspective, capital is important, so it would be prudent not to drop it from our estimated model.</p>
+</section>
+<section id="is-it-a-good-fit-1" class="level3">
+<h3 class="anchored" data-anchor-id="is-it-a-good-fit-1">Is it a good fit?</h3>
+<p>Note that the <span class="math inline">\(R^2\)</span> is 0.59, but it is not directly comparable to the <span class="math inline">\(R^2\)</span> from a linear model. Later, when comparing various models, we will use a hypothetical <span class="math inline">\(R^2\)</span> value that measures the correlation between the observed values of the dependent variable and the residuals.</p>
+<p>We examine the scatterplot of predicted values against observed values. Note that we must exponentiate the predicted values, as the model was estimated using log-transformed variables. In addition, we scale the axes using a logarithmic scale for finer view; otherwise, we will see a cluster of observation near the origin.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted vs. observed plot</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>qOutCD <span class="ot">&lt;-</span> <span class="fu">exp</span>( <span class="fu">fitted</span>( prodCD ) )</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>qOut, dat<span class="sc">$</span>qOutCD , <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The scatter plot reveals some interesting patterns. For low observed y values, the predicted values are systematically higher than the observed ones, while the opposite is true for large y values. This suggests that the Cobb-Douglas form may not be a good fit, as it systematically overestimates and underestimates the dependent variable within specific ranges of y values.</p>
+</section>
+<section id="theoretical-consistency-1" class="level3">
+<h3 class="anchored" data-anchor-id="theoretical-consistency-1">Theoretical consistency</h3>
+<p><em>Essentiality:</em> Theoretically, all inputs are essential in Cobb-Douglas form (if we drop any, the output becomes zero). Since ln(zero) is undefined, the estimated form trivially satisfies essentiality.</p>
+<p><em>Monotonicity:</em> The positive and significant coefficients of labour and materials satisfy the monotonicity condition.</p>
+<p><em>Non-negativity:</em> Although the intercept term is negative, <span class="math inline">\(exp(\alpha_0)\)</span> is positive, and so predicted output remains positive.</p>
+</section>
+<section id="studying-properties-of-the-production-function-1" class="level3">
+<h3 class="anchored" data-anchor-id="studying-properties-of-the-production-function-1">Studying properties of the production function</h3>
+</section>
+<section id="productivityoutput-elasticity-1" class="level3">
+<h3 class="anchored" data-anchor-id="productivityoutput-elasticity-1">Productivity–Output elasticity</h3>
+<p>The estimated linear production function implicitly assumes that all firms share the same marginal productivity. However, this is not the case with the Cobb-Douglas production function. In the Cobb-Douglas form, it can be shown that output elasticity is fully determined by the model parameters, implying that the estimated model assumes that all firms have the same output elasticity.</p>
+<p>Observe that</p>
+<p><span class="math display">\[
+MP_i=\frac{\partial y}{\partial x_i}= A\frac{\partial \prod_{i=1}^{N}{x_i}^{\alpha_i}}{\partial x_i} = A \alpha_i x_i^{\alpha_i-1} \prod_{j \neq i}^{N}{x_j}^{\alpha_j} = \frac{\alpha_i y}{x_i}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\varepsilon_i = \frac{\partial y}{\partial x_i} \cdot \frac{x_i}{y} = \frac{\alpha_i y}{x_i} \cdot \frac{x_i}{y} = \alpha_i
+\]</span></p>
+<p>Therefore, the elasticity of each input is directly measured by the linear model coefficients—0.16 for capital, 0.67 for labor, and 0.62 for materials. This means that, for example, a one-percent change in labor will result in an average 0.67 percent change in output for these firms.</p>
+<p>Comparing these numbers with our findings from the linear model, where we observe a distribution of elasticity measures across the firms in our dataset, we see that the elasticity measures for labor and materials are considerably smaller in the Cobb-Douglas form, while the effect is opposite for capital.</p>
+<p>Below, we calculate marginal productivity (MP) at the firm level and examine its frequency distribution. Since MP can be calculated at a specific output level, we compute it at the observed output level y for each firm. If our model is a <em>good fit</em>, we could also compute it using the predicted y values. The distribution of MP values from this approach might provide a clearer picture of the true underlying distribution of productivity. See the discussion in <span class="citation" data-cites="henningsen2024introduction">(<a href="#ref-henningsen2024introduction" role="doc-biblioref">Henningsen 2024</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute marginal products</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mpCapCD <span class="ot">&lt;-</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qCap)"</span>] <span class="sc">*</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>qCap</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mpLabCD <span class="ot">&lt;-</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qLab)"</span>] <span class="sc">*</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>qLab</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mpMatCD <span class="ot">&lt;-</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qMat)"</span>] <span class="sc">*</span> dat<span class="sc">$</span>qOut <span class="sc">/</span> dat<span class="sc">$</span>qMat</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw histograms</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>mpCapCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>mpLabCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>mpMatCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-20-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>If firms increase capital input by one unit, the output for most firms will rise by between 0 and 8 units. Similarly, a one-unit increase in labor input leads to an output increase of between 2 and 12 units for most firms, while a one-unit increase in materials results in an output boost of between 20 and 80 units. See the histograms of MPs calculated at the predicted y values in <span class="citation" data-cites="henningsen2024introduction">(<a href="#ref-henningsen2024introduction" role="doc-biblioref">Henningsen 2024</a>)</span>, which show similar results.</p>
+</section>
+<section id="returns-to-scale-2" class="level3">
+<h3 class="anchored" data-anchor-id="returns-to-scale-2">Returns to scale</h3>
+<p>Recall that the elasticity of scale is the sum of output elasticities, which in this case, is measured as <span class="math inline">\(\varepsilon=\sum_{i} \alpha_i=1.466\)</span></p>
+<p>As with our output elasticity measures, the Cobb-Douglas model implicitly assumes a constant elasticity of scale across all firms. On average, it indicates increasing returns to scale, suggesting that firms could benefit from scaling up production.</p>
+</section>
+<section id="input-substitution-1" class="level3">
+<h3 class="anchored" data-anchor-id="input-substitution-1">Input substitution</h3>
+<p>As before, we calculate both MRTS and RMRTS, each with its own advantages and disadvantages in this context. Interpreting MRTS is challenging because the units of measurement for the input variables are unknown. However, unlike in the case of a linear production function, MRTS varies across firms, offering a broader perspective on how firms differ in their input substitution choices. RMRTS, on the other hand, provides a unit-free interpretation, but in the case of the Cobb-Douglas production function, it remains globally constant across firms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MRTS and draw histograms</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mrtsCapLabCD <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>mpLabCD <span class="sc">/</span> dat<span class="sc">$</span>mpCapCD</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mrtsMatCapCD <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>mpCapCD <span class="sc">/</span> dat<span class="sc">$</span>mpMatCD</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mrtsMatLabCD <span class="ot">&lt;-</span> <span class="sc">-</span> dat<span class="sc">$</span>mpLabCD <span class="sc">/</span> dat<span class="sc">$</span>mpMatCD</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>mrtsCapLabCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>mrtsMatCapCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-21-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>( dat<span class="sc">$</span>mrtsMatLabCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-21-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>According to the MRTS based on the Cobb-Douglas production function, most firms require between 0.5 and 2 additional units of capital and between 0 and 0.15 additional units of materials to compensate for a one-unit reduction in labor. These findings are very similar to those from the linear production function case.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate RMRTS</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>rmrtsCapLabCD <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qLab)"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qCap)"</span>]</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>rmrtsCapLabCD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>log(qLab) 
+-4.147897 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>rmrtsMatCapCD <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qCap)"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qMat)"</span>]</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>rmrtsMatCapCD </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> log(qCap) 
+-0.2599291 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>rmrtsMatLabCD <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qLab)"</span>] <span class="sc">/</span> <span class="fu">coef</span>(prodCD)[<span class="st">"log(qMat)"</span>]</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>rmrtsMatLabCD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>log(qLab) 
+-1.078159 </code></pre>
+</div>
+</div>
+<p>RMRTS should be interpreted in percentage terms. If a firm wants to reduce labor use by one percent, it must increase capital use by 4.15 percent or material use by 1.08 percent to maintain the same output level.</p>
+<p>An important property of Cobb-Douglas production function is that the direct elasticities of substitution are always equal to one. As a result, the estimated model will not offer any insights into this aspect.</p>
+</section>
+<section id="profit-maximizing-behavior-1" class="level3">
+<h3 class="anchored" data-anchor-id="profit-maximizing-behavior-1">Profit-maximizing behavior</h3>
+<p>The profit-maximizing principle suggests that the marginal value products must equal the input prices at the optimal input choices. We plot marginal value products against the input prices across firms (we scale the axes for better viewing).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate MVP, plot MVP against input prices</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mvpCapCd <span class="ot">&lt;-</span> dat<span class="sc">$</span>pOut <span class="sc">*</span> dat<span class="sc">$</span>mpCapCD</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mvpLabCd <span class="ot">&lt;-</span> dat<span class="sc">$</span>pOut <span class="sc">*</span> dat<span class="sc">$</span>mpLabCD</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>mvpMatCd <span class="ot">&lt;-</span> dat<span class="sc">$</span>pOut <span class="sc">*</span> dat<span class="sc">$</span>mpMatCD</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pCap, dat<span class="sc">$</span>mvpCap, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pLab, dat<span class="sc">$</span>mvpLab, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pMat, dat<span class="sc">$</span>mvpMat, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-23-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>These plots show that the marginal value products are nearly always equal to or higher than the corresponding input prices. Therefore, most firms could increase their profits by using more of all inputs. Given that the estimated Cobb-Douglas technology exhibits an increasing returns to scale, it is not surprising that firms would benefit from increasing input quantities. These observations are also consistent with our findings from the estimated linear production specification. As we pointed out earlier, their decision not to employ more inputs might be related to imperfections in the input markets.</p>
+</section>
+<section id="cost-minimizing-behavior-1" class="level3">
+<h3 class="anchored" data-anchor-id="cost-minimizing-behavior-1">Cost-minimizing behavior</h3>
+<p>The cost-minimizing principle suggests that the ratio of input prices must equal the absolute value of the MRTS between two inputs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot MRTS against input price ratios</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pLab <span class="sc">/</span> dat<span class="sc">$</span>pCap, <span class="sc">-</span> dat<span class="sc">$</span>mrtsCapLabCD, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pCap <span class="sc">/</span> dat<span class="sc">$</span>pMat, <span class="sc">-</span> dat<span class="sc">$</span>mrtsMatCapCD, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compPlot</span>( dat<span class="sc">$</span>pLab <span class="sc">/</span> dat<span class="sc">$</span>pMat, <span class="sc">-</span> dat<span class="sc">$</span>mrtsMatLabCD, <span class="at">log =</span> <span class="st">"xy"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="apa3_files/figure-html/unnamed-chunk-24-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Most firms could benefit from substituting capital with labor, and capital with materials. These observations align with our findings based on the profit-maximizing principle.</p>
+</section>
+</section>
+<section id="comparison-of-the-two-models" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-of-the-two-models">Comparison of the two models</h2>
+<p>When one functional form is nested within another (for example, linear vs.&nbsp;quadratic production function, or Cobb-Douglas vs.&nbsp;Translog production function), standard statistical tests can be used to compare the two models; see the sections on estimating quadratic or Translog production functions in<span class="citation" data-cites="henningsen2024introduction">(<a href="#ref-henningsen2024introduction" role="doc-biblioref">Henningsen 2024</a>)</span>. In those cases, the tests rejected the linear production function in favor of the quadratic, while the evidence for rejecting the Cobb-Douglas in favor of the Translog production function was less conclusive.</p>
+<p>However, in our discussion, we are comparing two non-nested models—Linear and Cobb-Douglas. Comparing non-nested models is more complex.</p>
+<p>We will make a series of observations to compare the pros and cons of these two models based on our data.</p>
+<p>Since the two models have different dependent variables, y and ln(y), we cannot directly compare their R-squared values. Instead, we compare the R-squared from the linear model with a hypothetical R-squared based on the estimated Cobb-Douglas model, which measures the correlation between the observed y values and the residuals. Alternatively, we can reverse the process by comparing the R-squared from the Cobb-Douglas model with a hypothetical R-squared based on the estimated linear model, measuring the correlation between the observed ln(y) values and the residuals.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear model: R-square of y</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prodlinear)<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.786819</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cobb-Douglas: Hypothetical R-square of y</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rSquared</span>( dat<span class="sc">$</span>qOut, dat<span class="sc">$</span>qOut <span class="sc">-</span> dat<span class="sc">$</span>qOutCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.8067198</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear model: Hypothetical R-square of ln(y)</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rSquared</span>( <span class="fu">log</span>( dat<span class="sc">$</span>qOut[ dat<span class="sc">$</span>qOutLin <span class="sc">&gt;</span> <span class="dv">0</span> ] ), <span class="fu">log</span>( dat<span class="sc">$</span>qOut[ dat<span class="sc">$</span>qOutLin <span class="sc">&gt;</span> <span class="dv">0</span> ] ) <span class="sc">-</span> <span class="fu">log</span>( dat<span class="sc">$</span>qOutLin[ dat<span class="sc">$</span>qOutLin <span class="sc">&gt;</span> <span class="dv">0</span> ] ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.3796727</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cobb-Douglas: R-square of ln(y)</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prodCD)<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5943154</code></pre>
+</div>
+</div>
+<p>While the two models provide similar R-squared values regarding y, the R-squared value regarding ln(y) is considerably higher for the Cobb-Douglas function than for the linear function. However, as we have pointed out before, the scatter plot of observed against predicted values shows a different picture between the two models. It appears that the Cobb-Douglas form is systematically overestimating or underestimating y values for a broad range of firms.</p>
+<p>Based on our analysis above, we have seen that the estimated linear model also failed in some aspects. For example, it predicted a negative output value for one observation and showed implausibly high output elasticities and elasticity of scale for several firms.</p>
+<p>We apply Ramsey’s Regression Equation Specification Error Test (RESET) on the two functional forms using the resettest command.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RESET test</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">resettest</span>( prodlinear )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    RESET test
+
+data:  prodlinear
+RESET = 17.639, df1 = 2, df2 = 134, p-value = 0.0000001584</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resettest</span>( prodCD )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    RESET test
+
+data:  prodCD
+RESET = 2.9224, df1 = 2, df2 = 134, p-value = 0.05724</code></pre>
+</div>
+</div>
+<p>The linear form is clearly rejected, while the Cobb-Douglas form is accepted at the 5 percent significance level but rejected at the 10 percent level. Additional specifications—Quadratic and Translog production functions—are estimated in <span class="citation" data-cites="henningsen2024introduction">(<a href="#ref-henningsen2024introduction" role="doc-biblioref">Henningsen 2024</a>)</span>, where the Translog production function appears to provide a better fit among the four specifications. Below we listed various criteria for comparative assessment of the two models.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Assessment criteria</th>
+<th>Linear</th>
+<th>Cobb-Douglas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R-square of y</td>
+<td>0.786819</td>
+<td>0.8067198</td>
+</tr>
+<tr class="even">
+<td>R-square of ln y</td>
+<td>0.3796727</td>
+<td>0.5943154</td>
+</tr>
+<tr class="odd">
+<td>Predicted vs Observed plot</td>
+<td>(+)</td>
+<td>(-)</td>
+</tr>
+<tr class="even">
+<td>Negative output prediction</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Monotonicity violation</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Implausible output elasticities</td>
+<td>124</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Implausible scale elasticity</td>
+<td>67</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>RESET (p-value)</td>
+<td>0.0000001584</td>
+<td>0.05724</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong><em>Reading materials:</em></strong></p>
+<ul>
+<li><p>Henningsen, chapter 2</p></li>
+<li><p>Varian, Chapter 2, 4</p></li>
+</ul>
+<hr>
+<hr>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="references" class="level1 unnumbered">
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-micecon:2005" class="csl-entry" role="listitem">
+Henningsen, Arne. 2005. <span>“micEcon: Microeconomic Analysis and Modelling.”</span> The R Foundation. <a href="https://doi.org/10.32614/cran.package.micecon">https://doi.org/10.32614/cran.package.micecon</a>.
+</div>
+<div id="ref-henningsen2024introduction" class="csl-entry" role="listitem">
+———. 2024. <span>“Introduction to Econometric Production Analysis with r.”</span> <em>Department of Food and Resource Economics, University of Copenhagen</em> Sixth draft version.
+</div>
+<div id="ref-hicks1963theory" class="csl-entry" role="listitem">
+Hicks, John. 1963. <em>The Theory of Wages</em>. Springer.
+</div>
+<div id="ref-ivaldi1996" class="csl-entry" role="listitem">
+Ivaldi, Marc, Norbert Ladoux, Hervé Ossard, and Michel Simioni. 1996. <span>“Comparing Fourier and Translog Specifications of Multiproduct Technology: Evidence from an Incomplete Panel of French Farmers.”</span> <em>Journal of Applied Econometrics</em> 11 (6): 649–67. <a href="https://doi.org/10.1002/(sici)1099-1255(199611)11:6<649::aid-jae416>3.0.co;2-4">https://doi.org/10.1002/(sici)1099-1255(199611)11:6&lt;649::aid-jae416&gt;3.0.co;2-4</a>.
+</div>
+<div id="ref-varian1992microeconomic" class="csl-entry" role="listitem">
+Varian, Hal R. 1992. <span>“Microeconomic Analysis.”</span> WW Norton &amp; Company.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>You might notice variations in how this set is represented in different books. For example, in Figure 2, we include vectors (y, x), where y represents output and x represents input. In some cases, the production set is defined as the collection of all (y,−x), where the negative sign indicates the use of inputs, and the positive sign indicates the production of output; see, for example,<span class="citation" data-cites="varian1992microeconomic">(<a href="#ref-varian1992microeconomic" role="doc-biblioref">Varian 1992</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

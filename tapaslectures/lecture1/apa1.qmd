@@ -1,0 +1,419 @@
+---
+title: "Linear Model in Economics"
+subtitle: "Part 1: Applied Prodcution Analysis"
+authors:
+  - name: Tapas Kundu
+    affiliation: UiT
+format: 
+    pdf: 
+        fontsize: 12pt
+        header-includes:
+          - \usepackage{setspace}
+          - \onehalfspacing
+output:
+  html_document: default
+  pdf_document:
+    toc: true
+    toc_float: true
+    code_folding: show
+    output-width: 80 # Adjust the width to your preference
+date: today
+bibliography: references.bib
+---
+
+# Lecture 1
+
+# Introduction
+
+The first part of this course focuses on applied production analysis. We study microeconomic production theory and explore empirical applications. For the empirical component, we will be using R.
+
+Supplementary reading materials include *Introduction to Econometric Production Analysis with R* (sixth draft version) by Arne Henningsen [@henningsen2024introduction, Chapters 1-5], and for the theoretical component, *Microeconomic Analysis* by Hal Varian [@varian1992microeconomic, Chapters 1-6].
+
+The core question involves estimating production technology based on observational micro-level data of firms' behavior. This methodology can be applied in various contexts, including profit-motivated firms in the private sector, the performance of non-profit organizations, and across different industries such as agriculture, manufacturing, and services.
+
+There are essentially four different methods used in the applied production analysis.
+
+1.  Least square methods for estimation of production functions
+2.  Total-factor productivity (TFP) indices
+3.  Data envelopment analysis (DEA)
+4.  Stochastic frontier analysis (SFA)
+
+In this course, we will focus on the first two methods, which assume that all firms are technically efficient. In contrast, methods three and four provide measures of relative efficiency among a group of firms, which implicitly assume not all firms are technically efficient.
+
+## Efficiency and productivity
+
+Efficiency and productivity are distinct technical concepts. The following diagram may help illustrate these distinctions.
+
+![Productivity and technical efficiency](figures/figure1.1.png){fig-align="center" width="389"}
+
+Consider a simple illustration of production method that converts an input x to an output y, and the relationship is given by the curve OF in Figure 1. There are three firms who are engaged in this productive activity, and their input-output combinations are given by A, B, and C, respectively. We can say that firm producing at A is technically inefficient compared to the firm producing at B, since the former is not producing as much output as the other one, even if both are using the same volume of input. By this argument, any production point below the OF curve are technically inefficient. Are all technically efficient points equally productive? Not necessarily! If we measure productivity by output produced per unit of input, then the firm producing at C has the productive use of its input.
+
+Allocative efficiency is another important concept, which requires choosing the optimal combination of inputs to produce a given quantity of output. Allocative and technical efficiency together provide an overall efficiency measure.
+
+## Data set
+
+We will be using a simple dataset for the empirical analysis of the theoretical concepts. The data set is shared in the *micEcon* R package [@micecon:2005]. The data set consists of production data of 140 French apple producers from the year 1986. These data are extracted from a panel data studied in [@ivaldi1996].
+
+```{r, linebreak=80}
+library(micEcon); library(psych)
+data( "appleProdFr86", package = "micEcon" )
+help("appleProdFr86")
+dat <- appleProdFr86
+rm(appleProdFr86)
+head(dat, 5)  # A truncated preview of the data set
+describe(dat)
+```
+
+The data frame contains the following columns:
+
+vCap: costs of capital (including land).
+
+vLab: costs of labour (including remuneration of unpaid family labour).
+
+vMat: costs of intermediate materials (e.g. seedlings, fertilizer, pesticides, fuel).
+
+qApples: quantity index of produced apples.
+
+qOtherOut: quantity index of all other outputs.
+
+qOut: quantity index of all outputs (not in the original data set, calculated as 580,000 ⋅⋅ (`qApples` + `qOtherOut`)).
+
+pCap: price index of capital goods pLab: price index of labour.
+
+pMat: price index of materials.
+
+pOut: price index of the aggregate output (not in the original data set, artificially generated).
+
+adv: dummy variable indicating the use of an advisory service (not in the original data set, artificially generated).
+
+Note that the firms were engaged in multi-output production. Analyzing this can be challenging, as firms optimize the mix of both inputs and outputs based on relative returns. As discussed in [@ivaldi1996], non-specialization was a crucial aspect of the agricultural production process.
+
+## Primal versus dual approach
+
+Duality is a fundamental concept in optimization, particularly in linear programming and game theory. The essence of duality is that every optimization problem (referred to as the *primal* problem) can be associated with a corresponding *dual* problem, where the solution to one provides bounds to the solution of the other.
+
+Since the study of economics draws heavily on optimization theory, it is no surprise that duality plays a significant role in economics as well. For example, in the context of producer behavior, the primal approach involves studying how firms can optimally decide on the input mix for a given production technology to achieve an objective, such as minimizing expenses to produce a certain volume of output. The resulting optimal expense is referred to as the cost function, which characterizes the minimum expenditure needed to produce a specific quantity. Duality tells us that the cost function is sufficiently informative, allowing us to confidently trace back the production technology under mild conditions.
+
+Prior to 1970, economists mostly followed Samuelson's classic treatment of profit-maximizing firms, where firms face technological constraints, typically modeled with a smooth production function, and standard optimization techniques are used to infer producer responses to price perturbations. This approach is often referred to as the primal approach. Later, the dual approach gained prominence, where exploring cost, profit, or revenue functions allows us to trace back the technological constraints.
+
+In this course, we will first explore the primal approach, both theoretically and empirically. Later, we will conduct similar exercises using the dual approach.
+
+------------------------------------------------------------------------
+
+\newpage
+
+# A theory of producer behavior
+
+## Production technology
+
+The set of all combinations of inputs and outputs that comprise a technologically feasible way to produce is called a ***production (possibility) set***.[^1]
+
+[^1]: You might notice variations in how this set is represented in different books. For example, in Figure 2, we include vectors (y, x), where y represents output and x represents input. In some cases, the production set is defined as the collection of all (y,−x), where the negative sign indicates the use of inputs, and the positive sign indicates the production of output; see, for example,[@varian1992microeconomic].
+
+The function describing the boundary of this set is known as the ***production function***. It measures the maximum possible output from a given amount of input.
+
+![Production set and production function](figures/figure1.2.png){fig-align="center" width="389"}
+
+As discussed before, a point in the interior of the production set represents a case of technically inefficient production. In the two-input case there is a convenient way to depict production relations in the form of an isoquant or indifference curve. An ***isoquant*** is the set of all possible combinations of inputs $(x_1,...,x_n)$ producing a given amount of output $y$.
+
+![Isoquants—Linear, Cobb-Douglas, and Leontief production technology](figures/figure1.3.png){fig-align="center" width="576" height="250"}
+
+The isoquants move in the top-right direction as $y$ goes up, since we need more inputs to produce more output. The top-right section of the isoquants, and including the points on the isoquants, are often referred to as the ***input requirement set***. Observe that for a given volume of output *y*, the input requirement set consists of all points on all the isoquants corresponding to the output level *y* or higher.
+
+A technology is called ***convex*** if the input requirement set is convex. For a convex technology, a convex combination of input choices increases the output volume.
+
+A technology is called ***monotone*** if its input requirement set satisfies the *monotonicity* property, which suggests that for any input vector $\mathbf{x}$ belonging to the input requirement set, all input vectors weakly greater than $\mathbf{x}$ must belong to the input requirement set. The idea is that if we increase the amount of each input beyond what is required to produce a certain volume of output, we can produce an output at least as large as the initial volume.
+
+While a production function is a useful way to characterize the production possibility in one-output case, a general representation of multi-output and multi-input production possibility is given by a ***transformation function*** $T:R^{n+m}\rightarrow R$ such that $T(\mathbf{x},\mathbf{q})=0$ represents a relationship where an input vector $\mathbf{x}$ is used to produce an output vector $\mathbf{q}$.
+
+## Some examples of useful production functions
+
+Linear: $y=\beta_0+\sum_{i=1}^{N}{\beta_i x_i}$
+
+Cobb-Douglas: $y=\beta_0\prod_{i=1}^{N}{x_i}^{\beta_i}$, or equivalently, $\ln y=\beta_0+\sum_{i=1}^{N}{\beta_i \ln x_i}$
+
+Leontief: $y=\min_{i=1}^{N} \{ {\beta_i x_i} \} $
+
+CES: $y=\left[\sum_{i=1}^{N}{\beta_i x_i^\rho}\right]^\frac{1}{\rho}$
+
+Quadratic: $y=\beta_0+\sum_{i}{\beta_i x_i}+ \frac{1}{2} \sum_{i}\sum_{j}{\beta_{ij} x_i x_j}$
+
+Translog: $\ln y=\beta_0+\sum_{i}{\beta_i \ln x_i}+ \frac{1}{2} \sum_{i}\sum_{j}{\beta_{ij} \ln x_i \ln x_j}$
+
+## Returns to scale
+
+Consider the following experiment: Let’s scale the amount of all inputs up by some constant factor *k*; what will happen to the output?
+
+If the output goes up by the same factor *k*, we call it a ***constant returns to scale (CRS)*** technology. Mathematically, a CRS technology exhibits $f(k \mathbf{x})=k\mathbf{f(x)}$.
+
+If the output increases less than k times, we call it a ***decreasing returns to scale (DRS)*** technology. Mathematically, a DRS technology exhibits $f(k \mathbf{x})<k\mathbf{f(x)}$.
+
+If the output increases more than *k* times, we call it an ***increasing returns to scale (IRS)*** technology. Mathematically, an IRS technology exhibits $f(k \mathbf{x})>k\mathbf{f(x)}$.
+
+*Test exercise:* Consider the following Cobb-Douglas production function is given by $f(x_1,x_2) = Ax_1^{a}x_2^{b}$. Find conditions under which the technology exhibits different kinds of returns to scale.
+
+# Measuring productivity
+
+### Average and marginal product
+
+*Single-input case:*
+
+Consider a production relationship given by $y=f(x)$ .
+
+The ***average productivity*** of the input $x$ is defined by $AP=f(x)/x$ .
+
+The ***marginal productivity*** of the input $x$ is defined by $MP=\partial{f(x)}/\partial{x}$.
+
+*Multi-input case:*
+
+As in the single-input case, we can define the average product or marginal product of the $i^{\text{th}}$ input with respect to each inputs. However, these measures then reflect simply partial productivity measures, and they can only be computed for some given values of other inputs.
+
+$$
+\begin{aligned}
+AP_i & = \frac{y}{x_i}= \frac{f(\mathbf{x})}{x_i} \\
+MP_i &= \frac{\partial y}{\partial x_i} = \frac{\partial f(\mathbf{x})}{\partial x_i}=f_i 
+\end{aligned}
+$$
+
+### Output elasticity
+
+The ***output elasticity of an input***$x_i$ measures the percentage changes in output because of a percentage change in input $x_i$.
+
+$$
+\begin{aligned}
+\varepsilon_i &= \frac{\partial f(\mathbf{x})/ f(\mathbf{x})}{\partial x_i/x_i} = \frac{MP_i}{AP_i}
+\end{aligned}
+$$
+
+Observe that output elasticities are free of the unit of measurement.
+
+The ***elasticity of scale*** is the sum of output elasticities of all input: $\varepsilon=\sum_i \varepsilon_i$.
+
+A technology exhibiting IRS, CRS, and DRS has the elasticity of scale $\varepsilon > 1$, $\varepsilon = 1$, and $\varepsilon < 1$, respectively. Using calculus, it can be derived that if a firm has an elasticity of scale as $1$ at its current size of production and if the elasticity of scale only monotonically decreases with further increase in size, then the firm has the most productive scale size at the current level.
+
+### Total factor productivity
+
+In multi-input production process, it is often desirable to calculate the ***total factor productivity (TFP)*** by aggregating inputs into an input index:
+
+$$
+TFP=\frac{y}{X},
+$$where $X$ is a quantity aggregating index of all inputs.
+
+### Indexing
+
+Indexing is used for measuring changes in a set of related variables. Conceptually, it can be used for comparison over time or space or both. Examples include price indices for measuring changes to consumer price, export or import prices, quantity indices measuring changes in output volume by a firm or industry over time or across firms.
+
+As an illustration, consider a formula for measuring the change of the value of a basket consisting of $n$ goods between the two period $t$ and $s$ can be measured by
+
+$$
+X=\frac{\sum_{i=1}^{n} x_{it}p_{it}}{\sum_{i=1}^{n} x_{is}p_{is}}.
+$$
+
+However, as time changes between $s$ and $t$, it is unclear whether the change in value is driven by the changes in $p_i$ or changes in $x_i$. To address this issue, we can fix one of the two variables, and look at the value index. For example, if we fix the prices (either to current or old prices), we get a measure due to changes in quantity, and it then reflects a quantity index. Similarly, if we fix the quantity (either to current or old quantity levels), we will get a price index. Although we consider changes with respect to time, we can use the concept for other types of changes, for example, variation across firms.
+
+### Various (quantity) indices:
+
+Denoting the good by subscript $i$, the sample observation by subscript $j$, and a base observational value (for example, the mean of the sample observations) by $0$, we measure
+
+Laspeyres quantity index: $$
+X_j^{L}=\frac{\sum_{i} x_{ij}p_{i0}}{\sum_{i} x_{i0}p_{i0}}
+$$
+
+Paasche quantity index: $$
+X_j^{P}=\frac{\sum_{i} x_{ij}p_{ij}}{\sum_{i} x_{i0}p_{ij}}
+$$
+
+Fisher's quantity index: $$
+X_j^{F}=\sqrt{X_j^{L} \times X_j^{P}}
+$$
+
+```{r, linebreak=80}
+# Generate input quantities
+dat$qCap <- dat$vCap / dat$pCap
+dat$qLab <- dat$vLab / dat$pLab
+dat$qMat <- dat$vMat / dat$pMat
+#
+# Creating quantity indices
+dat$XP <- with( dat, ( vCap + vLab + vMat ) / ( mean( qCap ) * pCap + mean( qLab ) * pLab + mean( qMat ) * pMat ) ) # Paasche Index
+dat$XL <- with( dat, ( qCap * mean( pCap ) + qLab * mean( pLab ) + qMat * mean( pMat ) ) / ( mean( qCap ) * mean( pCap ) + mean( qLab ) * mean( pLab ) + mean( qMat ) * mean( pMat ) ) ) # Laspeyres Index
+dat$X <- sqrt( dat$XP * dat$XL ) # Fisher Index
+# You can also generate these indices directly using micEconIndex package
+```
+
+#### Data: AP and TFP
+
+```{r, linebreak=80}
+# Measuring (partial) average product
+dat$apCap <- dat$qOut / dat$qCap
+dat$apLab <- dat$qOut / dat$qLab
+dat$apMat <- dat$qOut / dat$qMat
+hist( dat$apCap )
+hist( dat$apLab )
+hist( dat$apMat )
+```
+
+Average product measures vary considerably across firms, with most firms falling into the relatively low-productivity range.
+
+```{r, linebreak=80}
+# Plotting average partial productivity of one input against another across firms
+plot( dat$apCap, dat$apLab )
+plot( dat$apCap, dat$apMat )
+plot( dat$apLab, dat$apMat )
+```
+
+It appears that the average products of the three inputs are positively correlated.
+
+```{r, linebreak=80}
+# Plotting partial average products against output
+plot( dat$qOut, dat$apCap, log = "x" )
+plot( dat$qOut, dat$apLab, log = "x" )
+plot( dat$qOut, dat$apMat, log = "x" )
+```
+
+We did not have data on firm size. Assuming the volume of output as a proxy for firm size, we examined the plot of partial average products of each input against output. It appears that firms producing more also exhibit higher output per unit of input used.
+
+```{r, linebreak=80}
+# Measuring total factor productivity
+dat$tfp <- dat$qOut / dat$X # using Fisher index
+dat$tfpP <- dat$qOut / dat$XP # using Paasche Index
+dat$tfpL <- dat$qOut / dat$XL # using Laspeyres Index
+hist( dat$tfp )
+```
+
+TFP varies considerably across firms, with the majority falling into the relatively low-TFP range.
+
+```{r, linebreak=80}
+# Plotting tfp against output and input quantity index
+plot( dat$qOut, dat$tfp, log = "x" )
+plot( dat$X, dat$tfp, log = "x" )
+```
+
+These plots indicate that larger firms, characterized by higher output volumes, are typically associated with greater TFP. However, the plot of TFP against the aggregate input index shows only a mild positive association between the two.
+
+```{r, linebreak=80}
+# Does advisory service (a dummy) affects tfp?
+boxplot( tfp ~ adv, data = dat )
+boxplot( log(qOut) ~ adv, data = dat )
+```
+
+Some firms used advisory services. It appears that firms with or without advisory services use similar input quantities; however, those with advisory services are associated with a slightly higher TFP (in terms of expected value).
+
+## Input substitution
+
+What might cause variation in the input mix chosen by different firms? Are all firms operating with allocative efficiency?
+
+#### Marginal rate of technical substitution
+
+Suppose that we are operating at an input mix $(x_1,x_2)$ and that we consider substituting a little bit of input 1 with input 2 to produce the same amount of output y. How much extra of input 2 do we need? Mathematically, this is measured by the slope of the isoquant; we refer to it as the ***Marginal Rate of Technical Substitution (MRTS)***.
+
+Setting ${d}y=f_1dx_1+f_{2}dx_2=0$, we define MRTS as
+
+$$
+\begin{aligned}
+MRTS= \frac{dx_2}{dx_1} &=-\frac{f_1}{f_2}=-\frac{MP_1}{MP_2}.
+\end{aligned}
+$$
+
+Note that in some books, it might be measured as $dx_1/dx_2$. However, what is more important is how we interpret the formula once it is defined. In the current definition, it is interpreted as the amount of $x_2$ needed to substitute for one unit of $x_1$, while keeping the output at a constant level.
+
+#### Elasticity of substitution
+
+The importance of input substitution led to various definition of *elasticities of substitutions*. The elasticity of substitution between two inputs measures how easily one input can be substituted for another in response to changes in their relative prices, holding output constant. It is a measure of the curvature of the isoquant. Hicks [@hicks1963theory] offers the following definition of elasticity $\sigma$ between inputs $x_1$ and $x_2$:
+
+$$
+\begin{aligned}
+\sigma= \frac{d(x_2/x_1)}{d(f_1/f_2)}\frac{(f_1/f_2)}{(x_2/x_1)}=\frac{\text{percentage change in input ratio}}{\text{percentage change in MRTS}}.
+\end{aligned}
+$$
+
+To compute the elasticity, we typically express $MRTS$ in terms of the input ratio, or $\text{ln} (MRTS)$ in terms of $\text{ln} ({x_j}/{x_i})$, to find the corresponding derivative.
+
+$$
+\begin{aligned}
+\sigma= \frac{\frac{MRTS}{(x_2/x_1)}}{\frac{dMRTS}{d(x_2/x_1)}}=\frac{1}{\frac{d\mathbf{ln}MRTS}{d\mathbf{ln}(x_2/x_1)}}.
+\end{aligned}
+$$
+
+*Test exercise:*
+
+Consider a regular Cobb-Douglas production and show that it has an elasticity of substitution of $1$.
+
+An equivalent representation of $\sigma$ is
+
+$$
+\begin{aligned}
+\sigma= \frac{-f_1f_2(x_1f_1+x_2f_2)}{x_1x_2(f_{11}f_2^2-2f_{12}f_1f_2+f_{22}f_1^2)},
+\end{aligned}
+$$
+
+where $f_i$ and $f_{ii}$ are the first- and second-order partial derivatives, and $f_{ij}$ is the second-order cross derivative.
+
+Finally, another useful equivalent representation of the above formula, using the matrix notation, is given by
+
+$$
+\begin{aligned}
+\sigma= \frac{x_1f_1+x_2f_2}{x_1x_2}\frac{F_{12}}{F},
+\end{aligned}
+$$
+
+where $F$ is the determinant of the bordered Hessian of the production function:
+
+$$
+F=\left|\begin{array}{ccc}
+0 & f_1 & f_2 \\
+f_1 & f_{11} & f_{12} \\
+f_2 & f_{12} & f_{22}
+\end{array}\right|,
+$$ and $F_{12}$ is the associated co-factor of $f_{12}$.
+
+With multiple inputs, we can consider the same formula—replacing $1$ by $i$ and $2$ by $j$—to compute the elasticity of substitution $\sigma_{ij}^D$ for any pair of inputs $x_i$ and $x_j$.
+
+Two observations to note: (i) This measure then implicitly assumes that we are holding all other inputs constant; (ii) When the production is continuously differentiable, the cross-derivatives are symmetric, implying that $\sigma_{ij}^D=\sigma_{ji}^D$. As we hold other inputs constant, this measure is also referred to as ***short-run elasticity of substitution*** (because of first point) or ***Direct elasticity of substitution***.
+
+A generalization of the above measure of elasticity of substitution is ***Allen partial elasticity of substitution***, which is defined as
+
+$$
+\begin{aligned}
+\sigma_{ij}= \frac{\sum_{i}x_if_i}{x_ix_j}\frac{F_{ij}}{F},
+\end{aligned}
+$$ where $F$ is the determinant of the bordered Hessian matrix:
+
+$$
+F=\left|\begin{array}{ccccc}
+0 & f_1 & f_2 & \cdots & f_n  \\
+f_1 & f_{11} & f_{12} & \cdots & f_{1n} \\
+f_2 & f_{12} & f_{22} & \cdots & f_{2n}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+f_n & f_{1n} & f_{2n} & \cdots & f_{nn}
+\end{array}\right|,
+$$and $F_{ij}$ is the co-factor of $f_{ij}$.
+
+The final elasticity measure is the ***Morishima elasticity of substitution***, which is given by
+
+$$
+\begin{aligned}
+\sigma_{ij}^M= \frac{f_i}{x_i}\frac{F_{ij}}{F}-\frac{f_j}{x_j}\frac{F_{jj}}{F}=\frac{x_jf_j}{\sum_{i}x_if_i}(\sigma_{ij}-\sigma_{jj}),
+\end{aligned}
+$$where $\sigma_{ij}$ (without the superscript) denote the Allen elasticity measure.
+
+Observe that unlike Allen elasticity measure, Morishima measure is not symmetric. Further, a pair of goods can be complements in terms of Allen elasticity, whereas the corresponding Morishima measure could class them as substitutes.
+
+We will consider these measures of elasticity for the specific functional forms of the production function estimated for our dataset.
+
+------------------------------------------------------------------------
+
+***Reading materials:***
+
+-   Henningsen, chapter 2
+
+-   Varian, Chapter 1
+
+***Next lecture:***
+
+1.  Estimation of production functions and goodness of fit
+
+2.  Framework for profit maximization and cost minimization
+
+------------------------------------------------------------------------
+
+\newpage

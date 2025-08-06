@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Espen Sirnes">
+<meta name="dcterms.date" content="2024-10-30">
+
+<title>5 - Value at Risk (VaR)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="5-lecture_VaR_files/libs/clipboard/clipboard.min.js"></script>
+<script src="5-lecture_VaR_files/libs/quarto-html/quarto.js"></script>
+<script src="5-lecture_VaR_files/libs/quarto-html/popper.min.js"></script>
+<script src="5-lecture_VaR_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="5-lecture_VaR_files/libs/quarto-html/anchor.min.js"></script>
+<link href="5-lecture_VaR_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="5-lecture_VaR_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="5-lecture_VaR_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="5-lecture_VaR_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="5-lecture_VaR_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="5-lecture_VaR.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="5-lecture_VaR.ipynb" download="5-lecture_VaR.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">5 - Value at Risk (VaR)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Espen Sirnes </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 30, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="var" class="level1">
+<h1>VaR</h1>
+<p>Value at Risk, commonly known as VaR, is a foundational concept in risk management, widely used by financial institutions to quantify and control risk exposure <span class="citation" data-cites="RiskMetrics1996">(<a href="#ref-RiskMetrics1996" role="doc-biblioref">Morgan and Reuters 1996</a>)</span>. Essentially, VaR answers the question, <em>“What is the maximum potential loss over a given time period within a specified confidence interval?”</em> The confidence interval here represents the range within which we expect a certain percentage of returns to fall. For instance, with a 95% confidence interval, we anticipate that only 5% of cases will breach this lower threshold. The closer the model’s expected breaches are to the actual empirical frequency, the better the model’s accuracy.</p>
+<p>VaR provides a standardized way to assess risk, helping firms to understand potential losses and allocate capital effectively <span class="citation" data-cites="Jorion2007">(<a href="#ref-Jorion2007" role="doc-biblioref">Jorion 2007</a>)</span>. Regulators also rely heavily on VaR; in fact, this method is embedded directly in EU financial regulations, requiring banks to hold capital reserves proportional to their risk exposure <span class="citation" data-cites="Ong2007">(<a href="#ref-Ong2007" role="doc-biblioref">Ong 2007</a>)</span>. By setting a standardized measure for risk, VaR supports financial stability and resilience, making it invaluable for both risk managers and regulators.</p>
+<p>In this lecture, we’ll see that VaR is not a single, fixed method. Its accuracy and effectiveness depend on one crucial element: how volatility is predicted. Different approaches to forecasting volatility result in varying VaR outcomes, each with its strengths and limitations. By exploring these nuances, we’ll gain a deeper understanding of both the power and the limitations of VaR as a risk management tool.</p>
+<p>We start by loading the data from lecture 3:</p>
+<div id="9243e793" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'output/X.df'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Symbol</th>
+<th data-quarto-table-cell-role="th">EQNR</th>
+<th data-quarto-table-cell-role="th">NHY</th>
+<th data-quarto-table-cell-role="th">TEL</th>
+<th data-quarto-table-cell-role="th">YAR</th>
+<th data-quarto-table-cell-role="th">Optimal</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2016-01-10</td>
+<td>-0.118288</td>
+<td>-0.137636</td>
+<td>-0.008125</td>
+<td>-0.058065</td>
+<td>-0.135241</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2016-01-17</td>
+<td>-0.060966</td>
+<td>-0.054818</td>
+<td>-0.085838</td>
+<td>-0.047905</td>
+<td>-0.058974</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2016-01-24</td>
+<td>0.060966</td>
+<td>0.023505</td>
+<td>0.049143</td>
+<td>0.001741</td>
+<td>0.058405</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2016-01-31</td>
+<td>0.074498</td>
+<td>0.024710</td>
+<td>-0.007077</td>
+<td>-0.053584</td>
+<td>0.079774</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2016-02-07</td>
+<td>0.027490</td>
+<td>0.065780</td>
+<td>-0.029552</td>
+<td>0.024170</td>
+<td>0.040226</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-03-10</td>
+<td>0.026170</td>
+<td>0.016989</td>
+<td>-0.026157</td>
+<td>-0.040846</td>
+<td>0.033350</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2024-03-17</td>
+<td>0.023882</td>
+<td>0.038669</td>
+<td>0.019681</td>
+<td>0.016898</td>
+<td>0.028047</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-03-24</td>
+<td>0.032784</td>
+<td>0.048790</td>
+<td>0.022694</td>
+<td>0.026865</td>
+<td>0.037538</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2024-03-31</td>
+<td>-0.003143</td>
+<td>-0.023257</td>
+<td>0.026117</td>
+<td>-0.004525</td>
+<td>-0.009523</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2024-04-07</td>
+<td>0.046639</td>
+<td>0.126744</td>
+<td>0.025854</td>
+<td>0.044496</td>
+<td>0.066078</td>
+</tr>
+</tbody>
+</table>
+
+<p>431 rows × 5 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="backtesting-var" class="level1">
+<h1>Backtesting VaR</h1>
+<p>To understand the effectiveness of Value at Risk (VaR), we can test its accuracy by evaluating actual financial data and examining how well different VaR models predict risk.</p>
+<p>Specifically, VaR is expected to forecast a certain number of “breaches”—cases where the return falls below the calculated lower bound—relative to the total sample of returns. The closer the model’s predictions align with the actual frequency of breaches, the more reliable the model is.</p>
+<p>To carry out this backtest, we’ll define a function to calculate VaR for historical returns from a financial time series. The function takes the following inputs: - A general function, <code>f(x, sigmalist)</code>, which calculates the 95% and 99% VaR and returns an updated volatility (if applicable). This function uses historical data <code>x</code> and past volatility <code>sigmalist</code>. The specific function provided will determine the method used for VaR calculation. - A <code>pandas</code> DataFrame <code>df</code> containing historical data. - The name of the data series in <code>df</code>. - An estimation window, specifying the number of periods used to estimate the current VaR.</p>
+<p>The function will return: - The 95% and 99% VaR for each date, - The estimated volatility (if applicable), - The corresponding dates, - The associated returns.</p>
+<p>Below is the function for generating the backtest:</p>
+<div id="e177b4b8" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_backtest(f, df, name, estimation_win_size):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize lists to store calculated values</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    datelist <span class="op">=</span> []</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    sigmalist <span class="op">=</span> []</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    d95list <span class="op">=</span> []</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    d99list <span class="op">=</span> []</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> []</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Iterate over returns to calculate and store VaR and volatility estimates</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(estimation_win_size, <span class="bu">len</span>(df)):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Record date and current return</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        datelist.append(df.index[t].date())</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        ret.append(df[name].iloc[t])</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract data from the estimation window (t-estimation_win_size to t-1)</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> df[name].iloc[t<span class="op">-</span>estimation_win_size:t<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply the provided VaR estimation function using the historical data and past volatility</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        d95, d99, sigma <span class="op">=</span> f(x, sigmalist)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Append the estimates to their respective lists</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        sigmalist.append(sigma)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        d95list.append(d95)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        d99list.append(d99)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the results as numpy arrays for ease of analysis</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (np.array(d95list),</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            np.array(d99list),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            np.array(sigmalist),</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            np.array(datelist),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            np.array(ret))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This setup allows for a flexible approach to testing different VaR models by simply passing different VaR estimation functions into <code>generate_backtest</code>. The returned data can then be used to evaluate the model’s effectiveness by comparing predicted breaches against actual outcomes.</p>
+</section>
+<section id="evaluation-function" class="level1">
+<h1>Evaluation Function</h1>
+<p>After generating the VaR time series, we need an <code>evaluate</code> function to assess the model’s effectiveness. This function will take the following arguments: - A plot object <code>plt</code> to visualize the performance, - The estimated 95% and 99% VaR series, - The returns, - The dates, - A heading for the plot.</p>
+<p>The function will produce an informative graph with bars wher there are breaches, and display the model’s performance by calculating the percentage of breaches. Here’s the function:</p>
+<div id="09044192" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate(plt, d95, d99, ret, dates, heading):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Clear the plot area to avoid overlapping plots</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    plt.cla()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the 95% VaR, 99% VaR, and actual returns</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    plt.plot(dates, d95, label<span class="op">=</span><span class="st">'95% Confidence Level'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    plt.plot(dates, d99, label<span class="op">=</span><span class="st">'99% Confidence Level'</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    plt.plot(dates, ret, label<span class="op">=</span><span class="st">'Actual Return'</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Highlight instances where returns breach the 95% VaR</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    maxret <span class="op">=</span> <span class="bu">max</span>(ret)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    breaches_95 <span class="op">=</span> [maxret <span class="cf">if</span> d <span class="op">&gt;</span> r <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> d, r <span class="kw">in</span> <span class="bu">zip</span>(d95, ret)]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    plt.bar(dates, breaches_95, color<span class="op">=</span><span class="st">'gray'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, width<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Breaches 95% VaR'</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set labels and title</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'VaR'</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Date'</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    plt.title(heading)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.15</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate and print the breach percentage for each confidence level</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    backtest_results <span class="op">=</span> [np.<span class="bu">round</span>(<span class="bu">sum</span>(d <span class="op">&gt;</span> ret) <span class="op">/</span> <span class="bu">len</span>(ret) <span class="op">*</span> <span class="dv">100</span>, <span class="dv">1</span>) <span class="cf">for</span> d <span class="kw">in</span> [d95, d99]]</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, level <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="dv">95</span>, <span class="dv">99</span>]):</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        breaches <span class="op">=</span> <span class="bu">sum</span>([d95, d99][i] <span class="op">&gt;</span> ret)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>heading<span class="sc">}</span><span class="ss"> with </span><span class="sc">{</span>level<span class="sc">}</span><span class="ss">% confidence interval:</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Breaches: </span><span class="sc">{</span>breaches<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Backtesting (Realized VaR - % breaches): </span><span class="sc">{</span>backtest_results[i]<span class="sc">}</span><span class="ss">%</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This function provides a visual and numerical evaluation of VaR accuracy. The plot shows the 95% and 99% VaR levels alongside the actual returns, with breaches of the 95% VaR highlighted. The function then calculates and prints the percentage of breaches, allowing us to assess how well the model aligns with expected outcomes.</p>
+</section>
+<section id="methods-for-calculating-var" class="level1">
+<h1>Methods for Calculating VaR</h1>
+<p>Calculating Value at Risk (VaR) fundamentally involves predicting volatility. A model that can accurately predict volatility will yield a more reliable VaR estimate. Here, we’ll explore three different methods for calculating VaR: using the normal distribution, empirical frequencies, and past volatility.</p>
+<section id="the-normal-distribution-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-normal-distribution-model">The Normal Distribution Model</h2>
+<p>The most straightforward approach is to assume that returns follow a normal distribution. We can estimate the standard deviation (volatility) of a sample <code>x</code> and apply the normal distribution to compute VaR. That in practice just means multiplying the volatility with a number corresponding to the confidence interval, in this case given by the function <code>norm.ppf(PVALS)</code>. This is implemented as follows</p>
+<div id="983494e7" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>PVALS <span class="op">=</span> [<span class="fl">0.05</span>, <span class="fl">0.01</span>]  <span class="co"># Confidence intervals (95% and 99%)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normal_est(x, sigmalist):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> norm.ppf(PVALS)  <span class="co"># Z-scores for the specified confidence levels</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> np.std(x, ddof<span class="op">=</span><span class="dv">1</span>)  <span class="co"># Sample standard deviation</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z[<span class="dv">0</span>] <span class="op">*</span> sigma, z[<span class="dv">1</span>] <span class="op">*</span> sigma, sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The global variable <code>PVALS</code> sets the confidence levels, making it easy to adjust later, though 95% and 99% are almost always used in practice.</p>
+</section>
+<section id="empirical-frequencies" class="level2">
+<h2 class="anchored" data-anchor-id="empirical-frequencies">Empirical Frequencies</h2>
+<p>An alternative method is to rely on empirical data, using historical quantiles to set the VaR thresholds. This method establishes limits that would have perfectly predicted historical data breaches at the 95% and 99% levels:</p>
+<div id="08e2c5df" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> historical_est(x, sigmalist):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    q95 <span class="op">=</span> <span class="bu">abs</span>(np.quantile(x, PVALS[<span class="dv">0</span>]))  <span class="co"># 95th percentile of historical losses</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    q99 <span class="op">=</span> <span class="bu">abs</span>(np.quantile(x, PVALS[<span class="dv">1</span>]))  <span class="co"># 99th percentile of historical losses</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>q95, <span class="op">-</span>q99, <span class="va">None</span>  <span class="co"># VaR values are negative to indicate potential loss</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This approach is straightforward and does not assume any specific distribution of returns.</p>
+</section>
+<section id="past-volatility" class="level2">
+<h2 class="anchored" data-anchor-id="past-volatility">Past Volatility</h2>
+<p>A third method involves modeling volatility based on its past behavior. Using only the volatility from the previous period would imply constant volatility, so we introduce an innovation term—specifically, the squared error from the previous period. This error is added to the previous period’s variance and then square-rooted to estimate current volatility. If no prior volatility exists (e.g., in the first period), historical volatility is used.</p>
+<p>After estimating the volatility, we can use the normal distribution to calculate VaR for each confidence interval. This type of volatility-based VaR estimation is required for financial firms under EU regulations <span class="citation" data-cites="Basel1996">(<a href="#ref-Basel1996" role="doc-biblioref">Banking Supervision 1996</a>)</span>.</p>
+<div id="523bd5ee" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> last_volat(x, sigmalist):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.array(x)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> norm.ppf(PVALS)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> sigmalist:  <span class="co"># If sigmalist is empty, use initial standard deviation</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        sigma <span class="op">=</span> np.std(x, ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:  <span class="co"># Update sigma based on past volatility and recent error</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        sigma <span class="op">=</span> (<span class="fl">0.1</span> <span class="op">*</span> (x[<span class="dv">0</span>] <span class="op">-</span> np.mean(x))<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="fl">0.9</span> <span class="op">*</span> sigmalist[<span class="op">-</span><span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="fl">0.5</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z[<span class="dv">0</span>] <span class="op">*</span> sigma, z[<span class="dv">1</span>] <span class="op">*</span> sigma, sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>These methods offer varied approaches to calculating VaR, each with specific strengths: the normal model assumes a normal distribution, empirical quantiles base predictions on historical breaches, and the volatility-based method adjusts dynamically, often aligning with regulatory requirements.</p>
+</section>
+</section>
+<section id="evaluation" class="level1">
+<h1>Evaluation</h1>
+<p>We can now easily evaluate the different methods. We first evalueat under the normal distribution.</p>
+<div id="36e7e799" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>NAME <span class="op">=</span> <span class="st">'EQNR'</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ESTIMATION_WINSIZE <span class="op">=</span> <span class="dv">52</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(normal95, normal99, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a> sigma, dates, ret )<span class="op">=</span> generate_backtest(normal_est, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        df, NAME, ESTIMATION_WINSIZE)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>evaluate(plt, normal95, normal99, ret, dates,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using the Normal Distribution Method'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5-lecture_VaR_files/figure-html/cell-8-output-1.png" width="600" height="451" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>VaR Estimation Using the Normal Distribution Method with 95% confidence interval:
+Breaches: 21
+Backtesting (Realized VaR - % breaches): 5.5%
+
+VaR Estimation Using the Normal Distribution Method with 99% confidence interval:
+Breaches: 8
+Backtesting (Realized VaR - % breaches): 2.1%
+</code></pre>
+</div>
+</div>
+<p>Then we apply the function that simply calculates the empirical distribution of passed returns:</p>
+<div id="35d1d46e" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(hist95, hist99, </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a> sigma, dates, ret )<span class="op">=</span> generate_backtest(historical_est, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        df, NAME, ESTIMATION_WINSIZE)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>evaluate(plt, hist95, hist99, ret, dates,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using Empirical Distribution'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5-lecture_VaR_files/figure-html/cell-9-output-1.png" width="600" height="451" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>VaR Estimation Using Empirical Distribution with 95% confidence interval:
+Breaches: 27
+Backtesting (Realized VaR - % breaches): 7.1%
+
+VaR Estimation Using Empirical Distribution with 99% confidence interval:
+Breaches: 10
+Backtesting (Realized VaR - % breaches): 2.6%
+</code></pre>
+</div>
+</div>
+<p>And at last, we use information about the previous period volatility.</p>
+<div id="f671a6bc" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(last95, last99, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a> sigma, dates, ret )<span class="op">=</span> generate_backtest(last_volat, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        df, NAME, ESTIMATION_WINSIZE)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>evaluate(plt, last95, last99, ret, dates,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using Past Volatility'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="5-lecture_VaR_files/figure-html/cell-10-output-1.png" width="600" height="451" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>VaR Estimation Using Past Volatility with 95% confidence interval:
+Breaches: 23
+Backtesting (Realized VaR - % breaches): 6.1%
+
+VaR Estimation Using Past Volatility with 99% confidence interval:
+Breaches: 11
+Backtesting (Realized VaR - % breaches): 2.9%
+</code></pre>
+</div>
+</div>
+</section>
+<section id="concluding-remarks" class="level1">
+<h1>Concluding Remarks</h1>
+<p>VaR (Value at Risk) provides an effective framework for communicating risk and has undoubtedly become the standard for measuring and controlling market risk. However, its ability to capture real risk depends heavily on its implementation. Risk is not static; it evolves continuously, responding to changing market conditions and external factors.</p>
+<p>Dynamic measures can help anticipate shifts in risk, but as we have seen from the examples, they do not always outperform static measures. Predicting changes in risk is inherently challenging, and no single approach guarantees accurate foresight.</p>
+<p>A notable example of these limitations is the case of Long-Term Capital Management (LTCM) <span class="citation" data-cites="Lowenstein2000">(<a href="#ref-Lowenstein2000" role="doc-biblioref">Lowenstein 2000</a>)</span>. LTCM was managed by some of the brightest minds in finance, including Nobel laureates Myron Scholes and Robert C. Merton, the inventors of the renowned option pricing formula. Despite their reliance on VaR and a perception that their portfolios were robust and healthy, the Asian financial crisis of 1997 exposed critical flaws in their risk models. The models proved inadequate against unforeseen events, and the fund ultimately had to be liquidated in early 2000.</p>
+<p>These experiences serve as a stark reminder that VaR cannot be used uncritically. If a portfolio cannot be rebalanced quickly enough to adapt to shifting market conditions and declining liquidity, VaR offers little protection.</p>
+<p>A skilled risk manager must also guard against the manipulation of VaR. Portfolio managers can exploit the model by selecting securities with hidden risks that VaR calculations fail to capture. A striking example is the Norwegian Oil Fund manager who reportedly earned bonuses amounting to nearly half a billion NOK, seemingly by taking significant risks <span class="citation" data-cites="Dahl2010">(<a href="#ref-Dahl2010" role="doc-biblioref">Dahl 2010</a>)</span>.</p>
+<p>High-risk investments often promise high returns, and employees with compensation structures linked to bonuses—without corresponding penalties for losses—are incentivized to take on excessive risk. Such arrangements function like an asymmetric option: they allow individuals to benefit from the upside while avoiding equivalent downside losses, fostering a strong incentive to maximize risk.</p>
+<p>To address these challenges, a good risk manager works to minimize opportunities for such manipulation while maintaining vigilance for unobservable risk factors. Managing risk is not just about tools like VaR; it requires judgment, adaptability, and a proactive approach to identifying and mitigating hidden risks.</p>
+</section>
+<section id="literature" class="level1">
+<h1>Literature</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Basel1996" class="csl-entry" role="listitem">
+Banking Supervision, Basel Committee on. 1996. <span>“Amendment to the Capital Accord to Incorporate Market Risks.”</span> Bank for International Settlements.
+</div>
+<div id="ref-Dahl2010" class="csl-entry" role="listitem">
+Dahl, Carl Alfred. 2010. <span>“Svenske Fikk Halv Milliard Av Oljefondet.”</span> <em>Aftenposten</em>. <a href="https://www.aftenposten.no/okonomi/i/pA656/svenske-fikk-halv-milliard-av-oljefondet">https://www.aftenposten.no/okonomi/i/pA656/svenske-fikk-halv-milliard-av-oljefondet</a>.
+</div>
+<div id="ref-Jorion2007" class="csl-entry" role="listitem">
+Jorion, Philippe. 2007. <em>Value at Risk: The New Benchmark for Managing Financial Risk</em>. 3rd ed. McGraw-Hill.
+</div>
+<div id="ref-Lowenstein2000" class="csl-entry" role="listitem">
+Lowenstein, Roger. 2000. <em>When Genius Failed: The Rise and Fall of Long-Term Capital Management</em>. Random House.
+</div>
+<div id="ref-RiskMetrics1996" class="csl-entry" role="listitem">
+Morgan, J. P., and Reuters. 1996. <span>“RiskMetrics — Technical Document.”</span> J.P. Morgan/Reuters.
+</div>
+<div id="ref-Ong2007" class="csl-entry" role="listitem">
+Ong, Michael K. 2007. <em>The Basel Handbook: A Guide for Financial Practitioners</em>. 2nd ed. Risk Books.
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

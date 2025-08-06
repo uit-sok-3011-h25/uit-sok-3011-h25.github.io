@@ -1,0 +1,165 @@
+---
+title: "Lecture Note 3: Optimal Portfolios with More Than One Asset"
+author: "Espen Sirnes"
+date: "18.09.2024"
+format: pdf
+---
+
+We remember from last time that the optimal portfolio with only one asset is 
+
+$$
+a=\frac{(\mu -r)}{\pi \sigma^2}  \label{optPort1}
+$$
+
+From this we concluded that:
+
+1. The more risk-averse the person is, the less they should invest.
+2. The larger the expected return of the asset, the more should be invested.
+3. The greater the risk associated with the asset, represented by $\sigma^2$, the less should be invested.
+
+Now, let us consider the optimal investments if we have more than one asset.
+
+## Optimal Portfolios with Any Number of Assets
+
+Let us now assume that the investor in the previous section has a portfolio of $K$ assets, not just one. Their wealth next period, assuming the entire amount is borrowed, is then expressed in matrix notation as:
+
+$$
+W_1 = \mathbf{a}'(\mathbf{x} - \mathbf{1}r)
+$$
+
+where $\mathbf{a}$ represents the portfolio weights, $\mathbf{x}$ represents the returns, and $\mathbf{1}$ is a column vector of ones, such that $\mathbf{1}r$ is a column vector of the risk-free interest rate $r$. Recall from earlier that the investor aims to maximize the difference between expected return and variance:
+
+$$
+\max_{\mathbf{a}} Z = \mathbb{E}W_1 - \pi \frac{1}{2} \operatorname{var}(W_1)  \label{MaxMatrix}
+$$
+
+$\mathbf{x}$ now is a column vector of many normally distributed variables with different variances and expectations. We denote the expected returns by $\mu_i$ for asset $i$, and the associated vector of these returns by $\mathbf{\mu}$. The expected return on the portfolio then becomes:
+
+$$
+\mathbb{E}W_1 = \mathbf{a}'\mathbb{E}\mathbf{x} = \mathbf{a}'(\mathbf{\mu} - \mathbf{1}r)
+$$
+
+Thus, $\mathbb{E}W_1 = \sum_{i=1}^{K} a_i \mu_i$.
+
+For variance:
+
+```{python}
+import numpy as np
+
+# Example matrices for portfolio variance
+a = np.random.randint(0,100,(2,1)) # Portfolio weights
+mu = np.random.randint(0,100,(2,1))  # Expected returns
+r = 0.05  # Risk-free rate
+
+Sigma = np.random.randint(0,100,(2,2))  # Covariance matrix
+
+# Calculating portfolio variance
+variance_W1 = np.dot(np.dot(a.T, Sigma), a)
+variance_W1
+```
+
+Where $\sigma_{ij}$ is the covariance between $i$ and $j$, and $\sigma_i^2$ is the variance of asset $i$. This is the covariance matrix, denoted by the capital sigma, $\mathbf{\Sigma}$.
+
+When a vector is normally distributed we write it as $\mathbf{x} \sim K(\mathbf{\mu}, \mathbf{\Sigma})$.
+
+We have now found expressions for $\mathbb{E}W_1$ and $\operatorname{var}(W_1)$ in matrix notation. We can thus write:
+
+$$
+\max_{\mathbf{a}} Z = \mathbf{a}'(\mathbf{\mu} - \mathbf{1}r) - \pi \frac{1}{2} \mathbf{a}'\mathbf{\Sigma a}
+$$
+
+Taking the derivative with respect to $\mathbf{a}'$ yields the $K$ first order conditions:
+
+$$
+\frac{dZ}{d\mathbf{a}'} = (\mathbf{\mu} - \mathbf{1}r) - \pi \mathbf{\Sigma a} = 0
+$$
+
+In optimum, it is necessary that:
+
+$$
+\mathbf{\Sigma a} = \frac{1}{\pi}(\mathbf{\mu} - \mathbf{1}r)
+$$
+
+By premultiplying with the inverse of $\mathbf{\Sigma}$, we obtain the optimal portfolio:
+
+$$
+\mathbf{a} = \frac{1}{\pi} \mathbf{\Sigma}^{-1}(\mathbf{\mu} - \mathbf{1}r)
+$$
+
+```{python}
+# Example of calculating the optimal portfolio
+inv_Sigma = np.linalg.inv(Sigma)
+optimal_a =  np.dot(inv_Sigma, (mu - r))
+optimal_a
+```
+
+Note that this formula looks very similar to the formula for an optimal portfolio with only one asset:
+
+$$
+a = \frac{(\mu - r)}{\pi \sigma^2}
+$$
+
+In general, we may draw the same conclusions as in the case of one asset:
+
+1. The more risk-averse the person is (large $\pi$), the less they should invest.
+2. The larger the expected return the asset has, the more should be invested.
+3. The more risk is associated with the asset, the less should be invested.
+
+## An Example
+
+Let us take an example with two assets, where the variance and expected return over the risk-free interest rate are given by:
+
+```{python}
+# Example covariance matrix and expected returns over risk-free rate
+Sigma_example = np.random.randint(0,100,(2,2))
+mu_minus_r = np.random.randint(0,100,(2,1))-r
+
+# Optimal portfolio for two assets
+optimal_portfolio =  np.dot(np.linalg.inv(Sigma_example), mu_minus_r)
+optimal_portfolio
+```
+
+The optimal portfolio is then:
+
+$$
+\mathbf{a} = \frac{1}{\pi} \mathbf{\Sigma}^{-1} (\mathbf{\mu} - \mathbf{1}r)
+$$
+
+This is the portfolio a CARA-investor with a CARA coefficient $\pi$ would choose. With this type of utility function, the invested amount is independent of wealth.
+
+An important result within portfolio theory is that a "mean-variance" optimal portfolio has the same composition regardless of the amount invested, and regardless of the utility function, as long as only expected return and variance matter. To express the portfolio more generally, it is useful to normalize it so that the weights $\mathbf{a}$ sum up to one. This may be done as follows:
+
+$$
+\mathbf{\tilde{a}} = \frac{\mathbf{a}}{\mathbf{1}' \mathbf{a}} = 
+\begin{pmatrix}
+\frac{(r_1 - r_f) \sigma_2^2 - (r_2 - r_f) \sigma_{12}}{(r_1 - r_f) \sigma_2^2 + (r_2 - r_f) \sigma_1^2 - (r_1 + r_2 - 2r_f) \sigma_{12}} \\ 
+\frac{(r_2 - r_f) \sigma_1^2 - (r_1 - r_f) \sigma_{12}}{(r_1 - r_f) \sigma_2^2 + (r_2 - r_f) \sigma_1^2 - (r_1 + r_2 - 2r_f) \sigma_{12}}
+\end{pmatrix}
+\label{equation:optimal_port}
+$$
+
+### Portfolio Front
+
+An example of this portfolio, with given parameters, is shown in Figure \ref{fig:opt-port}.
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Example parameters for plotting the portfolio front
+returns = np.linspace(0, 0.2, 100)
+std_devs = np.sqrt(returns)  # Example standard deviations for visualization
+
+# Plotting the minimum variance frontier
+plt.plot(std_devs, returns)
+plt.xlabel('Standard Deviation (Risk)')
+plt.ylabel('Expected Return')
+plt.title('Minimum Variance Frontier')
+plt.grid(True)
+plt.show()
+```
+
+Along the curved line are all the combinations of portfolio weights with the resulting expected return along the y-axis and standard deviation along the x-axis.
+
+The investor can therefore not choose any combination of risk and return, but must choose a combination that is on the portfolio front. However, one can choose to invest everything in the bank at zero risk with a 5% interest rate. If we combine this with the point on the front that gives the highest return for the least amount of variance, we obtain the straight line. This line provides the maximum trade-off between return and variance for different levels of investment.
+
+Points on the straight line to the left of the tangent point represent an investor who puts some of his wealth in the bank. Points to the right of the tangent point represent an investor who borrows to finance assets.
