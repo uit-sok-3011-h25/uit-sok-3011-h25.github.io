@@ -5,3 +5,4 @@ unused/
 __pycache__/
 finans/output/
 test.py
+*.df

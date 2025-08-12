@@ -1,7 +1,7 @@
 ---
 title: "4 - Potfolio evaluation, CAPM and factors"
 author: "Espen Sirnes"
-date: "2024-10-30"
+date: "2025-8-10"
 pdf-engine: pdflatex
 bibliography: references.bib
 format:
@@ -124,7 +124,7 @@ In the Titlon database, the `equity` table under the OSE tab all ready contains 
 ```{python}
 import pandas as pd
 # reads the data
-df_stocks = pd.read_pickle('output/stocks.df')
+df_stocks = pd.read_pickle('data/stocks.df')
 
 
 
@@ -223,8 +223,8 @@ import pandas as pd
 import pymysql
 import os
 con = pymysql.connect(host='titlon.uit.no', 
-			user      = "user@account.com",
-			password  = "%VccvGWz5UjtT9sAuU7og",
+                user      = "esi000@uit.no",
+                password  = "6jG4Tw1m5YJ&HBMW2EbKz",
 			database='OSE')  
 crsr=con.cursor()
 crsr.execute("SET SESSION MAX_EXECUTION_TIME=60000;")
@@ -243,8 +243,8 @@ df
 #YOU NEED TO BE CONNECTED TO YOUR INSTITUTION VIA VPN,
 # OR BE AT THE INSTITUTION, FOR THIS CODE TO WORK
 
-os.makedirs('output', exist_ok=True)
-pd.to_pickle(df,'output/factors.df')
+os.makedirs('data', exist_ok=True)
+pd.to_pickle(df,'data/factors.df')
 ```
 
 We then loade the saved file and calculate the means and standard errors, after reducing the frequency from daily to weekly.
@@ -252,7 +252,7 @@ We then loade the saved file and calculate the means and standard errors, after 
 ```{python}
 import pandas as pd
 
-df = pd.read_pickle('output/factors.df')
+df = pd.read_pickle('data/factors.df')
 df['Date'] = pd.to_datetime(df['Date'])
 df = df.set_index('Date')
 df_weekly = df.resample('W').sum()
@@ -286,3 +286,4 @@ Can you construct the optimal portfolio of the stocks and the factors?
 
 # Literature
 ::: {#refs}
+:::

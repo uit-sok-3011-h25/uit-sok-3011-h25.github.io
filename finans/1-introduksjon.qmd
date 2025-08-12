@@ -1,7 +1,7 @@
 ---
 title: "1 - Introduksjon og case"
 author: "Espen Sirnes"
-date: "2024-9-18"
+date: "2025-8-10"
 format:
   pdf:
     number-sections: true
@@ -136,7 +136,7 @@ Reduserer utvalget:
 import numpy as np
 import pandas as pd
 
-df = pd.read_pickle('output/stocks.df')
+df = pd.read_pickle('data/stocks.df')
 # Defining annual risk free rate. 
 rf = df['NOWA_DayLnrate'].mean()*7
 
@@ -288,7 +288,7 @@ Finner volatilitet og avkastning til faktorene:
 ```{python}
 import pandas as pd
 
-df = pd.read_pickle('output/factors.df')
+df = pd.read_pickle('data/factors.df')
 df['Date'] = pd.to_datetime(df['Date'])
 df = df.set_index('Date')
 df_weekly = df.resample('W').sum()
@@ -418,7 +418,7 @@ def last_volat(x, sigmalist):
 NAME = 'EQNR'
 ESTIMATION_WINSIZE = 52
 
-df = pd.read_pickle('output/X.df')
+df = pd.read_pickle('data/X.df')
 
 
 (normal95, normal99, 

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Espen Sirnes">
-<meta name="dcterms.date" content="2024-09-18">
+<meta name="dcterms.date" content="2025-08-10">
 
 <title>3 - Matrices, Optimal Portfolios</title>
 <style>
@@ -23,8 +23,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -35,7 +36,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -80,15 +81,16 @@ div.csl-indent {
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="3-lecture_optport_files/libs/clipboard/clipboard.min.js"></script>
-<script src="3-lecture_optport_files/libs/quarto-html/quarto.js"></script>
+<script src="3-lecture_optport_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="3-lecture_optport_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="3-lecture_optport_files/libs/quarto-html/popper.min.js"></script>
 <script src="3-lecture_optport_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="3-lecture_optport_files/libs/quarto-html/anchor.min.js"></script>
 <link href="3-lecture_optport_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="3-lecture_optport_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="3-lecture_optport_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="3-lecture_optport_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="3-lecture_optport_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="3-lecture_optport_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="3-lecture_optport_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -125,7 +127,7 @@ window.Quarto = {
 
 </head>
 
-<body>
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -151,7 +153,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 18, 2024</p>
+      <p class="date">August 10, 2025</p>
     </div>
   </div>
   
@@ -169,19 +171,19 @@ window.Quarto = {
 <p>To calculate optimal portfolios for any number of assets, a basic understanding of matrix algebra <span class="citation" data-cites="Cayley1858">(<a href="#ref-Cayley1858" role="doc-biblioref">Cayley 1858</a>)</span> is essential. Matrix algebra simplifies the resolution of several equations simultaneously, a process that becomes increasingly complex with the addition of variables. Using matrix functions in software like Excel and various statistical packages allows us to solve systems of equations efficiently without manually computing each one.</p>
 <p>Matrices not only streamline the computation but also simplify notation, making the formulation of equations for optimal portfolios more manageable.</p>
 <p>A matrix is a structured array of numbers arranged in rows and columns, essentially a set of vectors. Here’s an example of a vector:</p>
-<div id="85abeac2" class="cell" data-execution_count="1">
+<div id="c6cde9bd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>array([30, 73, 35])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>array([74, 89,  6], dtype=int32)</code></pre>
 </div>
 </div>
 <p>Combining several vectors side-by-side forms a matrix:</p>
-<div id="67a6e276" class="cell" data-execution_count="2">
+<div id="181d3446" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<pre><code>array([[ 9,  5, 65],
-       [27, 10, 58]])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>array([[79,  0, 63],
+       [55, 57, 38]], dtype=int32)</code></pre>
 </div>
 </div>
 <p>This format is sometimes denoted as <span class="math inline">\(\mathbf{X}_{N \times K}\)</span> to indicate the number of rows (<span class="math inline">\(N\)</span>) and columns (<span class="math inline">\(K\)</span>).</p>
@@ -192,7 +194,7 @@ window.Quarto = {
 <section id="matrix-multiplication" class="level2">
 <h2 class="anchored" data-anchor-id="matrix-multiplication">Matrix Multiplication</h2>
 <p>The core operation in matrix algebra is matrix multiplication, which combines elements from the rows of the first matrix with the columns of the second. For example, multiplying a <span class="math inline">\(2 \times 3\)</span> matrix by a <span class="math inline">\(3 \times 2\)</span> matrix yields:</p>
-<div id="75bf3ad3" class="cell" data-execution_count="3">
+<div id="babdfad5" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">3</span>,<span class="dv">2</span>))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> X <span class="op">@</span> Y</span>
@@ -200,19 +202,19 @@ window.Quarto = {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Y)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[1 2 2]
- [0 4 2]]
-[[4 0]
- [4 3]
- [2 2]]
-[[16 10]
- [20 16]]</code></pre>
+<pre><code>[[3 0 1]
+ [2 2 0]]
+[[1 3]
+ [3 2]
+ [1 2]]
+[[ 4 11]
+ [ 8 10]]</code></pre>
 </div>
 </div>
 <p>What happens is that we sum the product of the elements in each row of the first matrix and each column of the second. You can for example check that element [0,0] of the result is the sum of the product of the first row of the first matrix, and the first column of the second. An easy way to remember this is to think of the multiplication of <span class="math inline">\(A \times B\)</span> is to follow the lines of the letters: <img src="img/multrule.png" title="Muliplication rule" class="img-fluid" alt="multiplication rule"></p>
 <p>Due to the rules for matrix multiplication, it requires the number of columns in the first matrix to match the number of rows in the second.</p>
 <p>The matrix multiplication is different from the normal multiplication in Python. Normal multiplicaiton can be done with the normal multiplication operator <code>*</code>. It will then multiply each element in X with the corresponding element of Y, and both matrices must be of the same size:</p>
-<div id="00012ffb" class="cell" data-execution_count="4">
+<div id="e80c3aa7" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> X<span class="op">*</span>Y</span>
@@ -220,12 +222,12 @@ window.Quarto = {
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Y)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[0 2 1]
- [3 2 1]]
-[[0 0 3]
- [4 1 2]]
-[[ 0  0  3]
- [12  2  2]]</code></pre>
+<pre><code>[[3 3 1]
+ [3 2 3]]
+[[0 1 0]
+ [0 2 3]]
+[[0 3 0]
+ [0 4 9]]</code></pre>
 </div>
 </div>
 <p>The reason for using the former method, is that the former is required for solving sets of equations.</p>
@@ -233,7 +235,7 @@ window.Quarto = {
 <section id="adding-and-subtracting-matrices" class="level2">
 <h2 class="anchored" data-anchor-id="adding-and-subtracting-matrices">Adding and Subtracting Matrices</h2>
 <p>Adding or subtracting matrices is straightforward; simply add or subtract corresponding elements. In Python, the multiplication requires numpy function, but if the matrices are numpy variables, subtraction and addition can be done with the normal operators.</p>
-<div id="60d85cd7" class="cell" data-execution_count="5">
+<div id="289aa505" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
@@ -245,14 +247,14 @@ window.Quarto = {
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"X+Y:</span><span class="ch">\n</span><span class="sc">{</span>X<span class="op">+</span>Y<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>X:
-[[33 12]
- [80 10]]
+[[63 65]
+ [95 57]]
 Y:
-[[95 10]
- [58 62]]
+[[11 65]
+ [ 4 33]]
 X+Y:
-[[128  22]
- [138  72]]</code></pre>
+[[ 74 130]
+ [ 99  90]]</code></pre>
 </div>
 </div>
 </section>
@@ -270,7 +272,7 @@ X+Y:
 \tag{1}\]</span></span></p>
 <p>where <span class="math inline">\(\mathbf{I}\)</span> is the identity matrix. Multiplying any matrix by <span class="math inline">\(\mathbf{I}\)</span> results in the original matrix, akin to multiplying any number by 1.</p>
 <p>In practice, while the concept is straightforward, the actual calculation of a matrix inverse can become complex for larger matrices and is typically handled by computers. We will not go through the method of obtaining the inverse in this course, we will in stead just utilize the numpy funciton for calculating the inverse. Specifically, we use <code>np.linalg.inv(X)</code>. We can check that it actually complies with the definition like this:</p>
-<div id="51327abb" class="cell" data-execution_count="6">
+<div id="81994d55" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">10</span>,(<span class="dv">3</span>,<span class="dv">3</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating inverse of X</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>X_inv <span class="op">=</span> np.linalg.inv(X)</span>
@@ -291,17 +293,17 @@ x_{21}a_{1} + x_{22}a_{2} = b_{2}
 \mathbf{X \times a} = \mathbf{b}
 \tag{3}\]</span></span></p>
 <p>where <span class="math inline">\(\mathbf{a}\)</span> and <span class="math inline">\(\mathbf{b}\)</span> are column vectors. Let us define the right hand side vector <code>b</code> and the coeficient matrix <code>X</code> randomly in python as</p>
-<div id="fe4e57f3" class="cell" data-execution_count="7">
+<div id="37aaa02a" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span>  np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">1</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define matrix X</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span>  np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[48 25]
- [ 4 21]]
-[[34]
- [19]]</code></pre>
+<pre><code>[[82 31]
+ [74 93]]
+[[92]
+ [62]]</code></pre>
 </div>
 </div>
 <p>To solve for <span class="math inline">\(\mathbf{a}\)</span>, we use the inverse of <span class="math inline">\(\mathbf{X}\)</span>, provided it exists, and multiplies it with the left and right hand sides of the equation, just as we would divide with X on both sides to solve for a single equation:</p>
@@ -313,29 +315,29 @@ x_{21}a_{1} + x_{22}a_{2} = b_{2}
 \mathbf{a} = \mathbf{X}^{-1}\mathbf{b}
 \tag{5}\]</span></span></p>
 <p>Hence, we have found an easy way to solve any linear equation. We can test that it works in python. Let us first find <code>a</code> using this approach:</p>
-<div id="b767f60e" class="cell" data-execution_count="8">
+<div id="1529eea3" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.linalg.inv(X) <span class="op">@</span> b</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
-<pre><code>array([[0.26321586],
-       [0.85462555]])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>array([[ 1.24418605],
+       [-0.32333083]])</code></pre>
 </div>
 </div>
 <p>If you get a “Singular matrix” error its because we are generating <code>X</code> with a few random integers, which sometimes creates unsolvable systems, so just generate <code>X</code> and <code>b</code> again.</p>
 <p>Now we can test, if the solution for a actually works, by applying it on the original equation <span class="math inline">\(\mathbf{X \times a} = \mathbf{b}\)</span>. This should yield the right hand side of th equation, <code>b</code>:</p>
-<div id="d38d6a50" class="cell" data-execution_count="9">
+<div id="57795519" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">@</span> a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="29">
-<pre><code>array([[34.],
-       [19.]])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>array([[92.],
+       [62.]])</code></pre>
 </div>
 </div>
 <p>Compare this with the actual <code>b</code>:</p>
-<div id="bfb430c9" class="cell" data-execution_count="10">
+<div id="89a55c86" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
-<pre><code>array([[34],
-       [19]])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>array([[92],
+       [62]], dtype=int32)</code></pre>
 </div>
 </div>
 <p>Thus, we have identified an effective method to solve any system of equations, provided that <span class="math inline">\(\mathbf{X}\)</span> is invertible. If <span class="math inline">\(\mathbf{X}\)</span> cannot be inverted, it indicates that two or more equations are essentially identical, leading to an “underdetermined” system. In such cases, some equations are redundant, and there are not enough independent equations to determine the values of all variables. Remember the fundamental rule: we need an equal number of equations and unknowns to uniquely solve for each variable.</p>
@@ -360,15 +362,15 @@ x_{13} &amp; x_{23}
 \end{pmatrix}
 \tag{7}\]</span></span></p>
 <p>where <span class="math inline">\(^{\prime}\)</span> denotes the transposed matrix. For a column vector <span class="math inline">\(\mathbf{a}\)</span>, transposing and then multiplying by itself, <span class="math inline">\(\mathbf{a}^{\prime}\mathbf{a}\)</span>, calculates the sum of squares of its components.</p>
-<div id="e7e29832" class="cell" data-execution_count="11">
+<div id="9030123e" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of matrix transposition</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>X_2x3 <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>X_transposed <span class="op">=</span> X_2x3.T</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>X_transposed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
-<pre><code>array([[28, 75],
-       [45, 75],
-       [85, 33]])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>array([[35, 92],
+       [38, 39],
+       [75, 13]], dtype=int32)</code></pre>
 </div>
 </div>
 <p>Transposition is often used to conform to the requirements of matrix multiplication, where the number of columns in the first matrix must match the number of rows in the second. If this is not the case, one might transpose the first matrix to facilitate multiplication.</p>
@@ -385,7 +387,7 @@ x_{13} &amp; x_{23}
 \frac{d\left(\mathbf{a}^{\prime}{\Sigma}\mathbf{a}\right)}{d\mathbf{a}^{\prime}} =2{\Sigma}\mathbf{a}
 \tag{9}\]</span></span></p>
 <p>assuming <span class="math inline">\({\Sigma}\)</span> is symmetric. In practical terms, the derivative with respect to <code>a</code> here, given some values for <code>a</code>, is</p>
-<div id="c84d4f04" class="cell" data-execution_count="12">
+<div id="bbc33049" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Derivation with matrix and vector</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">1</span>))</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Sigma <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
@@ -393,9 +395,9 @@ x_{13} &amp; x_{23}
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Derivative of a' Sigma a with respect to a</span></span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>derivative <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> Sigma <span class="op">@</span> a</span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>derivative</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>array([[13100],
-       [ 8672]])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>array([[10126],
+       [ 8692]], dtype=int32)</code></pre>
 </div>
 </div>
 <p>We can rewrite the matrix formulation in scalar form, to check that the rule is correct. The scalar form of <span class="math inline">\(\mathbf{a}^{\prime} {\Sigma}\mathbf{a}\)</span> is</p>
@@ -478,15 +480,15 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 </section>
 <section id="empirical-example---optimal-porfolio-and-the-portfolio-front" class="level1">
 <h1>Empirical example - optimal porfolio and the portfolio front</h1>
-<p>We will now create an optimal portfolio using data from Titlon, and draw the “portfolio front” <span class="citation" data-cites="Markowitz1952">(<a href="#ref-Markowitz1952" role="doc-biblioref">Markowitz 1952</a>)</span>. The portfolio front are the smallest possible volatility of a set of assets, for all return leves. We use the script feature of Titlon to fetch the data, and storing it in <code>'output/stocks.df'</code></p>
-<div id="898ef6a7" class="cell" data-execution_count="13">
+<p>We will now create an optimal portfolio using data from Titlon, and draw the “portfolio front” <span class="citation" data-cites="Markowitz1952">(<a href="#ref-Markowitz1952" role="doc-biblioref">Markowitz 1952</a>)</span>. The portfolio front are the smallest possible volatility of a set of assets, for all return leves. We use the script feature of Titlon to fetch the data, and storing it in <code>'data/stocks.df'</code></p>
+<div id="6b19e708" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>con <span class="op">=</span> pymysql.<span class="ex">connect</span>(host<span class="op">=</span><span class="st">'titlon.uit.no'</span>, </span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                    user<span class="op">=</span><span class="st">"user@name.com"</span>, </span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                    password<span class="op">=</span><span class="st">"passwordfromtitlon"</span>, </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                user      <span class="op">=</span> <span class="st">"user@uit.no"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                password  <span class="op">=</span> <span class="st">"passwordfromtitlon"</span>,</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                    database<span class="op">=</span><span class="st">'OSE'</span>)  </span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>crsr<span class="op">=</span>con.cursor()</span>
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>crsr.execute(<span class="st">"SET SESSION MAX_EXECUTION_TIME=60000;"</span>)</span>
@@ -506,16 +508,16 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="co"># OR BE AT THE INSTITUTION, FOR THIS CODE TO WORK</span></span>
 <span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">'output'</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'output/stocks.df'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'data/stocks.df'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We now reload the data, and pick the four stocks<br>
 1. has been traded at the first and last day of the sample 2. that are most traded (sorted on sum of <code>Turnover</code>)</p>
 <p>We can obtain that with this code:</p>
-<div id="edaa13cd" class="cell" data-execution_count="14">
+<div id="4b92e663" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'output/stocks.df'</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/stocks.df'</span>)</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining annual risk free rate. </span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> df[<span class="st">'NOWA_DayLnrate'</span>].mean()<span class="op">*</span><span class="dv">7</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
@@ -550,7 +552,7 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.merge(res.head(<span class="dv">4</span>), on<span class="op">=</span>[<span class="st">'Name (ISIN)'</span>], </span>
 <span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>                                how<span class="op">=</span><span class="st">'inner'</span>)</span>
 <span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>res.head(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
 
@@ -560,7 +562,7 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">Turnover</th>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">Name (ISIN)</th>
 <th data-quarto-table-cell-role="th"></th>
 </tr>
@@ -568,19 +570,19 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">EQUINOR(NO0010096985)</td>
-<td>1.523274e+12</td>
+<td>1.789492e+12</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">NORSK HYDRO(NO0005052605)</td>
-<td>5.525255e+11</td>
+<td>6.394193e+11</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">TELENOR(NO0010063308)</td>
-<td>4.934189e+11</td>
+<td>5.545262e+11</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">YARA INTERNATIONAL(NO0010208051)</td>
-<td>4.753943e+11</td>
+<td>5.404874e+11</td>
 </tr>
 </tbody>
 </table>
@@ -591,7 +593,7 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <section id="the-historic-mean-and-covariance-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="the-historic-mean-and-covariance-matrix">The historic mean and covariance matrix</h2>
 <p>We will now calculate the covariance matrix and the mean vector. To begin, we’ll create a function that reformats the data from its long format (where stock prices are listed sequentially in a single column) to a wide format. In this wide format, unique dates will be in the first column, with subsequent columns containing prices for each stock.</p>
-<div id="6922f309" class="cell" data-execution_count="15">
+<div id="fda160b5" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_matrix(df, field):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Converts the df to a matrix df that can </span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">    be used to calculate the covariance matrix"""</span></span>
@@ -617,7 +619,7 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>X_df <span class="op">=</span> X_df.sort_index()</span>
 <span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>X_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -630,7 +632,7 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <th data-quarto-table-cell-role="th">TEL</th>
 <th data-quarto-table-cell-role="th">YAR</th>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">Date</th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
@@ -682,49 +684,49 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2024-03-10</td>
-<td>0.026170</td>
-<td>0.016989</td>
-<td>-0.026157</td>
-<td>-0.040846</td>
+<td data-quarto-table-cell-role="th">2025-07-06</td>
+<td>0.026730</td>
+<td>0.021321</td>
+<td>0.010887</td>
+<td>0.021778</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2024-03-17</td>
-<td>0.023882</td>
-<td>0.038669</td>
-<td>0.019681</td>
-<td>0.016898</td>
+<td data-quarto-table-cell-role="th">2025-07-13</td>
+<td>0.042289</td>
+<td>0.041652</td>
+<td>-0.004469</td>
+<td>0.023654</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2024-03-24</td>
-<td>0.032784</td>
-<td>0.048790</td>
-<td>0.022694</td>
-<td>0.026865</td>
+<td data-quarto-table-cell-role="th">2025-07-20</td>
+<td>-0.027114</td>
+<td>-0.007206</td>
+<td>0.040745</td>
+<td>-0.006776</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2024-03-31</td>
-<td>-0.003143</td>
-<td>-0.023257</td>
-<td>0.026117</td>
-<td>-0.004525</td>
+<td data-quarto-table-cell-role="th">2025-07-27</td>
+<td>-0.030583</td>
+<td>0.047819</td>
+<td>-0.027399</td>
+<td>0.014796</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2024-04-07</td>
-<td>0.046639</td>
-<td>0.126744</td>
-<td>0.025854</td>
-<td>0.044496</td>
+<td data-quarto-table-cell-role="th">2025-08-03</td>
+<td>0.038459</td>
+<td>-0.036054</td>
+<td>0.001892</td>
+<td>-0.010360</td>
 </tr>
 </tbody>
 </table>
 
-<p>431 rows × 4 columns</p>
+<p>500 rows × 4 columns</p>
 </div>
 </div>
 </div>
 <p>Wit this data, it is relatively easy to calculate covariance and the means vector</p>
-<div id="79ef46fe" class="cell" data-execution_count="16">
+<div id="1e2256b8" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting X to a numpy array:</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array(X_df)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -756,7 +758,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 \tag{25}\]</span></span></p>
 <p>where <span class="math inline">\(\mu_{opt}={\mu}^{\prime}\mathbf{a}\)</span></p>
 <p>This formula automatically ensures that the sum of all the portfolio weights are 1. Now, let us define these variables, and the function. A, B and C in python:</p>
-<div id="2551215d" class="cell" data-execution_count="17">
+<div id="509b784b" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ones <span class="op">=</span> np.ones((<span class="bu">len</span>(means),<span class="dv">1</span>))</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> (ones.T <span class="op">@</span> np.linalg.inv(cov_matrix) <span class="op">@</span> ones)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
@@ -767,12 +769,12 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> ((means.T<span class="op">-</span>rf) <span class="op">@</span> np.linalg.inv(cov_matrix) </span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                                <span class="op">@</span> (means<span class="op">-</span>rf))[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>rf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="36">
-<pre><code>0.0003898151962814265</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>np.float64(0.0005699165087607581)</code></pre>
 </div>
 </div>
 <p>The portfolio front function, that returns the volatility associated with the minimum variance portfolio for a given <code>expected_excess_return</code> can then be defined as:</p>
-<div id="8c06c774" class="cell" data-execution_count="18">
+<div id="8df234fa" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> portfolio_front(expected_excess_return, a, b, c):</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> expected_excess_return</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    minimum_variance <span class="op">=</span> (<span class="dv">1</span><span class="op">/</span>a </span>
@@ -781,7 +783,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> minimum_volatility</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With a defined portfolio frontier function, we can now plot the portfolio frontier. To make the weekly returns comparable on an annual scale, we multiply them by a scaling factor, <code>plot_scale</code>, set to 52. We can simply multiply the returns, because returns in Titlon are conveniently defined as log returns, calculated as <span class="math inline">\(\log(x_{t}) - \log(x_{t-1})\)</span>, rather than the typical relative return <span class="math inline">\(\frac{x_{t} - x_{t-1}}{x_{t-1}}\)</span>.</p>
-<div id="4d76da93" class="cell" data-execution_count="19">
+<div id="12bbb385" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating plot</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -836,7 +838,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 \mu_{port}=\frac{C}{B}
 \tag{30}\]</span></span></p>
 <p>Let us add that to the plot</p>
-<div id="e6ab5789" class="cell" data-execution_count="20">
+<div id="9069029e" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the tangency point of the normalized </span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># optimal portfolio</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>tangency_sigma <span class="op">=</span>  portfolio_front(C<span class="op">/</span>B, A, B, C)</span>
@@ -847,7 +849,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 <span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'ro'</span>,label<span class="op">=</span><span class="st">'Tangency Point'</span>)</span>
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 <figure class="figure">
 <p><img src="3-lecture_optport_files/figure-html/cell-21-output-1.png" width="821" height="523" class="figure-img"></p>
@@ -876,7 +878,7 @@ S=\frac{C/B}{f(C/B)}
 <span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
 <span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div id="fig-cml" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cml-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -895,7 +897,7 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 <section id="adding-the-stocks-spanning-the-portfolio-front" class="level2">
 <h2 class="anchored" data-anchor-id="adding-the-stocks-spanning-the-portfolio-front">Adding the stocks spanning the portfolio front</h2>
 <p>It is interesting to check where the original stocks that span the front, are in the picture. Let us add the cooridnates of these. We first calcualate their mean and standard devaition, and then plot them.</p>
-<div id="7bb51e67" class="cell" data-execution_count="22">
+<div id="cb59a937" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>expected <span class="op">=</span> X_df.mean()<span class="op">*</span><span class="dv">52</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>std <span class="op">=</span> X_df.std()<span class="op">*</span><span class="dv">52</span><span class="op">**</span><span class="fl">0.5</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -905,7 +907,7 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>        ax.text(std[series], expected[series], series, fontsize<span class="op">=</span><span class="dv">8</span>, ha<span class="op">=</span><span class="st">'right'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)</span>
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="41">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 <figure class="figure">
 <p><img src="3-lecture_optport_files/figure-html/cell-23-output-1.png" width="821" height="523" class="figure-img"></p>
@@ -923,7 +925,7 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 \tag{32}\]</span></span></p>
 <p>where <span class="math inline">\(B\)</span> is the sum of the optimal portfolio, as previously defined in <span class="math inline">\(\ref{eq:B}\)</span></p>
 <p>We can code that as</p>
-<div id="2d6da0b9" class="cell" data-execution_count="23">
+<div id="6a5cbdc7" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculating the normalized optimal portfolio</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>opt_port <span class="op">=</span> np.linalg.inv(cov_matrix) <span class="op">@</span> (means<span class="op">-</span>rf)<span class="op">/</span>B</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -931,7 +933,7 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>X_df[<span class="st">'Optimal'</span>] <span class="op">=</span> X <span class="op">@</span> opt_port</span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Saving the dataframe for later use:</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(X_df, <span class="st">'output/X.df'</span>)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(X_df, <span class="st">'data/X.df'</span>)</span>
 <span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># inserting the portfolio into a data frame for display</span></span>
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {}</span>
@@ -945,7 +947,7 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 <div class="cell-output cell-output-stdout">
 <pre><code>Hence the optimal portfolio in this case is</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="42">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
 
@@ -962,10 +964,10 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>93.0%</td>
-<td>22.0%</td>
-<td>-7.0%</td>
-<td>-8.0%</td>
+<td>62.0%</td>
+<td>14.0%</td>
+<td>34.0%</td>
+<td>-9.0%</td>
 </tr>
 </tbody>
 </table>
@@ -1003,239 +1005,242 @@ Tobin, James. 1958. <span>“Liquidity Preference as Behavior Towards Risk.”</
 </main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1243,185 +1248,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 

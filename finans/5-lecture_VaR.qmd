@@ -1,7 +1,7 @@
 ---
 title: "5 - Value at Risk (VaR)"
 author: "Espen Sirnes"
-date: "2024-10-30"
+date: "2025-8-10"
 pdf-engine: pdflatex
 bibliography: references.bib
 format:
@@ -35,7 +35,7 @@ In this lecture, we’ll see that VaR is not a single, fixed method. Its accurac
 We start by loading the data from lecture 3:
 ```{python}
 import pandas as pd
-df = pd.read_pickle('output/X.df')
+df = pd.read_pickle('data/X.df')
 df
 ```
 
@@ -260,3 +260,4 @@ To address these challenges, a good risk manager works to minimize opportunities
 
 # Literature
 ::: {#refs}
+:::

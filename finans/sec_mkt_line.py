@@ -22,9 +22,9 @@ def plot_sec_mkt_lines():
 	df_sml = df_sml[df_sml['mean']>MINVAL_Y]
 	
 	
-	plot_sec_mkt_line(df_sml, ax[0,0], 0.1, True)
-	plot_sec_mkt_line(df_sml, ax[1,0], 0.01)
-	plot_sec_mkt_line(df_sml, ax[0,1], 0.05)
+	plot_sec_mkt_line(df_sml, ax[0,0], 0.05, True)
+	plot_sec_mkt_line(df_sml, ax[1,0], 0.03)
+	plot_sec_mkt_line(df_sml, ax[0,1], 0.01)
 	plot_sec_mkt_line(df_sml, ax[1,1], 0.0)
 
 	# Add a single legend for the whole figure
@@ -40,8 +40,8 @@ def plot_sec_mkt_lines():
 
 def get_data():
 	# Read the data saved in lecture 3, and pick relevant columns and making sure data is unique
-
-	df = pd.read_pickle('output/stocks.df')
+	path = os.path.dirname(__file__)+'/data/stocks.df'
+	df = pd.read_pickle(path)
 	#df = pd.read_pickle("E:\\OneDrive - UiT Office 365\\Docs\\Undervisning\\SOK-3011\\uit-sok-3011-h24.github.io\\finans\\output\\stocks.df")
 	names = df.drop_duplicates(subset=['ISIN', 'Symbol']).set_index('ISIN')['Symbol'].to_dict()
 
@@ -166,4 +166,6 @@ def plot_sec_mkt_line(df_sml, ax, mktsh, setlabel = False):
 	ax.scatter(1, index_rf+rf, color='red')
 	ax.text(1, index_rf+rf, 'INDEKS', fontsize=8, ha='left', va='top', fontweight='bold')
 	ax.text(0, rf, 'rf', fontsize=8, ha='right', va='bottom', fontweight='bold')
+
+
 

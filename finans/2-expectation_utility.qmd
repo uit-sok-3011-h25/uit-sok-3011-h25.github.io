@@ -1,7 +1,7 @@
 ---
 title: "2 - Utility and investor types"
 author: "Espen Sirnes"
-date: "2024-9-18"
+date: "2025-8-10"
 bibliography: references.bib
 format:
   pdf:
@@ -294,7 +294,7 @@ Setting @eq-mean-variance-diff equal to zero and solving for $w$ gives
 
 $$
  w=\frac{\mu}{\rho \sigma^2}
-$${#eq-mean-variance-diff}
+$${#eq-mean-variance-diff0}
 
 From this, we conclude:
 1. Higher risk aversion leads to lesser investment.
@@ -429,13 +429,13 @@ import pandas as pd
 #Query script for MySQL client
 import pymysql
 con = pymysql.connect(host='titlon.uit.no', 
-                    user="user@name.com", 
-                    password="passwordfromtitlon", 
+                user      = "user@uit.no",
+                password  = "pawswordfromtitlon",
                     database='OSE')  
 crsr=con.cursor()
 crsr.execute("""
 	SELECT 
-	`Date`, `OSEBXLinked`, `OBXLinked`, `OSEFX`, `ID` 
+	`Date`, `OSEBXLinked`, `OBXLinked`, `OSEFXLinked`, `ID` 
 	FROM `OSE`.`equityindex_linked` 
 	WHERE year(`Date`) >= 1980
 	
@@ -447,7 +447,7 @@ df
 #YOU NEED TO BE CONNECTED TO YOUR INSTITUTION VIA VPN, 
 #OR BE AT THE INSTITUTION, FOR THIS CODE TO WORK
 
-pd.to_pickle(df,'output/index.df')
+pd.to_pickle(df,'data/index.df')
 df = None #in order to avoid memory problems
 ```
 
@@ -455,7 +455,7 @@ We can then calculate the return series and creating a histogram. The period mea
 ```{python}
 import pandas as pd
 # loading the data
-df = pd.read_pickle('output/index.df')
+df = pd.read_pickle('data/index.df')
 
 # Creating the plot using fig and ax
 fig, ax = plt.subplots(figsize=(8, 5))
@@ -519,3 +519,4 @@ fig
 
 # Literature
 ::: {#refs}
+:::

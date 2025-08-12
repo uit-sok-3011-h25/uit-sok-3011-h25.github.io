@@ -1,7 +1,7 @@
 ---
 title: "3 - Matrices, Optimal Portfolios"
 author: "Espen Sirnes"
-date: "2024-9-18"
+date: "2025-8-10"
 pdf-engine: pdflatex
 bibliography: references.bib
 format:
@@ -360,7 +360,7 @@ In general, we may draw the same conclusions as in the case of one asset:
 
 # Empirical example - optimal porfolio and the portfolio front
 
-We will now create an optimal portfolio using data from Titlon, and draw the "portfolio front" [@Markowitz1952]. The portfolio front are the smallest possible volatility of a set of assets, for all return leves. We use the script feature of Titlon to fetch the data, and storing it in `'output/stocks.df'`
+We will now create an optimal portfolio using data from Titlon, and draw the "portfolio front" [@Markowitz1952]. The portfolio front are the smallest possible volatility of a set of assets, for all return leves. We use the script feature of Titlon to fetch the data, and storing it in `'data/stocks.df'`
 
 ```{python}
 #| eval: false
@@ -369,8 +369,8 @@ import os
 #Query script for MySQL client
 import pymysql
 con = pymysql.connect(host='titlon.uit.no', 
-					user="user@name.com", 
-					password="passwordfromtitlon", 
+                user      = "user@uit.no",
+                password  = "passwordfromtitlon",
 					database='OSE')  
 crsr=con.cursor()
 crsr.execute("SET SESSION MAX_EXECUTION_TIME=60000;")
@@ -390,7 +390,7 @@ df
 # OR BE AT THE INSTITUTION, FOR THIS CODE TO WORK
 
 os.makedirs('output', exist_ok=True)
-pd.to_pickle(df,'output/stocks.df')
+pd.to_pickle(df,'data/stocks.df')
 ```
 
 We now reload the data, and pick the four stocks   
@@ -404,7 +404,7 @@ We can obtain that with this code:
 import numpy as np
 import pandas as pd
 
-df = pd.read_pickle('output/stocks.df')
+df = pd.read_pickle('data/stocks.df')
 # Defining annual risk free rate. 
 rf = df['NOWA_DayLnrate'].mean()*7
 
@@ -681,7 +681,7 @@ opt_port = np.linalg.inv(cov_matrix) @ (means-rf)/B
 X_df['Optimal'] = X @ opt_port
 
 #Saving the dataframe for later use:
-pd.to_pickle(X_df, 'output/X.df')
+pd.to_pickle(X_df, 'data/X.df')
 
 # inserting the portfolio into a data frame for display
 d = {}
@@ -710,3 +710,4 @@ pd.DataFrame(d)
 
 # Literature
 ::: {#refs}
+:::

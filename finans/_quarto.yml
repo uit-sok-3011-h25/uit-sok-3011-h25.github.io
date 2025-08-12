@@ -1,0 +1,14 @@
+project:
+  type: default
+  render:
+
+    - 2-expectation_utility.qmd
+    - 3-lecture_optport.qmd
+    - 4-lecture_factors.qmd
+    - 5-lecture_VaR.qmd
+    - 1-introduksjon.qmd
+
+format:
+  html: default
+  pdf: default     # requires a LaTeX install (TinyTeX/MiKTeX/etc.)
+  ipynb: default
