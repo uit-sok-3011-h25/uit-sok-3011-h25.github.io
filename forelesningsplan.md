@@ -13,7 +13,7 @@ Støttelitteratur:
 
 | Uke | Dato       | Beskrivelse                | Lærer   |
 |-----|------------|----------------------------|---------|
-| 35  | 29.08 | Theoretical foundation of applied Production analysis (Lecture notes. TK-25. Sec. 1-4) | TK |
+| 35  | 29.08 (Online) [Zoom link](https://oslomet.zoom.us/j/69300701985?pwd=bfErn0A2oMHipS0I5WhMfhHaV0bCFa.1) (Meeting ID: 693 0070 1985 ; Password: 064851) | Theoretical foundation of applied Production analysis (Lecture notes. TK-25. Sec. 1-4) | TK |
 | 36  | 05.09 | Empirical estimation of production function (Lecture notes. TK-25. Sec. 7)| TK |
 | 39  | 24.09 | [1 - Introduksjon og presentasjon av case](finans/1-introduksjon.html), [pdf](finans/1-introduksjon.pdf)| ES|
 | 39  | 25.09 | Duality; Cost minimization - Theory and estimation (Lecture notes. TK-25. Sec. 6, 8, 9) | TK |
