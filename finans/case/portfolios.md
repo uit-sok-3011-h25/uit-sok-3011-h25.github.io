@@ -43,7 +43,7 @@
 | ISIN | Navn | Gj.snitl. avk. | Korrelasjoner:|NO0003025009 | NO0010359433 | NO0010887110 |
 |------|------|----:|------|----:|----:|----:| 
 | NO0003025009 | VOSS VEKSEL OGLAND | 5.1 % | |1.0 | 0.71 | 0.89|
-| NO0010359433 | JÆREN SPAREBANK    | 4.7 % | |0.71 | 1.0 | 0.84|
+| NO0010359433 | JÃ†REN SPAREBANK    | 4.7 % | |0.71 | 1.0 | 0.84|
 | NO0010887110 | SPARBNK 68 GR NORD | 2.0 % | |0.89 | 0.84 | 1.0|
 
 ### Aksjer til gruppe 7
