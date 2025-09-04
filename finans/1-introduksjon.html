@@ -121,18 +121,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Introduksjon</h1>
 <section id="caset" class="level2">
 <h2 class="anchored" data-anchor-id="caset">Caset</h2>
-<ul>
-<li>Skriv en rapport om en aksje, fond eller strategi på TITLON, og argumenter for hvorfor dette er et bra, dårlig eller usikkert investeringscase.</li>
-<li>I rapporten skal du bruke:
-<ul>
-<li>Teori om forventning, nytte og risiko</li>
-<li>Porteføljeteori</li>
-<li>Faktorer</li>
-<li>Value At Risk</li>
-</ul></li>
-</ul>
-<p>Det første dere begynner med, er å finne caset deres. Det trengs det ingen forkunskap til</p>
-<p>Det er veldig lurt å jobbe med temaet som vi har gått gjennom på forelesning, etter gjeldende forelesning.</p>
+<p>Hver gruppe får tildelt <a href="case/portfolios.html">tre aksjer</a></p>
+<ol type="1">
+<li>Bruk historisk avkastning frem til 1. januar 2025 og tilgjengelig offentlig informasjon da, slik som års-/kvartalrapporter, tiog lage en portefølje for to typer investorer:
+<ol type="a">
+<li>Risikoavers</li>
+<li>Risikosøkende</li>
+</ol></li>
+<li>Tegn opp i samme diagram
+<ol type="a">
+<li>porteføljefronten</li>
+<li>hver av de tre aksjene</li>
+<li>faktorene</li>
+<li>den optimale tilpasningen.</li>
+</ol></li>
+<li>Regn ut den optimale porteføljen, og forklar hvorfor du bruker eller ikke bruker disse vektene.</li>
+<li>Velg en VaR-modell basert på de historiske datane og kjør en tilbaketest på den (backtesting) og gi din vurdering av modellen.</li>
+<li>Hent nye data på aksjene og bruk den til å:
+<ol type="a">
+<li>Evaluer faktisk avkastning</li>
+<li>Tegn opp ny porteføljefront med aksjer og faktorer</li>
+<li>Evaluer VaR-modellen.</li>
+</ol></li>
+</ol>
 </section>
 <section id="i-denne-forelesningen" class="level2">
 <h2 class="anchored" data-anchor-id="i-denne-forelesningen">I denne forelesningen</h2>
@@ -142,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-2-forventning-nytte-og-risiko" class="level1">
 <h1>Forelesning 2: Forventning, nytte og risiko</h1>
 <p>Nyttefunksjonen:</p>
-<div id="df4bd0d7" class="cell" data-tags="[]" data-execution_count="1">
+<div id="d7a2203b" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -211,7 +222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-3-porteføljeteori-og-matriser" class="level1">
 <h1>Forelesning 3: Porteføljeteori og matriser</h1>
 <p>Her bruker vi titlondatabasen:</p>
-<div id="4cfe2a3b" class="cell" data-execution_count="2">
+<div id="1a879f3b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> IFrame</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Embed the web page using an iframe</span></span>
@@ -229,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="utregninger" class="level2">
 <h2 class="anchored" data-anchor-id="utregninger">Utregninger</h2>
 <p>Reduserer utvalget:</p>
-<div id="a2b05544" class="cell" data-execution_count="3">
+<div id="8cdfccc8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -292,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Lager avkastningsmatrisen:</p>
-<div id="1847f0bf" class="cell" data-execution_count="4">
+<div id="c943c5bb" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_matrix(df, field):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Converts the df to a matrix df that can </span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">    be used to calculate the covariance matrix"""</span></span>
@@ -424,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Finner gjennomsnittsvektoren og varians-kovarians-matrisen:</p>
-<div id="52f9f5c5" class="cell" data-execution_count="5">
+<div id="631bc39c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting X to a numpy array:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array(X_df)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -437,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> np.mean(X, axis<span class="op">=</span><span class="dv">0</span>).reshape((X.shape[<span class="dv">1</span>],<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Definerer porteføljefrontfunksjonen:</p>
-<div id="5ac0c0a3" class="cell" data-execution_count="6">
+<div id="e7774c6f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ones <span class="op">=</span> np.ones((<span class="bu">len</span>(means),<span class="dv">1</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> (ones.T <span class="op">@</span> np.linalg.inv(cov_matrix) <span class="op">@</span> ones)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
@@ -456,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> minimum_volatility</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plotter porteføljefronten:</p>
-<div id="778dc693" class="cell" data-execution_count="7">
+<div id="e8b66f47" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating plot</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -486,7 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Legger til punkte for den optimale porteføljen:</p>
-<div id="78cdda52" class="cell" data-execution_count="8">
+<div id="7ee56c1b" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the tangency point of the normalized </span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># optimal portfolio</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>tangency_sigma <span class="op">=</span>  portfolio_front(C<span class="op">/</span>B, A, B, C)</span>
@@ -508,7 +519,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="porteføljefronten-med-optimal-portefølje-og-tangeringslinje" class="level2">
 <h2 class="anchored" data-anchor-id="porteføljefronten-med-optimal-portefølje-og-tangeringslinje">Porteføljefronten med optimal portefølje og tangeringslinje</h2>
-<div id="e09f695b" class="cell" data-execution_count="9">
+<div id="9602c870" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sigma_range <span class="op">=</span> np.linspace(<span class="dv">0</span>, np.<span class="bu">max</span>(sigma_values), <span class="dv">100</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the portfolio front, after annualizing the </span></span>
@@ -534,7 +545,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-4-faktorer" class="level1">
 <h1>Forelesning 4: Faktorer</h1>
 <p>Finner volatilitet og avkastning til faktorene:</p>
-<div id="9a66629f" class="cell" data-execution_count="10">
+<div id="1716f8ec" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/factors.df'</span>)</span>
@@ -667,7 +678,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Plotter punktene i grafen fra forrige kapittel:</p>
-<div id="c3584e20" class="cell" data-execution_count="11">
+<div id="d82184fb" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> series <span class="kw">in</span> means.index:</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>        ax.scatter(std[series], means[series], label<span class="op">=</span>series)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -687,7 +698,7 @@ dtype: float64</code></pre>
 <h1>Forelesning 5: VaR</h1>
 <section id="utregninger-1" class="level4">
 <h4 class="anchored" data-anchor-id="utregninger-1">Utregninger</h4>
-<div id="070e860e" class="cell" data-execution_count="12">
+<div id="c9ff6b47" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_backtest(f, df, name, estimation_win_size):</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize lists to store calculated values</span></span>
@@ -722,7 +733,7 @@ dtype: float64</code></pre>
 <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>            np.array(datelist),</span>
 <span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>            np.array(ret))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="782611cf" class="cell" data-execution_count="13">
+<div id="270a2bdc" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate(plt, d95, d99, ret, dates, heading):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Clear the plot area to avoid overlapping plots</span></span>
@@ -756,7 +767,7 @@ dtype: float64</code></pre>
 <span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Breaches: </span><span class="sc">{</span>breaches<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
 <span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Backtesting (Realized VaR - % breaches): </span><span class="sc">{</span>backtest_results[i]<span class="sc">}</span><span class="ss">%</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e1840ab5" class="cell" data-execution_count="14">
+<div id="8dab84d3" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>PVALS <span class="op">=</span> [<span class="fl">0.05</span>, <span class="fl">0.01</span>]  <span class="co"># Confidence intervals (95% and 99%)</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -782,7 +793,7 @@ dtype: float64</code></pre>
 </section>
 <section id="evaluering" class="level4">
 <h4 class="anchored" data-anchor-id="evaluering">Evaluering</h4>
-<div id="54c9c375" class="cell" data-execution_count="15">
+<div id="16590137" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>NAME <span class="op">=</span> <span class="st">'EQNR'</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ESTIMATION_WINSIZE <span class="op">=</span> <span class="dv">52</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>

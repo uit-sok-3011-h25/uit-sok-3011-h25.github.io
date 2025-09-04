@@ -2,23 +2,7 @@
 title: "1 - Introduksjon og case"
 author: "Espen Sirnes"
 date: "2025-8-10"
-format:
-  pdf:
-    number-sections: true
-    geometry: [left=4cm, right=4cm, top=4cm, bottom=4cm]
-    fontsize: 12pt
-    fontfamily: times
-    monofont: "Courier New"
-    documentclass: article
-    toc: true
-    fig-cap: true
-    fig-pos: H
-    titlepage: true
-    titlepage-text-color: "000000"
-    titlepage-rule-color: "000000"
-    titlepage-rule-height: 2
-  html: default
-  ipynb: default
+
 ---
 
 
@@ -28,16 +12,26 @@ format:
 
 ## Caset
 
-* Skriv en rapport om en aksje, fond eller strategi på TITLON, og argumenter for hvorfor dette er et bra, dårlig eller usikkert investeringscase.
-* I rapporten skal du bruke:
-  * Teori om forventning, nytte og risiko
-  * Porteføljeteori
-  * Faktorer
-  * Value At Risk
+Hver gruppe får tildelt [tre aksjer](case/portfolios.html)
 
-Det første dere begynner med, er å finne caset deres. Det trengs det ingen forkunskap til
+1.  Bruk historisk avkastning frem til 1. januar 2025 og tilgjengelig offentlig informasjon da, slik som års-/kvartalrapporter, tiog lage en portefølje for to typer investorer:
+    a) Risikoavers
+    b) Risikosøkende
 
-Det er veldig lurt å jobbe med temaet som vi har gått gjennom på forelesning, etter gjeldende forelesning.
+2. Tegn opp i samme diagram 
+    a) porteføljefronten
+    b) hver av de tre aksjene
+    c) faktorene 
+    d) den optimale tilpasningen.
+3. Regn ut den optimale porteføljen, og forklar hvorfor du bruker eller ikke bruker disse vektene.
+4. Velg en VaR-modell basert på de historiske datane og kjør en tilbaketest på den (backtesting) og gi din vurdering av modellen.
+5. Hent nye data på aksjene og bruk den til å:
+    a) Evaluer faktisk avkastning
+    b) Tegn opp ny porteføljefront med aksjer og faktorer
+    c) Evaluer VaR-modellen. 
+
+
+
 
 ## I denne forelesningen
 

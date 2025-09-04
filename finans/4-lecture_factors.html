@@ -245,7 +245,7 @@ x - r_f = \alpha + \beta_M (r_M - r_f)  \\
 <section id="tentative-answer-to-challenge-1" class="level2">
 <h2 class="anchored" data-anchor-id="tentative-answer-to-challenge-1">Tentative answer to Challenge 1:</h2>
 <p>In the Titlon database, the <code>equity</code> table under the OSE tab all ready contains what we need to solve this. Let us therefore just load the data from lecture 3, and reduce it to weekly data for the variables we need:</p>
-<div id="e1da5bfd" class="cell" data-execution_count="2">
+<div id="ec14307a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># reads the data</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_stocks <span class="op">=</span> pd.read_pickle(<span class="st">'data/stocks.df'</span>)</span>
@@ -469,7 +469,7 @@ x - r_f = \alpha + \beta_M (r_M - r_f)  \\
 </div>
 </div>
 <p>Running the regression for Equinor</p>
-<div id="2d162eb3" class="cell" data-execution_count="3">
+<div id="64192ba0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the DataFrame for Symbol = 'EQNR'</span></span>
@@ -496,8 +496,8 @@ x - r_f = \alpha + \beta_M (r_M - r_f)  \\
 Dep. Variable:            lnDeltaP_rf   R-squared:                       0.564
 Model:                            OLS   Adj. R-squared:                  0.559
 Method:                 Least Squares   F-statistic:                     127.4
-Date:                Tue, 12 Aug 2025   Prob (F-statistic):           2.01e-86
-Time:                        13:34:11   Log-Likelihood:                 1116.7
+Date:                Thu, 04 Sep 2025   Prob (F-statistic):           2.01e-86
+Time:                        11:47:56   Log-Likelihood:                 1116.7
 No. Observations:                 499   AIC:                            -2221.
 Df Residuals:                     493   BIC:                            -2196.
 Df Model:                           5                                         
@@ -527,7 +527,7 @@ Notes:
 <section id="tentative-answer-to-challenge-2" class="level2">
 <h2 class="anchored" data-anchor-id="tentative-answer-to-challenge-2">Tentative answer to Challenge 2:</h2>
 <p>First, let us just rerun the last few cells of the previous chapter, in order to have the previous graph in the memory. That can is done with a custom function <code>calc_notebook</code> in the module <code>functions,py</code>in this directory. <code>d</code> contains the variable from those calculations.</p>
-<div id="d701c57f" class="cell" data-execution_count="4">
+<div id="2b409e92" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> functions</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> functions.calc_notebook(<span class="st">"3-lecture_optport.ipynb"</span>, </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              [<span class="st">"read_pickle"</span>,<span class="st">"get_matrix"</span>, </span>
@@ -547,7 +547,7 @@ Notes:
 </div>
 <p>Also, we need data on the factors. We could use the data from the <code>equity</code> table, loaded in lecture 3. However, we want one factor observation each date, not one for each stock. Downloading the <code>factors</code>model from Titlon is therefore more convenient. We get this by pasting the script from Titlon below, or you can just paste the username and password if you want.</p>
 <p>If you have all ready run this, you do not need to rerun it, since the data is stored.</p>
-<div id="8fd5c1cf" class="cell" data-execution_count="5">
+<div id="481529b8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
@@ -577,7 +577,7 @@ Notes:
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'data/factors.df'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We then loade the saved file and calculate the means and standard errors, after reducing the frequency from daily to weekly.</p>
-<div id="544b5567" class="cell" data-execution_count="6">
+<div id="5ecfcd90" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/factors.df'</span>)</span>
@@ -711,7 +711,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>We can then plot the factors in the existing porfolio frontier</p>
-<div id="6ea3c769" class="cell" data-execution_count="7">
+<div id="6fd4ca21" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> series <span class="kw">in</span> means.index:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        ax.scatter(std[series], means[series], </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                        label<span class="op">=</span>series)</span>

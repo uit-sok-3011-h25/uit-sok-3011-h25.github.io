@@ -2,27 +2,7 @@
 title: "5 - Value at Risk (VaR)"
 author: "Espen Sirnes"
 date: "2025-8-10"
-pdf-engine: pdflatex
-bibliography: references.bib
-format:
-  pdf:
-    number-sections: true
-    geometry: [left=4cm, right=4cm, top=4cm, bottom=4cm]
-    fontsize: 12pt
-    fontfamily: times
-    monofont: "Courier New"
-    documentclass: article
-    toc: true
-    fig-cap: true
-    fig-pos: H
-    titlepage: true
-    titlepage-text-color: "000000"
-    titlepage-rule-color: "000000"
-    titlepage-rule-height: 2
-    equation-numbering: true
-  html:
-    equation-numbering: true
-  ipynb: default
+
 ---
 # VaR
 

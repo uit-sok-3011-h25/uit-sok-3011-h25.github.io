@@ -1,0 +1,605 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"1 - Introduksjon og case\"\n",
+        "author: \"Espen Sirnes\"\n",
+        "date: \"2025-8-10\"\n",
+        "\n",
+        "---\n",
+        "\n",
+        "\n",
+        "![Fond](img/fond.png)![Fond](img/risikojustert.png)\n",
+        "\n",
+        "# Introduksjon\n",
+        "\n",
+        "## Caset\n",
+        "\n",
+        "Hver gruppe får tildelt [tre aksjer](case/portfolios.html)\n",
+        "\n",
+        "1.  Bruk historisk avkastning frem til 1. januar 2025 og tilgjengelig offentlig informasjon da, slik som års-/kvartalrapporter, tiog lage en portefølje for to typer investorer:\n",
+        "    a) Risikoavers\n",
+        "    b) Risikosøkende\n",
+        "\n",
+        "2. Tegn opp i samme diagram \n",
+        "    a) porteføljefronten\n",
+        "    b) hver av de tre aksjene\n",
+        "    c) faktorene \n",
+        "    d) den optimale tilpasningen.\n",
+        "3. Regn ut den optimale porteføljen, og forklar hvorfor du bruker eller ikke bruker disse vektene.\n",
+        "4. Velg en VaR-modell basert på de historiske datane og kjør en tilbaketest på den (backtesting) og gi din vurdering av modellen.\n",
+        "5. Hent nye data på aksjene og bruk den til å:\n",
+        "    a) Evaluer faktisk avkastning\n",
+        "    b) Tegn opp ny porteføljefront med aksjer og faktorer\n",
+        "    c) Evaluer VaR-modellen. \n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "## I denne forelesningen\n",
+        "\n",
+        "Korte om kursets tema:\n",
+        "* Forelesning 2: Forventning, nytte og risiko\n",
+        "* Forelesning 3: Porteføljeteori og matriser\n",
+        "* Forelesning 4: Faktorer\n",
+        "* Forelesning 5: Value at Risk (VaR)\n",
+        "  \n",
+        "\n",
+        "# Forelesning 2: Forventning, nytte og risiko\n",
+        "\n",
+        "\n",
+        "Nyttefunksjonen:"
+      ],
+      "id": "c9cd4826"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "tags": []
+      },
+      "source": [
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Logarithmic utility function\n",
+        "def u_func(x):\n",
+        "    return np.log(x)\n",
+        "\n",
+        "def x_func(u):\n",
+        "    return np.exp(u)\n",
+        "\n",
+        "# Values for wealth and utility\n",
+        "x_vals = np.linspace(0.1, 2, 100)\n",
+        "u_x = u_func(x_vals)\n",
+        "\n",
+        "# Gamble outcomes\n",
+        "x_gamble = [0.5, 1.5]  # Outcomes of the gamble\n",
+        "p_gamble = [0.5, 0.5]  # Probabilities\n",
+        "\n",
+        "# Certain outcome\n",
+        "x_certain = 1\n",
+        "\n",
+        "# Expected utility of the gamble\n",
+        "expected_utility = np.sum(np.array(p_gamble) * u_func(np.array(x_gamble)))\n",
+        "\n",
+        "# Plotting the utility function\n",
+        "plt.figure(figsize=(10, 6))\n",
+        "plt.plot(x_vals, u_x, label=r'Utility Function: $u(x) = \\ln(x)$', color='black')\n",
+        "\n",
+        "# Plotting the certain outcome\n",
+        "plt.axvline(x=x_certain, color='black', linestyle='--')\n",
+        "plt.text(x_certain, u_func(x_certain) + 0.1, \"$1$\", horizontalalignment='center', fontsize=12)\n",
+        "\n",
+        "# Plotting the gamble outcomes\n",
+        "plt.axvline(x=x_gamble[0], color='black', linestyle='--')\n",
+        "plt.axvline(x=x_gamble[1], color='black', linestyle='--')\n",
+        "plt.text(x_gamble[0], u_func(x_gamble[0]) - 0.3, \"$0.5$\", horizontalalignment='center', fontsize=12)\n",
+        "plt.text(x_gamble[1], u_func(x_gamble[1]) - 0.3, \"$1.5$\", horizontalalignment='center', fontsize=12)\n",
+        "\n",
+        "# Plotting the expected utility\n",
+        "plt.axhline(y=expected_utility, color='gray', linestyle='--', label='Expected Utility of Gamble $EU(X)$')\n",
+        "plt.text(0.15, expected_utility, '$EU(X)$', verticalalignment='center', fontsize=12)\n",
+        "\n",
+        "# Risk premium - distance between expected utility and utility of certain outcome\n",
+        "risk_premium = u_func(x_certain) - expected_utility\n",
+        "certainty_equivalence = x_func(expected_utility)\n",
+        "plt.annotate('', xy=(1, expected_utility), xytext=(certainty_equivalence, expected_utility),\n",
+        "             arrowprops=dict(facecolor='black', arrowstyle='<->'))\n",
+        "# Separate annotation for the label (π) without the arrow\n",
+        "plt.annotate(r'$\\pi$', xy=(0.9, expected_utility -0.1), fontsize=12)\n",
+        "\n",
+        "# Labels and title\n",
+        "plt.title('Utility Function Demonstrating Risk Aversion')\n",
+        "plt.xlabel('Wealth (W)')\n",
+        "plt.ylabel('Utility (U)')\n",
+        "plt.legend()\n",
+        "plt.grid(True)"
+      ],
+      "id": "97f4b1a7",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Forelesning 3: Porteføljeteori og matriser\n",
+        "\n",
+        "Her bruker vi titlondatabasen:"
+      ],
+      "id": "49686ec5"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from IPython.display import IFrame\n",
+        "\n",
+        "# Embed the web page using an iframe\n",
+        "IFrame(\"https://titlon.uit.no/\", width=700, height=200)"
+      ],
+      "id": "43d51ab8",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Vi bruker scriptmuligheten i Titlon for å hente data\n",
+        "\n",
+        "## Porteføljefronten\n",
+        "\n",
+        "## Utregninger\n",
+        "\n",
+        "Reduserer utvalget:"
+      ],
+      "id": "bbb42ef7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "\n",
+        "df = pd.read_pickle('data/stocks.df')\n",
+        "# Defining annual risk free rate. \n",
+        "rf = df['NOWA_DayLnrate'].mean()*7\n",
+        "\n",
+        "isin_with_first_date = df[df['Date'] == df['Date'].min()]['ISIN'].unique()\n",
+        "isin_with_last_date = df[df['Date'] == df['Date'].max()]['ISIN'].unique()\n",
+        "valid_isins = set(isin_with_first_date).intersection(isin_with_last_date)\n",
+        "df = df[df['ISIN'].isin(valid_isins)]\n",
+        "\n",
+        "df['Name (ISIN)'] =df['Name'].str.upper().str.strip() + '(' + df['ISIN'] + ')'\n",
+        "\n",
+        "# keeping only the most traded shares\n",
+        "res = (\n",
+        "        df.groupby(['Name (ISIN)'])\n",
+        "        .agg({'Turnover': 'sum'})\n",
+        "        .sort_values(by='Turnover', ascending=False)\n",
+        ")\n",
+        "df = df.merge(res.head(4), on=['Name (ISIN)'], \n",
+        "                                how='inner')\n",
+        "res.head(4)"
+      ],
+      "id": "15bae11f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Lager avkastningsmatrisen:"
+      ],
+      "id": "b26dfabb"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def get_matrix(df, field):\n",
+        "\t\"\"\"Converts the df to a matrix df that can \n",
+        "\tbe used to calculate the covariance matrix\"\"\"\n",
+        "\t\n",
+        "\timport pandas as pd\n",
+        "\tdf['Date'] = pd.to_datetime(df['Date'])\n",
+        "\tdf_unique = df.drop_duplicates(\n",
+        "\t\t\t\t\t\t\t\t\tsubset=['Date', 'ISIN'])\n",
+        "\tpivot_df = df_unique.pivot(index='Date', \n",
+        "\t\t\t\t\t\t\t\t\tcolumns='Symbol', \n",
+        "\t\t\t\t\t\t\t\t\tvalues=field)\n",
+        "\n",
+        "\tpivot_df = pivot_df.dropna()\n",
+        "\n",
+        "\t# Annualized weekly returns\n",
+        "\tdf_weekly = pivot_df.resample('W').sum()\n",
+        "\n",
+        "\treturn df_weekly\n",
+        "\n",
+        "#X is a matrxi with e\n",
+        "X_df = get_matrix(df, 'lnDeltaP') \n",
+        "X_df = X_df.sort_index()\n",
+        "\n",
+        "X_df"
+      ],
+      "id": "fa72961b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Finner gjennomsnittsvektoren og varians-kovarians-matrisen:"
+      ],
+      "id": "a13d4e53"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Converting X to a numpy array:\n",
+        "X = np.array(X_df)\n",
+        "\n",
+        "# Calculating the covariance\n",
+        "cov_matrix = np.cov(X, rowvar=False)\n",
+        "\n",
+        "# Calculating the means vector, and reshaping it to a \n",
+        "# column vector. \n",
+        "\n",
+        "means = np.mean(X, axis=0).reshape((X.shape[1],1))"
+      ],
+      "id": "fe87a8e8",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Definerer porteføljefrontfunksjonen:"
+      ],
+      "id": "8673cdef"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "ones = np.ones((len(means),1))\n",
+        "\n",
+        "A = (ones.T @ np.linalg.inv(cov_matrix) @ ones)[0][0]\n",
+        "\n",
+        "B = (ones.T @ np.linalg.inv(cov_matrix) \n",
+        "\t\t\t\t\t\t\t\t@ (means-rf))[0][0]\n",
+        "\n",
+        "C = ((means.T-rf) @ np.linalg.inv(cov_matrix) \n",
+        "\t\t\t\t\t\t\t\t@ (means-rf))[0][0]\n",
+        "\n",
+        "def portfolio_front(expected_excess_return, a, b, c):\n",
+        "\tr = expected_excess_return\n",
+        "\tminimum_variance = (1/a \n",
+        "\t\t\t+ ((r - abs(b)/a)**2) / (c - b**2/a))\n",
+        "\tminimum_volatility = minimum_variance**0.5\n",
+        "\treturn minimum_volatility"
+      ],
+      "id": "7d3d45d6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Plotter porteføljefronten:"
+      ],
+      "id": "980050e0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from matplotlib import pyplot as plt\n",
+        "#Creating plot\n",
+        "fig, ax = plt.subplots(figsize=(10, 6))\n",
+        "plot_scale = 52\n",
+        "MAX_AXIS = 0.005\n",
+        "#applying the function\n",
+        "rp_values = np.linspace(0, MAX_AXIS-rf, 100)\n",
+        "sigma_values = portfolio_front(rp_values, A, B, C)\n",
+        "\n",
+        "#plotting, after annualizing the weekly data\n",
+        "ax.plot(plot_scale**0.5*(sigma_values), plot_scale*(rp_values+rf), \n",
+        "\t\t\t\t\t\tlabel='Efficient Frontier')\n",
+        "\n",
+        "#plot settings:\n",
+        "ax.set_xlim([0, np.max(sigma_values*plot_scale**0.5)])\n",
+        "ax.set_ylim([0, (np.max(rp_values)+rf)*plot_scale])\n",
+        "ax.set_xlabel('Sigma (Risk)')\n",
+        "ax.set_ylabel('Rp (Return)')\n",
+        "ax.set_title('Efficient Frontier')\n",
+        "ax.legend()"
+      ],
+      "id": "48f56101",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Legger til punkte for den optimale porteføljen:"
+      ],
+      "id": "3fc895de"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Calculating the tangency point of the normalized \n",
+        "# optimal portfolio\n",
+        "tangency_sigma =  portfolio_front(C/B, A, B, C)\n",
+        "\n",
+        "#plotting it, after annualizing the weekly data\n",
+        "ax.plot(plot_scale**0.5*tangency_sigma, \n",
+        "\t\t\t\t\tplot_scale*(C/B + rf), \n",
+        "\t\t\t\t\t'ro',label='Tangency Point')\n",
+        "ax.legend()\n",
+        "fig"
+      ],
+      "id": "1299b6e5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Porteføljefronten med optimal portefølje og tangeringslinje"
+      ],
+      "id": "30091885"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "sigma_range = np.linspace(0, np.max(sigma_values), 100)\n",
+        "\n",
+        "# Plotting the portfolio front, after annualizing the \n",
+        "# weekly data\n",
+        "ax.plot(plot_scale**0.5*sigma_range, plot_scale*(rf \n",
+        "\t\t\t\t+ sigma_range*(C/B)/tangency_sigma), \n",
+        "\t\t\t\tcolor='r', linestyle='--', \n",
+        "\t\t\t\tlabel='Capital Market Line')\n",
+        "\n",
+        "ax.legend()\n",
+        "\n",
+        "fig"
+      ],
+      "id": "04ac794c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Forelesning 4: Faktorer\n",
+        "\n",
+        "Finner volatilitet og avkastning til faktorene:"
+      ],
+      "id": "916a11d0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "df = pd.read_pickle('data/factors.df')\n",
+        "df['Date'] = pd.to_datetime(df['Date'])\n",
+        "df = df.set_index('Date')\n",
+        "df_weekly = df.resample('W').sum()\n",
+        "df_weekly = df_weekly[['SMB', 'HML', 'LIQ', 'MOM']].dropna()\n",
+        "df = df[['SMB', 'HML', 'LIQ', 'MOM']].dropna()\n",
+        "means = df_weekly.mean()*52\n",
+        "std = df_weekly.std()*52**0.5\n",
+        "print(std)\n",
+        "print(means)\n",
+        "df_weekly"
+      ],
+      "id": "8373e051",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Plotter punktene i grafen fra forrige kapittel:"
+      ],
+      "id": "f198c03c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "for series in means.index:\n",
+        "        ax.scatter(std[series], means[series], label=series)\n",
+        "\n",
+        "ax.legend()\n",
+        "\n",
+        "fig"
+      ],
+      "id": "49db4f57",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Forelesning 5: VaR\n",
+        "\n",
+        "#### Utregninger"
+      ],
+      "id": "50f68d5c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import numpy as np\n",
+        "def generate_backtest(f, df, name, estimation_win_size):\n",
+        "    # Initialize lists to store calculated values\n",
+        "    datelist = []\n",
+        "    sigmalist = []\n",
+        "    d95list = []\n",
+        "    d99list = []\n",
+        "    ret = []\n",
+        "\n",
+        "    # Iterate over returns to calculate and store VaR and volatility estimates\n",
+        "    for t in range(estimation_win_size, len(df)):\n",
+        "        \n",
+        "        # Record date and current return\n",
+        "        datelist.append(df.index[t].date())\n",
+        "        ret.append(df[name].iloc[t])\n",
+        "\n",
+        "        # Extract data from the estimation window (t-estimation_win_size to t-1)\n",
+        "        x = df[name].iloc[t-estimation_win_size:t-1]\n",
+        "\n",
+        "        # Apply the provided VaR estimation function using the historical data and past volatility\n",
+        "        d95, d99, sigma = f(x, sigmalist)\n",
+        "\n",
+        "        # Append the estimates to their respective lists\n",
+        "        sigmalist.append(sigma)\n",
+        "        d95list.append(d95)\n",
+        "        d99list.append(d99)\n",
+        "\n",
+        "    # Return the results as numpy arrays for ease of analysis\n",
+        "    return (np.array(d95list),\n",
+        "            np.array(d99list),\n",
+        "            np.array(sigmalist),\n",
+        "            np.array(datelist),\n",
+        "            np.array(ret))"
+      ],
+      "id": "309d8d7b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "def evaluate(plt, d95, d99, ret, dates, heading):\n",
+        "    # Clear the plot area to avoid overlapping plots\n",
+        "    plt.cla()\n",
+        "\n",
+        "    # Plot the 95% VaR, 99% VaR, and actual returns\n",
+        "    plt.plot(dates, d95, label='95% Confidence Level')\n",
+        "    plt.plot(dates, d99, label='99% Confidence Level')\n",
+        "    plt.plot(dates, ret, label='Actual Return')\n",
+        "\n",
+        "    # Highlight instances where returns breach the 95% VaR\n",
+        "    maxret = max(ret)\n",
+        "    breaches_95 = [maxret if d > r else 0 for d, r in zip(d95, ret)]\n",
+        "    plt.bar(dates, breaches_95, color='gray', alpha=0.5, width=0.5, label='Breaches 95% VaR')\n",
+        "\n",
+        "    # Set labels and title\n",
+        "    plt.ylabel('VaR')\n",
+        "    plt.xlabel('Date')\n",
+        "    plt.title(heading)\n",
+        "    plt.xticks(rotation=90)\n",
+        "    plt.legend(loc=\"lower right\")\n",
+        "    plt.subplots_adjust(bottom=0.15)\n",
+        "    plt.show()\n",
+        "\n",
+        "    # Calculate and print the breach percentage for each confidence level\n",
+        "    backtest_results = [np.round(sum(d > ret) / len(ret) * 100, 1) for d in [d95, d99]]\n",
+        "\n",
+        "    for i, level in enumerate([95, 99]):\n",
+        "        breaches = sum([d95, d99][i] > ret)\n",
+        "        print(f\"{heading} with {level}% confidence interval:\\n\"\n",
+        "              f\"Breaches: {breaches}\\n\"\n",
+        "              f\"Backtesting (Realized VaR - % breaches): {backtest_results[i]}%\\n\")"
+      ],
+      "id": "029ed9d5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "PVALS = [0.05, 0.01]  # Confidence intervals (95% and 99%)\n",
+        "from scipy.stats import norm\n",
+        "\n",
+        "def normal_est(x, sigmalist):\n",
+        "    z = norm.ppf(PVALS)  # Z-scores for the specified confidence levels\n",
+        "    sigma = np.std(x, ddof=1)  # Sample standard deviation\n",
+        "    return z[0] * sigma, z[1] * sigma, sigma\n",
+        "\n",
+        "def historical_est(x, sigmalist):\n",
+        "    q95 = abs(np.quantile(x, PVALS[0]))  # 95th percentile of historical losses\n",
+        "    q99 = abs(np.quantile(x, PVALS[1]))  # 99th percentile of historical losses\n",
+        "    return -q95, -q99, None  # VaR values are negative to indicate potential loss\n",
+        "\n",
+        "def last_volat(x, sigmalist):\n",
+        "    x = np.array(x)\n",
+        "    z = norm.ppf(PVALS)\n",
+        "    if not sigmalist:  # If sigmalist is empty, use initial standard deviation\n",
+        "        sigma = np.std(x, ddof=1)\n",
+        "    else:  # Update sigma based on past volatility and recent error\n",
+        "        sigma = (0.1 * (x[0] - np.mean(x))**2 + 0.9 * sigmalist[-1]**2)**0.5\n",
+        "    return z[0] * sigma, z[1] * sigma, sigma"
+      ],
+      "id": "6b4fdcbc",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "#### Evaluering"
+      ],
+      "id": "36e6455c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "NAME = 'EQNR'\n",
+        "ESTIMATION_WINSIZE = 52\n",
+        "\n",
+        "df = pd.read_pickle('data/X.df')\n",
+        "\n",
+        "\n",
+        "(normal95, normal99, \n",
+        " sigma, dates, ret )= generate_backtest(normal_est, \n",
+        "        df, NAME, ESTIMATION_WINSIZE)\n",
+        "evaluate(plt, normal95, normal99, ret, dates,\n",
+        "         'VaR Estimation Using the Normal Distribution Method')"
+      ],
+      "id": "b80b39db",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\esi000\\AppData\\Local\\Programs\\Python\\Python313\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

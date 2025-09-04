@@ -1,0 +1,376 @@
+{
+  "cells": [
+    {
+      "cell_type": "raw",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"5 - Value at Risk (VaR)\"\n",
+        "author: \"Espen Sirnes\"\n",
+        "date: \"2025-8-10\"\n",
+        "\n",
+        "---"
+      ],
+      "id": "8b22cd6e"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# VaR\n",
+        "\n",
+        "Value at Risk, commonly known as VaR, is a foundational concept in risk management, widely used by financial institutions to quantify and control risk exposure [@RiskMetrics1996]. Essentially, VaR answers the question, *\"What is the maximum potential loss over a given time period within a specified confidence interval?\"* The confidence interval here represents the range within which we expect a certain percentage of returns to fall. For instance, with a 95% confidence interval, we anticipate that only 5% of cases will breach this lower threshold. The closer the model's expected breaches are to the actual empirical frequency, the better the model's accuracy.\n",
+        "\n",
+        "VaR provides a standardized way to assess risk, helping firms to understand potential losses and allocate capital effectively [@Jorion2007]. Regulators also rely heavily on VaR; in fact, this method is embedded directly in EU financial regulations, requiring banks to hold capital reserves proportional to their risk exposure [@Ong2007]. By setting a standardized measure for risk, VaR supports financial stability and resilience, making it invaluable for both risk managers and regulators.\n",
+        "\n",
+        "In this lecture, we’ll see that VaR is not a single, fixed method. Its accuracy and effectiveness depend on one crucial element: how volatility is predicted. Different approaches to forecasting volatility result in varying VaR outcomes, each with its strengths and limitations. By exploring these nuances, we’ll gain a deeper understanding of both the power and the limitations of VaR as a risk management tool.\n",
+        "\n",
+        "We start by loading the data from lecture 3:"
+      ],
+      "id": "1566bc18"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "df = pd.read_pickle('data/X.df')\n",
+        "df"
+      ],
+      "id": "52eaebd6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Backtesting VaR\n",
+        "\n",
+        "To understand the effectiveness of Value at Risk (VaR), we can test its accuracy by evaluating actual financial data and examining how well different VaR models predict risk.\n",
+        "\n",
+        "Specifically, VaR is expected to forecast a certain number of \"breaches\"—cases where the return falls below the calculated lower bound—relative to the total sample of returns. The closer the model’s predictions align with the actual frequency of breaches, the more reliable the model is.\n",
+        "\n",
+        "To carry out this backtest, we’ll define a function to calculate VaR for historical returns from a financial time series. The function takes the following inputs:\n",
+        "- A general function, `f(x, sigmalist)`, which calculates the 95% and 99% VaR and returns an updated volatility (if applicable). This function uses historical data `x` and past volatility `sigmalist`. The specific function provided will determine the method used for VaR calculation.\n",
+        "- A `pandas` DataFrame `df` containing historical data.\n",
+        "- The name of the data series in `df`.\n",
+        "- An estimation window, specifying the number of periods used to estimate the current VaR.\n",
+        "\n",
+        "The function will return:\n",
+        "- The 95% and 99% VaR for each date,\n",
+        "- The estimated volatility (if applicable),\n",
+        "- The corresponding dates,\n",
+        "- The associated returns.\n",
+        "\n",
+        "Below is the function for generating the backtest:"
+      ],
+      "id": "959ebbb5"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import numpy as np\n",
+        "def generate_backtest(f, df, name, estimation_win_size):\n",
+        "    # Initialize lists to store calculated values\n",
+        "    datelist = []\n",
+        "    sigmalist = []\n",
+        "    d95list = []\n",
+        "    d99list = []\n",
+        "    ret = []\n",
+        "\n",
+        "    # Iterate over returns to calculate and store VaR and volatility estimates\n",
+        "    for t in range(estimation_win_size, len(df)):\n",
+        "        \n",
+        "        # Record date and current return\n",
+        "        datelist.append(df.index[t].date())\n",
+        "        ret.append(df[name].iloc[t])\n",
+        "\n",
+        "        # Extract data from the estimation window (t-estimation_win_size to t-1)\n",
+        "        x = df[name].iloc[t-estimation_win_size:t-1]\n",
+        "\n",
+        "        # Apply the provided VaR estimation function using the historical data and past volatility\n",
+        "        d95, d99, sigma = f(x, sigmalist)\n",
+        "\n",
+        "        # Append the estimates to their respective lists\n",
+        "        sigmalist.append(sigma)\n",
+        "        d95list.append(d95)\n",
+        "        d99list.append(d99)\n",
+        "\n",
+        "    # Return the results as numpy arrays for ease of analysis\n",
+        "    return (np.array(d95list),\n",
+        "            np.array(d99list),\n",
+        "            np.array(sigmalist),\n",
+        "            np.array(datelist),\n",
+        "            np.array(ret))"
+      ],
+      "id": "21cde3b3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "This setup allows for a flexible approach to testing different VaR models by simply passing different VaR estimation functions into `generate_backtest`. The returned data can then be used to evaluate the model’s effectiveness by comparing predicted breaches against actual outcomes.\n",
+        "\n",
+        "\n",
+        "# Evaluation Function\n",
+        "\n",
+        "After generating the VaR time series, we need an `evaluate` function to assess the model’s effectiveness. This function will take the following arguments:\n",
+        "- A plot object `plt` to visualize the performance,\n",
+        "- The estimated 95% and 99% VaR series,\n",
+        "- The returns,\n",
+        "- The dates,\n",
+        "- A heading for the plot.\n",
+        "\n",
+        "The function will produce an informative graph with bars wher there are breaches, and display the model's performance by calculating the percentage of breaches. Here’s the function:"
+      ],
+      "id": "bf1f7991"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "def evaluate(plt, d95, d99, ret, dates, heading):\n",
+        "    # Clear the plot area to avoid overlapping plots\n",
+        "    plt.cla()\n",
+        "\n",
+        "    # Plot the 95% VaR, 99% VaR, and actual returns\n",
+        "    plt.plot(dates, d95, label='95% Confidence Level')\n",
+        "    plt.plot(dates, d99, label='99% Confidence Level')\n",
+        "    plt.plot(dates, ret, label='Actual Return')\n",
+        "\n",
+        "    # Highlight instances where returns breach the 95% VaR\n",
+        "    maxret = max(ret)\n",
+        "    breaches_95 = [maxret if d > r else 0 for d, r in zip(d95, ret)]\n",
+        "    plt.bar(dates, breaches_95, color='gray', alpha=0.5, width=0.5, label='Breaches 95% VaR')\n",
+        "\n",
+        "    # Set labels and title\n",
+        "    plt.ylabel('VaR')\n",
+        "    plt.xlabel('Date')\n",
+        "    plt.title(heading)\n",
+        "    plt.xticks(rotation=90)\n",
+        "    plt.legend(loc=\"lower right\")\n",
+        "    plt.subplots_adjust(bottom=0.15)\n",
+        "    plt.show()\n",
+        "\n",
+        "    # Calculate and print the breach percentage for each confidence level\n",
+        "    backtest_results = [np.round(sum(d > ret) / len(ret) * 100, 1) for d in [d95, d99]]\n",
+        "\n",
+        "    for i, level in enumerate([95, 99]):\n",
+        "        breaches = sum([d95, d99][i] > ret)\n",
+        "        print(f\"{heading} with {level}% confidence interval:\\n\"\n",
+        "              f\"Breaches: {breaches}\\n\"\n",
+        "              f\"Backtesting (Realized VaR - % breaches): {backtest_results[i]}%\\n\")"
+      ],
+      "id": "1c9adfe4",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "This function provides a visual and numerical evaluation of VaR accuracy. The plot shows the 95% and 99% VaR levels alongside the actual returns, with breaches of the 95% VaR highlighted. The function then calculates and prints the percentage of breaches, allowing us to assess how well the model aligns with expected outcomes.\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Methods for Calculating VaR\n",
+        "\n",
+        "Calculating Value at Risk (VaR) fundamentally involves predicting volatility. A model that can accurately predict volatility will yield a more reliable VaR estimate. Here, we’ll explore three different methods for calculating VaR: using the normal distribution, empirical frequencies, and past volatility.\n",
+        "\n",
+        "## The Normal Distribution Model\n",
+        "\n",
+        "The most straightforward approach is to assume that returns follow a normal distribution. We can estimate the standard deviation (volatility) of a sample `x` and apply the normal distribution to compute VaR. That in practice just means multiplying the volatility with a number corresponding to the confidence interval, in this case given by the function `norm.ppf(PVALS)`. This is implemented as follows"
+      ],
+      "id": "50c30c1c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "PVALS = [0.05, 0.01]  # Confidence intervals (95% and 99%)\n",
+        "from scipy.stats import norm\n",
+        "\n",
+        "def normal_est(x, sigmalist):\n",
+        "    z = norm.ppf(PVALS)  # Z-scores for the specified confidence levels\n",
+        "    sigma = np.std(x, ddof=1)  # Sample standard deviation\n",
+        "    return z[0] * sigma, z[1] * sigma, sigma"
+      ],
+      "id": "77d0740a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "The global variable `PVALS` sets the confidence levels, making it easy to adjust later, though 95% and 99% are almost always used in practice.\n",
+        "\n",
+        "## Empirical Frequencies\n",
+        "\n",
+        "An alternative method is to rely on empirical data, using historical quantiles to set the VaR thresholds. This method establishes limits that would have perfectly predicted historical data breaches at the 95% and 99% levels:"
+      ],
+      "id": "82d4ca8b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def historical_est(x, sigmalist):\n",
+        "    q95 = abs(np.quantile(x, PVALS[0]))  # 95th percentile of historical losses\n",
+        "    q99 = abs(np.quantile(x, PVALS[1]))  # 99th percentile of historical losses\n",
+        "    return -q95, -q99, None  # VaR values are negative to indicate potential loss"
+      ],
+      "id": "dbf74a6d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "This approach is straightforward and does not assume any specific distribution of returns.\n",
+        "\n",
+        "## Past Volatility\n",
+        "\n",
+        "A third method involves modeling volatility based on its past behavior. Using only the volatility from the previous period would imply constant volatility, so we introduce an innovation term—specifically, the squared error from the previous period. This error is added to the previous period's variance and then square-rooted to estimate current volatility. If no prior volatility exists (e.g., in the first period), historical volatility is used.\n",
+        "\n",
+        "After estimating the volatility, we can use the normal distribution to calculate VaR for each confidence interval. This type of volatility-based VaR estimation is required for financial firms under EU regulations [@Basel1996]."
+      ],
+      "id": "55bf28bd"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def last_volat(x, sigmalist):\n",
+        "    x = np.array(x)\n",
+        "    z = norm.ppf(PVALS)\n",
+        "    if not sigmalist:  # If sigmalist is empty, use initial standard deviation\n",
+        "        sigma = np.std(x, ddof=1)\n",
+        "    else:  # Update sigma based on past volatility and recent error\n",
+        "        sigma = (0.1 * (x[0] - np.mean(x))**2 + 0.9 * sigmalist[-1]**2)**0.5\n",
+        "    return z[0] * sigma, z[1] * sigma, sigma"
+      ],
+      "id": "8a17fdcb",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "These methods offer varied approaches to calculating VaR, each with specific strengths: the normal model assumes a normal distribution, empirical quantiles base predictions on historical breaches, and the volatility-based method adjusts dynamically, often aligning with regulatory requirements.\n",
+        "\n",
+        "# Evaluation \n",
+        "\n",
+        "We can now easily evaluate the different methods. We first evalueat under the normal distribution. "
+      ],
+      "id": "698b4487"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "NAME = 'EQNR'\n",
+        "ESTIMATION_WINSIZE = 52\n",
+        "\n",
+        "(normal95, normal99, \n",
+        " sigma, dates, ret )= generate_backtest(normal_est, \n",
+        "\t\tdf, NAME, ESTIMATION_WINSIZE)\n",
+        "evaluate(plt, normal95, normal99, ret, dates,\n",
+        "\t\t 'VaR Estimation Using the Normal Distribution Method')"
+      ],
+      "id": "491abf66",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Then we apply the function that simply calculates the empirical distribution of passed returns:"
+      ],
+      "id": "f88c0a99"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "(hist95, hist99, \n",
+        " sigma, dates, ret )= generate_backtest(historical_est, \n",
+        "\t\tdf, NAME, ESTIMATION_WINSIZE)\n",
+        "evaluate(plt, hist95, hist99, ret, dates,\n",
+        "\t\t 'VaR Estimation Using Empirical Distribution')"
+      ],
+      "id": "eb2664d6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "And at last, we use information about the previous period volatility. "
+      ],
+      "id": "6d1747b6"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "(last95, last99, \n",
+        " sigma, dates, ret )= generate_backtest(last_volat, \n",
+        "\t\tdf, NAME, ESTIMATION_WINSIZE)\n",
+        "evaluate(plt, last95, last99, ret, dates,\n",
+        "\t\t 'VaR Estimation Using Past Volatility')"
+      ],
+      "id": "8cd46c2e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Concluding Remarks\n",
+        "\n",
+        "VaR (Value at Risk) provides an effective framework for communicating risk and has undoubtedly become the standard for measuring and controlling market risk. However, its ability to capture real risk depends heavily on its implementation. Risk is not static; it evolves continuously, responding to changing market conditions and external factors.\n",
+        "\n",
+        "Dynamic measures can help anticipate shifts in risk, but as we have seen from the examples, they do not always outperform static measures. Predicting changes in risk is inherently challenging, and no single approach guarantees accurate foresight.\n",
+        "\n",
+        "A notable example of these limitations is the case of Long-Term Capital Management (LTCM) [@Lowenstein2000]. LTCM was managed by some of the brightest minds in finance, including Nobel laureates Myron Scholes and Robert C. Merton, the inventors of the renowned option pricing formula. Despite their reliance on VaR and a perception that their portfolios were robust and healthy, the Asian financial crisis of 1997 exposed critical flaws in their risk models. The models proved inadequate against unforeseen events, and the fund ultimately had to be liquidated in early 2000.\n",
+        "\n",
+        "These experiences serve as a stark reminder that VaR cannot be used uncritically. If a portfolio cannot be rebalanced quickly enough to adapt to shifting market conditions and declining liquidity, VaR offers little protection. \n",
+        "\n",
+        "A skilled risk manager must also guard against the manipulation of VaR. Portfolio managers can exploit the model by selecting securities with hidden risks that VaR calculations fail to capture. A striking example is the Norwegian Oil Fund manager who reportedly earned bonuses amounting to nearly half a billion NOK, seemingly by taking significant risks [@Dahl2010].\n",
+        "\n",
+        "High-risk investments often promise high returns, and employees with compensation structures linked to bonuses—without corresponding penalties for losses—are incentivized to take on excessive risk. Such arrangements function like an asymmetric option: they allow individuals to benefit from the upside while avoiding equivalent downside losses, fostering a strong incentive to maximize risk.\n",
+        "\n",
+        "To address these challenges, a good risk manager works to minimize opportunities for such manipulation while maintaining vigilance for unobservable risk factors. Managing risk is not just about tools like VaR; it requires judgment, adaptability, and a proactive approach to identifying and mitigating hidden risks.\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "# Literature\n",
+        "::: {#refs}\n",
+        ":::"
+      ],
+      "id": "3c82bead"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\esi000\\AppData\\Local\\Programs\\Python\\Python313\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

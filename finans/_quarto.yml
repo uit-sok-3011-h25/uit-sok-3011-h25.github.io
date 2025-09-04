@@ -7,8 +7,23 @@ project:
     - 4-lecture_factors.qmd
     - 5-lecture_VaR.qmd
     - 1-introduksjon.qmd
-
+    - case/portfolios.md
+bibliography: references.bib
 format:
-  html: default
-  pdf: default     # requires a LaTeX install (TinyTeX/MiKTeX/etc.)
+  html:
+    equation-numbering: true
+  pdf:
+    number-sections: true
+    geometry: [left=4cm, right=4cm, top=4cm, bottom=4cm]
+    fontsize: 12pt
+    fontfamily: times
+    monofont: "Courier New"
+    documentclass: article
+    toc: true
+    fig-cap: true
+    fig-pos: H
+    titlepage: true
+    titlepage-text-color: "000000"
+    titlepage-rule-color: "000000"
+    titlepage-rule-height: 2
   ipynb: default
