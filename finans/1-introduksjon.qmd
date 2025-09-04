@@ -14,7 +14,7 @@ date: "2025-8-10"
 
 Hver gruppe får tildelt [tre aksjer](case/portfolios.html)
 
-1.  Bruk historisk avkastning frem til 1. januar 2025 og tilgjengelig offentlig informasjon da, slik som års-/kvartalrapporter, tiog lage en portefølje for to typer investorer:
+1.  Bruk historisk avkastning frem til 1. januar 2025 og tilgjengelig offentlig informasjon da, slik som års-/kvartalrapporter, og lage en portefølje for to typer investorer:
     a) Risikoavers
     b) Risikosøkende
 
@@ -24,14 +24,14 @@ Hver gruppe får tildelt [tre aksjer](case/portfolios.html)
     c) faktorene 
     d) den optimale tilpasningen.
 3. Regn ut den optimale porteføljen, og forklar hvorfor du bruker eller ikke bruker disse vektene.
-4. Velg en VaR-modell basert på de historiske datane og kjør en tilbaketest på den (backtesting) og gi din vurdering av modellen.
+4. Bruk forskjellige VaR-modell på de historiske datane, kjør en tilbaketest på den (backtesting) og gi din vurdering av modellene.
 5. Hent nye data på aksjene og bruk den til å:
     a) Evaluer faktisk avkastning
     b) Tegn opp ny porteføljefront med aksjer og faktorer
-    c) Evaluer VaR-modellen. 
+    c) Evaluer VaR-modellene. 
 
 
-
+All kode må legges ved og være kjørbar. Kjører ikke koden er ikke oppgaven besvart. Før du leverer bør dere åpne filene dere skal legge ved besvarelsen på en maskin som ikke har kjørt koden før, for å sjekke at koden fungerer utenfor miljøet der den er utvikliet. (Dette gjelder også for mikroopgaven).
 
 ## I denne forelesningen
 
