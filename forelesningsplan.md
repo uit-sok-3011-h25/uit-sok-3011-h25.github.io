@@ -14,7 +14,7 @@ Støttelitteratur:
 | Uke | Dato       | Beskrivelse                | Lærer   |
 |-----|------------|----------------------------|---------|
 | 35  | 29.08 (Online) [Zoom link](https://oslomet.zoom.us/j/69300701985?pwd=bfErn0A2oMHipS0I5WhMfhHaV0bCFa.1) (Meeting ID: 693 0070 1985 ; Password: 064851) | Theoretical foundation of applied Production analysis (Lecture notes. TK-25. Sec. 1-4) [Lecture slides](https://uit-sok-3011-h25.github.io/tapaslectures/TK1.pdf)| TK |
-| 36  | 05.09 | Empirical estimation of production function (Lecture notes. TK-25. Sec. 7) [Lecture slides](https://uit-sok-3011-h25.github.io/tapaslectures/TK1.pdf)| TK |
+| 36  | 05.09 | Empirical estimation of production function (Lecture notes. TK-25. Sec. 7) [Lecture slides](https://uit-sok-3011-h25.github.io/tapaslectures/TK2.pdf)| TK |
 | 39  | 24.09 | [1 - Introduksjon og presentasjon av case](finans/1-introduksjon.html) [pdf](finans/1-introduksjon.pdf) [jupyter](finans/1-introduksjon.ipynb)| ES|
 | 39  | 25.09 | Duality; Cost minimization - Theory and estimation (Lecture notes. TK-25. Sec. 6, 8, 9) | TK |
 | 42  | 15.10 | [2 - Forventning, nytte og risiko](finans/2-expectation_utility.html) [pdf](finans/2-expectation_utility.pdf) [jupyter](finans/2-expectation_utility.ipynb)| ES|
