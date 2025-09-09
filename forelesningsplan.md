@@ -18,7 +18,7 @@ Støttelitteratur:
 | 39  | 24.09 | [1 - Introduksjon og presentasjon av case](finans/1-introduksjon.html) [pdf](finans/1-introduksjon.pdf) [jupyter](finans/1-introduksjon.ipynb)| ES|
 | 39  | 25.09 | Duality; Cost minimization; Profit maximization - Theory and estimation (Lecture notes. TK-25. Sec. 5, 6, 8, 9) | TK |
 | 42  | 15.10 | [2 - Forventning, nytte og risiko](finans/2-expectation_utility.html) [pdf](finans/2-expectation_utility.pdf) [jupyter](finans/2-expectation_utility.ipynb)| ES|
-| 42  | 17.10 | Students' presentations (see Assignment I) | TK |
+| 42  | 17.10 | Students' presentations; See [Assignment 1](https://uit-sok-3011-h25.github.io/tapaslectures/midterm1.pdf)) | TK |
 | 43  | 22.10 | [3 - Optimale porteføljer og matriseregning](finans/3-lecture_optport.html) [pdf](finans/3-lecture_optport.pdf) [jupyter](finans/3-lecture_optport.ipynb)| ES|
 | 44  | 29.10 | [4 - Faktorer og prestasjonsmål](finans/4-lecture_factors.html) [pdf](finans/4-lecture_factors.pdf) [jupyter](finans/4-lecture_factors.ipynb)| ES|
 | 45  | 05.11 | [5 - VAR (Value At Risk) og risikobudsjettering](finans/5-lecture_VaR.html) [pdf](finans/5-lecture_VaR.pdf) [jupyter](finans/5-lecture_VaR.ipynb)| ES|
