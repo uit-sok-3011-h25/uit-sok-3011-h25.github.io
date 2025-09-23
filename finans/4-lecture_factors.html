@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -87,10 +87,10 @@ div.csl-indent {
 <script src="4-lecture_factors_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="4-lecture_factors_files/libs/quarto-html/anchor.min.js"></script>
 <link href="4-lecture_factors_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="4-lecture_factors_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="4-lecture_factors_files/libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="4-lecture_factors_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="4-lecture_factors_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="4-lecture_factors_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="4-lecture_factors_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -183,7 +183,7 @@ x - r_f = \alpha + \beta_M (r_M - r_f) + \epsilon
 <div id="fig-capm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-capm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="4-lecture_factors_files/figure-html/fig-capm-output-1.png" width="753" height="562" class="figure-img">
+<img src="4-lecture_factors_files/figure-html/fig-capm-output-1.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-capm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Returns and betas for stocks at Euronext Oslo Stock Exchange since 2019. The stocks are filtered on average market share in the period
@@ -245,7 +245,7 @@ x - r_f = \alpha + \beta_M (r_M - r_f)  \\
 <section id="tentative-answer-to-challenge-1" class="level2">
 <h2 class="anchored" data-anchor-id="tentative-answer-to-challenge-1">Tentative answer to Challenge 1:</h2>
 <p>In the Titlon database, the <code>equity</code> table under the OSE tab all ready contains what we need to solve this. Let us therefore just load the data from lecture 3, and reduce it to weekly data for the variables we need:</p>
-<div id="ec14307a" class="cell" data-execution_count="2">
+<div id="4926a89a" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># reads the data</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_stocks <span class="op">=</span> pd.read_pickle(<span class="st">'data/stocks.df'</span>)</span>
@@ -402,74 +402,74 @@ x - r_f = \alpha + \beta_M (r_M - r_f)  \\
 </tr>
 <tr class="odd">
 <td rowspan="5" data-quarto-table-cell-role="th" data-valign="top">YAR</td>
-<td data-quarto-table-cell-role="th">2025-06-29</td>
-<td>-0.057823</td>
-<td>-0.022218</td>
-<td>-0.041166</td>
+<td data-quarto-table-cell-role="th">2025-08-24</td>
+<td>-0.016429</td>
+<td>0.018305</td>
+<td>-0.002866</td>
 <td>0.000000</td>
-<td>-0.000854</td>
-<td>-0.029775</td>
+<td>0.002491</td>
+<td>0.025593</td>
 <td>0.000925</td>
-<td>-0.058748</td>
-<td>-0.023143</td>
+<td>-0.017354</td>
+<td>0.017380</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2025-07-06</td>
-<td>0.021778</td>
-<td>0.014909</td>
-<td>-0.008904</td>
+<td data-quarto-table-cell-role="th">2025-08-31</td>
+<td>-0.023244</td>
+<td>-0.010843</td>
+<td>-0.001207</td>
 <td>0.000000</td>
-<td>-0.003560</td>
-<td>0.025957</td>
+<td>-0.006485</td>
+<td>0.011409</td>
 <td>0.000925</td>
-<td>0.020853</td>
-<td>0.013985</td>
+<td>-0.024169</td>
+<td>-0.011768</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-07-13</td>
-<td>0.023654</td>
-<td>-0.002909</td>
-<td>-0.036752</td>
+<td data-quarto-table-cell-role="th">2025-09-07</td>
+<td>-0.015987</td>
+<td>-0.012584</td>
+<td>0.001087</td>
 <td>0.000000</td>
-<td>0.003986</td>
-<td>-0.033976</td>
+<td>0.001918</td>
+<td>-0.006445</td>
 <td>0.000925</td>
-<td>0.022729</td>
-<td>-0.003834</td>
+<td>-0.016912</td>
+<td>-0.013509</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2025-07-20</td>
-<td>-0.006776</td>
-<td>-0.006301</td>
-<td>-0.025081</td>
+<td data-quarto-table-cell-role="th">2025-09-14</td>
+<td>0.029027</td>
+<td>0.017522</td>
+<td>0.008998</td>
 <td>0.000000</td>
-<td>-0.036009</td>
-<td>0.013855</td>
-<td>0.000925</td>
-<td>-0.007701</td>
-<td>-0.007226</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2025-07-27</td>
+<td>0.012702</td>
 <td>0.020961</td>
-<td>0.004960</td>
-<td>0.013498</td>
+<td>0.000925</td>
+<td>0.028102</td>
+<td>0.016597</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2025-09-21</td>
+<td>-0.029583</td>
+<td>-0.002039</td>
+<td>-0.005925</td>
 <td>0.000000</td>
-<td>0.013135</td>
-<td>0.006886</td>
+<td>-0.012856</td>
+<td>0.032795</td>
 <td>0.000740</td>
-<td>0.020221</td>
-<td>0.004220</td>
+<td>-0.030323</td>
+<td>-0.002779</td>
 </tr>
 </tbody>
 </table>
 
-<p>1996 rows × 9 columns</p>
+<p>2028 rows × 9 columns</p>
 </div>
 </div>
 </div>
 <p>Running the regression for Equinor</p>
-<div id="64192ba0" class="cell" data-execution_count="3">
+<div id="5afd5653" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the DataFrame for Symbol = 'EQNR'</span></span>
@@ -493,29 +493,29 @@ x - r_f = \alpha + \beta_M (r_M - r_f)  \\
 <div class="cell-output cell-output-stdout">
 <pre><code>                            OLS Regression Results                            
 ==============================================================================
-Dep. Variable:            lnDeltaP_rf   R-squared:                       0.564
-Model:                            OLS   Adj. R-squared:                  0.559
-Method:                 Least Squares   F-statistic:                     127.4
-Date:                Thu, 04 Sep 2025   Prob (F-statistic):           2.01e-86
-Time:                        11:47:56   Log-Likelihood:                 1116.7
-No. Observations:                 499   AIC:                            -2221.
-Df Residuals:                     493   BIC:                            -2196.
+Dep. Variable:            lnDeltaP_rf   R-squared:                       0.591
+Model:                            OLS   Adj. R-squared:                  0.587
+Method:                 Least Squares   F-statistic:                     144.9
+Date:                Tue, 23 Sep 2025   Prob (F-statistic):           6.38e-95
+Time:                        22:03:28   Log-Likelihood:                 1153.5
+No. Observations:                 507   AIC:                            -2295.
+Df Residuals:                     501   BIC:                            -2270.
 Df Model:                           5                                         
 Covariance Type:            nonrobust                                         
 ===================================================================================
                       coef    std err          t      P&gt;|t|      [0.025      0.975]
 -----------------------------------------------------------------------------------
-const               0.0004      0.001      0.353      0.724      -0.002       0.003
-lnDeltaOSEBX_rf     1.3472      0.054     25.074      0.000       1.242       1.453
-SMB                 0.0320      0.017      1.901      0.058      -0.001       0.065
-HML                 0.0379      0.019      1.985      0.048       0.000       0.075
-LIQ                -0.0201      0.010     -1.915      0.056      -0.041       0.001
-MOM                -0.0076      0.008     -0.914      0.361      -0.024       0.009
+const            1.857e-05      0.001      0.016      0.987      -0.002       0.002
+lnDeltaOSEBX_rf     1.3539      0.053     25.367      0.000       1.249       1.459
+SMB                 0.3702      0.058      6.391      0.000       0.256       0.484
+HML                -0.0353      0.045     -0.783      0.434      -0.124       0.053
+LIQ                -0.0784      0.054     -1.464      0.144      -0.184       0.027
+MOM                -0.0899      0.039     -2.291      0.022      -0.167      -0.013
 ==============================================================================
-Omnibus:                       15.901   Durbin-Watson:                   1.923
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):               34.903
-Skew:                           0.003   Prob(JB):                     2.64e-08
-Kurtosis:                       4.296   Cond. No.                         46.3
+Omnibus:                       16.476   Durbin-Watson:                   1.858
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               33.172
+Skew:                           0.130   Prob(JB):                     6.26e-08
+Kurtosis:                       4.226   Cond. No.                         53.5
 ==============================================================================
 
 Notes:
@@ -527,7 +527,7 @@ Notes:
 <section id="tentative-answer-to-challenge-2" class="level2">
 <h2 class="anchored" data-anchor-id="tentative-answer-to-challenge-2">Tentative answer to Challenge 2:</h2>
 <p>First, let us just rerun the last few cells of the previous chapter, in order to have the previous graph in the memory. That can is done with a custom function <code>calc_notebook</code> in the module <code>functions,py</code>in this directory. <code>d</code> contains the variable from those calculations.</p>
-<div id="2b409e92" class="cell" data-execution_count="4">
+<div id="89ff4ae9" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> functions</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> functions.calc_notebook(<span class="st">"3-lecture_optport.ipynb"</span>, </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              [<span class="st">"read_pickle"</span>,<span class="st">"get_matrix"</span>, </span>
@@ -540,14 +540,14 @@ Notes:
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="4-lecture_factors_files/figure-html/cell-5-output-2.png" width="821" height="523" class="figure-img"></p>
+<p><img src="4-lecture_factors_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Also, we need data on the factors. We could use the data from the <code>equity</code> table, loaded in lecture 3. However, we want one factor observation each date, not one for each stock. Downloading the <code>factors</code>model from Titlon is therefore more convenient. We get this by pasting the script from Titlon below, or you can just paste the username and password if you want.</p>
 <p>If you have all ready run this, you do not need to rerun it, since the data is stored.</p>
-<div id="481529b8" class="cell" data-execution_count="5">
+<div id="9a474d6e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
@@ -577,7 +577,7 @@ Notes:
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'data/factors.df'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We then loade the saved file and calculate the means and standard errors, after reducing the frequency from daily to weekly.</p>
-<div id="5ecfcd90" class="cell" data-execution_count="6">
+<div id="9a7d744f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/factors.df'</span>)</span>
@@ -593,15 +593,15 @@ Notes:
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(means)</span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>df_weekly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>SMB    0.778593
-HML    0.595021
-LIQ    0.949455
-MOM    1.208006
+<pre><code>SMB    0.140683
+HML    0.180303
+LIQ    0.152365
+MOM    0.210811
 dtype: float64
-SMB    1.076634
-HML   -0.878219
-LIQ    0.165220
-MOM    1.891799
+SMB    0.049518
+HML    0.143938
+LIQ    0.010761
+MOM    0.172016
 dtype: float64</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -669,49 +669,49 @@ dtype: float64</code></pre>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-07-06</td>
-<td>-0.008904</td>
+<td data-quarto-table-cell-role="th">2025-08-24</td>
+<td>-0.002866</td>
 <td>0.000000</td>
-<td>-0.003560</td>
-<td>0.025957</td>
+<td>0.002491</td>
+<td>0.025593</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2025-07-13</td>
-<td>-0.036752</td>
+<td data-quarto-table-cell-role="th">2025-08-31</td>
+<td>-0.001207</td>
 <td>0.000000</td>
-<td>0.003986</td>
-<td>-0.033976</td>
+<td>-0.006485</td>
+<td>0.011409</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-07-20</td>
-<td>-0.025081</td>
+<td data-quarto-table-cell-role="th">2025-09-07</td>
+<td>0.001087</td>
 <td>0.000000</td>
-<td>-0.036009</td>
-<td>0.013855</td>
+<td>0.001918</td>
+<td>-0.006445</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2025-07-27</td>
-<td>0.013498</td>
+<td data-quarto-table-cell-role="th">2025-09-14</td>
+<td>0.008998</td>
 <td>0.000000</td>
-<td>0.013135</td>
-<td>0.006886</td>
+<td>0.012702</td>
+<td>0.020961</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-08-03</td>
+<td data-quarto-table-cell-role="th">2025-09-21</td>
+<td>-0.005925</td>
 <td>0.000000</td>
-<td>0.000000</td>
-<td>0.000000</td>
-<td>0.000000</td>
+<td>-0.012856</td>
+<td>0.032795</td>
 </tr>
 </tbody>
 </table>
 
-<p>500 rows × 4 columns</p>
+<p>507 rows × 4 columns</p>
 </div>
 </div>
 </div>
 <p>We can then plot the factors in the existing porfolio frontier</p>
-<div id="6fd4ca21" class="cell" data-execution_count="7">
+<div id="a7f15417" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> series <span class="kw">in</span> means.index:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        ax.scatter(std[series], means[series], </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                        label<span class="op">=</span>series)</span>
@@ -723,7 +723,7 @@ dtype: float64</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 <figure class="figure">
-<p><img src="4-lecture_factors_files/figure-html/cell-8-output-1.png" width="1417" height="4754" class="figure-img"></p>
+<p><img src="4-lecture_factors_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

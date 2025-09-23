@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -87,10 +87,10 @@ div.csl-indent {
 <script src="3-lecture_optport_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="3-lecture_optport_files/libs/quarto-html/anchor.min.js"></script>
 <link href="3-lecture_optport_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="3-lecture_optport_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="3-lecture_optport_files/libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="3-lecture_optport_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="3-lecture_optport_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="3-lecture_optport_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="3-lecture_optport_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -171,19 +171,19 @@ window.Quarto = {
 <p>To calculate optimal portfolios for any number of assets, a basic understanding of matrix algebra <span class="citation" data-cites="Cayley1858">(<a href="#ref-Cayley1858" role="doc-biblioref">Cayley 1858</a>)</span> is essential. Matrix algebra simplifies the resolution of several equations simultaneously, a process that becomes increasingly complex with the addition of variables. Using matrix functions in software like Excel and various statistical packages allows us to solve systems of equations efficiently without manually computing each one.</p>
 <p>Matrices not only streamline the computation but also simplify notation, making the formulation of equations for optimal portfolios more manageable.</p>
 <p>A matrix is a structured array of numbers arranged in rows and columns, essentially a set of vectors. Here’s an example of a vector:</p>
-<div id="f8cf9775" class="cell" data-execution_count="1">
+<div id="779754d0" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>array([40,  4, 82], dtype=int32)</code></pre>
+<pre><code>array([46, 65, 41])</code></pre>
 </div>
 </div>
 <p>Combining several vectors side-by-side forms a matrix:</p>
-<div id="901900ab" class="cell" data-execution_count="2">
+<div id="4ca4e90c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>array([[24, 45, 16],
-       [ 5, 17, 22]], dtype=int32)</code></pre>
+<pre><code>array([[53, 79, 47],
+       [16, 77, 95]])</code></pre>
 </div>
 </div>
 <p>This format is sometimes denoted as <span class="math inline">\(\mathbf{X}_{N \times K}\)</span> to indicate the number of rows (<span class="math inline">\(N\)</span>) and columns (<span class="math inline">\(K\)</span>).</p>
@@ -194,7 +194,7 @@ window.Quarto = {
 <section id="matrix-multiplication" class="level2">
 <h2 class="anchored" data-anchor-id="matrix-multiplication">Matrix Multiplication</h2>
 <p>The core operation in matrix algebra is matrix multiplication, which combines elements from the rows of the first matrix with the columns of the second. For example, multiplying a <span class="math inline">\(2 \times 3\)</span> matrix by a <span class="math inline">\(3 \times 2\)</span> matrix yields:</p>
-<div id="1a80adff" class="cell" data-execution_count="3">
+<div id="e3e52a2c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">3</span>,<span class="dv">2</span>))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> X <span class="op">@</span> Y</span>
@@ -202,19 +202,19 @@ window.Quarto = {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Y)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[2 4 3]
- [0 3 3]]
-[[4 4]
- [4 3]
+<pre><code>[[0 4 2]
+ [1 2 4]]
+[[1 4]
+ [1 4]
  [2 4]]
-[[30 32]
- [18 21]]</code></pre>
+[[ 8 24]
+ [11 28]]</code></pre>
 </div>
 </div>
 <p>What happens is that we sum the product of the elements in each row of the first matrix and each column of the second. You can for example check that element [0,0] of the result is the sum of the product of the first row of the first matrix, and the first column of the second. An easy way to remember this is to think of the multiplication of <span class="math inline">\(A \times B\)</span> is to follow the lines of the letters: <img src="img/multrule.png" title="Muliplication rule" class="img-fluid" alt="multiplication rule"></p>
 <p>Due to the rules for matrix multiplication, it requires the number of columns in the first matrix to match the number of rows in the second.</p>
 <p>The matrix multiplication is different from the normal multiplication in Python. Normal multiplicaiton can be done with the normal multiplication operator <code>*</code>. It will then multiply each element in X with the corresponding element of Y, and both matrices must be of the same size:</p>
-<div id="019a5c3a" class="cell" data-execution_count="4">
+<div id="3e71a990" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">5</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> X<span class="op">*</span>Y</span>
@@ -222,12 +222,12 @@ window.Quarto = {
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Y)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[4 1 3]
- [0 1 0]]
-[[2 0 0]
- [4 4 1]]
-[[8 0 0]
- [0 4 0]]</code></pre>
+<pre><code>[[4 0 4]
+ [4 4 4]]
+[[0 4 0]
+ [1 1 3]]
+[[ 0  0  0]
+ [ 4  4 12]]</code></pre>
 </div>
 </div>
 <p>The reason for using the former method, is that the former is required for solving sets of equations.</p>
@@ -235,7 +235,7 @@ window.Quarto = {
 <section id="adding-and-subtracting-matrices" class="level2">
 <h2 class="anchored" data-anchor-id="adding-and-subtracting-matrices">Adding and Subtracting Matrices</h2>
 <p>Adding or subtracting matrices is straightforward; simply add or subtract corresponding elements. In Python, the multiplication requires numpy function, but if the matrices are numpy variables, subtraction and addition can be done with the normal operators.</p>
-<div id="e842619b" class="cell" data-execution_count="5">
+<div id="52f61ca2" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
@@ -247,14 +247,14 @@ window.Quarto = {
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"X+Y:</span><span class="ch">\n</span><span class="sc">{</span>X<span class="op">+</span>Y<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>X:
-[[85 37]
- [33 38]]
+[[51  1]
+ [74  4]]
 Y:
-[[90 15]
- [89 29]]
+[[ 9 34]
+ [94 28]]
 X+Y:
-[[175  52]
- [122  67]]</code></pre>
+[[ 60  35]
+ [168  32]]</code></pre>
 </div>
 </div>
 </section>
@@ -272,7 +272,7 @@ X+Y:
 \tag{1}\]</span></span></p>
 <p>where <span class="math inline">\(\mathbf{I}\)</span> is the identity matrix. Multiplying any matrix by <span class="math inline">\(\mathbf{I}\)</span> results in the original matrix, akin to multiplying any number by 1.</p>
 <p>In practice, while the concept is straightforward, the actual calculation of a matrix inverse can become complex for larger matrices and is typically handled by computers. We will not go through the method of obtaining the inverse in this course, we will in stead just utilize the numpy funciton for calculating the inverse. Specifically, we use <code>np.linalg.inv(X)</code>. We can check that it actually complies with the definition like this:</p>
-<div id="99131561" class="cell" data-execution_count="6">
+<div id="6dca9cbb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">10</span>,(<span class="dv">3</span>,<span class="dv">3</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating inverse of X</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>X_inv <span class="op">=</span> np.linalg.inv(X)</span>
@@ -293,17 +293,17 @@ x_{21}a_{1} + x_{22}a_{2} = b_{2}
 \mathbf{X \times a} = \mathbf{b}
 \tag{3}\]</span></span></p>
 <p>where <span class="math inline">\(\mathbf{a}\)</span> and <span class="math inline">\(\mathbf{b}\)</span> are column vectors. Let us define the right hand side vector <code>b</code> and the coeficient matrix <code>X</code> randomly in python as</p>
-<div id="3b87bbd6" class="cell" data-execution_count="7">
+<div id="c2760a8e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span>  np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">1</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define matrix X</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span>  np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X)</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[22 28]
- [62 96]]
-[[19]
- [85]]</code></pre>
+<pre><code>[[23 88]
+ [13 14]]
+[[56]
+ [83]]</code></pre>
 </div>
 </div>
 <p>To solve for <span class="math inline">\(\mathbf{a}\)</span>, we use the inverse of <span class="math inline">\(\mathbf{X}\)</span>, provided it exists, and multiplies it with the left and right hand sides of the equation, just as we would divide with X on both sides to solve for a single equation:</p>
@@ -315,29 +315,29 @@ x_{21}a_{1} + x_{22}a_{2} = b_{2}
 \mathbf{a} = \mathbf{X}^{-1}\mathbf{b}
 \tag{5}\]</span></span></p>
 <p>Hence, we have found an easy way to solve any linear equation. We can test that it works in python. Let us first find <code>a</code> using this approach:</p>
-<div id="a7e65ff2" class="cell" data-execution_count="8">
+<div id="bb7ef4bf" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.linalg.inv(X) <span class="op">@</span> b</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>array([[-1.4787234 ],
-       [ 1.84042553]])</code></pre>
+<pre><code>array([[ 7.93187348],
+       [-1.43673966]])</code></pre>
 </div>
 </div>
 <p>If you get a “Singular matrix” error its because we are generating <code>X</code> with a few random integers, which sometimes creates unsolvable systems, so just generate <code>X</code> and <code>b</code> again.</p>
 <p>Now we can test, if the solution for a actually works, by applying it on the original equation <span class="math inline">\(\mathbf{X \times a} = \mathbf{b}\)</span>. This should yield the right hand side of th equation, <code>b</code>:</p>
-<div id="b144e4f3" class="cell" data-execution_count="9">
+<div id="4fa14a30" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">@</span> a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>array([[19.],
-       [85.]])</code></pre>
+<pre><code>array([[56.],
+       [83.]])</code></pre>
 </div>
 </div>
 <p>Compare this with the actual <code>b</code>:</p>
-<div id="2a4090e3" class="cell" data-execution_count="10">
+<div id="fac8c878" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>array([[19],
-       [85]], dtype=int32)</code></pre>
+<pre><code>array([[56],
+       [83]])</code></pre>
 </div>
 </div>
 <p>Thus, we have identified an effective method to solve any system of equations, provided that <span class="math inline">\(\mathbf{X}\)</span> is invertible. If <span class="math inline">\(\mathbf{X}\)</span> cannot be inverted, it indicates that two or more equations are essentially identical, leading to an “underdetermined” system. In such cases, some equations are redundant, and there are not enough independent equations to determine the values of all variables. Remember the fundamental rule: we need an equal number of equations and unknowns to uniquely solve for each variable.</p>
@@ -362,15 +362,15 @@ x_{13} &amp; x_{23}
 \end{pmatrix}
 \tag{7}\]</span></span></p>
 <p>where <span class="math inline">\(^{\prime}\)</span> denotes the transposed matrix. For a column vector <span class="math inline">\(\mathbf{a}\)</span>, transposing and then multiplying by itself, <span class="math inline">\(\mathbf{a}^{\prime}\mathbf{a}\)</span>, calculates the sum of squares of its components.</p>
-<div id="3fd60c02" class="cell" data-execution_count="11">
+<div id="52a2bfae" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of matrix transposition</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>X_2x3 <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>X_transposed <span class="op">=</span> X_2x3.T</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>X_transposed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>array([[56, 84],
-       [10,  4],
-       [33, 22]], dtype=int32)</code></pre>
+<pre><code>array([[69, 96],
+       [40, 27],
+       [68, 41]])</code></pre>
 </div>
 </div>
 <p>Transposition is often used to conform to the requirements of matrix multiplication, where the number of columns in the first matrix must match the number of rows in the second. If this is not the case, one might transpose the first matrix to facilitate multiplication.</p>
@@ -387,7 +387,7 @@ x_{13} &amp; x_{23}
 \frac{d\left(\mathbf{a}^{\prime}{\Sigma}\mathbf{a}\right)}{d\mathbf{a}^{\prime}} =2{\Sigma}\mathbf{a}
 \tag{9}\]</span></span></p>
 <p>assuming <span class="math inline">\({\Sigma}\)</span> is symmetric. In practical terms, the derivative with respect to <code>a</code> here, given some values for <code>a</code>, is</p>
-<div id="0d16ac16" class="cell" data-execution_count="12">
+<div id="92ea94fc" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Derivation with matrix and vector</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">1</span>))</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Sigma <span class="op">=</span> np.random.randint(<span class="dv">0</span>,<span class="dv">100</span>,(<span class="dv">2</span>,<span class="dv">2</span>))</span>
@@ -396,8 +396,8 @@ x_{13} &amp; x_{23}
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>derivative <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> Sigma <span class="op">@</span> a</span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>derivative</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>array([[3702],
-       [4836]], dtype=int32)</code></pre>
+<pre><code>array([[11496],
+       [10564]])</code></pre>
 </div>
 </div>
 <p>We can rewrite the matrix formulation in scalar form, to check that the rule is correct. The scalar form of <span class="math inline">\(\mathbf{a}^{\prime} {\Sigma}\mathbf{a}\)</span> is</p>
@@ -481,7 +481,7 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <section id="empirical-example---optimal-porfolio-and-the-portfolio-front" class="level1">
 <h1>Empirical example - optimal porfolio and the portfolio front</h1>
 <p>We will now create an optimal portfolio using data from Titlon, and draw the “portfolio front” <span class="citation" data-cites="Markowitz1952">(<a href="#ref-Markowitz1952" role="doc-biblioref">Markowitz 1952</a>)</span>. The portfolio front are the smallest possible volatility of a set of assets, for all return leves. We use the script feature of Titlon to fetch the data, and storing it in <code>'data/stocks.df'</code></p>
-<div id="70be3eec" class="cell" data-execution_count="13">
+<div id="13ed5209" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
@@ -513,7 +513,7 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <p>We now reload the data, and pick the four stocks<br>
 1. has been traded at the first and last day of the sample 2. that are most traded (sorted on sum of <code>Turnover</code>)</p>
 <p>We can obtain that with this code:</p>
-<div id="4ee44355" class="cell" data-execution_count="14">
+<div id="4fafe055" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -570,19 +570,19 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">EQUINOR(NO0010096985)</td>
-<td>1.789492e+12</td>
+<td>1.812403e+12</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">NORSK HYDRO(NO0005052605)</td>
-<td>6.394193e+11</td>
+<td>6.472283e+11</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">TELENOR(NO0010063308)</td>
-<td>5.545262e+11</td>
+<td>5.601747e+11</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">YARA INTERNATIONAL(NO0010208051)</td>
-<td>5.404874e+11</td>
+<td>5.466033e+11</td>
 </tr>
 </tbody>
 </table>
@@ -593,7 +593,7 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <section id="the-historic-mean-and-covariance-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="the-historic-mean-and-covariance-matrix">The historic mean and covariance matrix</h2>
 <p>We will now calculate the covariance matrix and the mean vector. To begin, we’ll create a function that reformats the data from its long format (where stock prices are listed sequentially in a single column) to a wide format. In this wide format, unique dates will be in the first column, with subsequent columns containing prices for each stock.</p>
-<div id="4c2a6aba" class="cell" data-execution_count="15">
+<div id="cd6b28c0" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_matrix(df, field):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Converts the df to a matrix df that can </span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">    be used to calculate the covariance matrix"""</span></span>
@@ -684,49 +684,49 @@ a_{opt} = \frac{\mu - r}{\lambda \sigma^2}
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-07-06</td>
-<td>0.026730</td>
-<td>0.021321</td>
-<td>0.010887</td>
-<td>0.021778</td>
+<td data-quarto-table-cell-role="th">2025-08-24</td>
+<td>0.028829</td>
+<td>0.002129</td>
+<td>0.003018</td>
+<td>-0.016429</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2025-07-13</td>
-<td>0.042289</td>
-<td>0.041652</td>
-<td>-0.004469</td>
-<td>0.023654</td>
+<td data-quarto-table-cell-role="th">2025-08-31</td>
+<td>-0.021953</td>
+<td>-0.010075</td>
+<td>0.010195</td>
+<td>-0.023244</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-07-20</td>
-<td>-0.027114</td>
-<td>-0.007206</td>
-<td>0.040745</td>
-<td>-0.006776</td>
+<td data-quarto-table-cell-role="th">2025-09-07</td>
+<td>-0.034486</td>
+<td>0.024550</td>
+<td>0.005949</td>
+<td>-0.015987</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2025-07-27</td>
-<td>-0.030583</td>
-<td>0.047819</td>
-<td>-0.027399</td>
-<td>0.014796</td>
+<td data-quarto-table-cell-role="th">2025-09-14</td>
+<td>0.008734</td>
+<td>0.000299</td>
+<td>0.010619</td>
+<td>0.029027</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-08-03</td>
-<td>0.038459</td>
-<td>-0.036054</td>
-<td>0.001892</td>
-<td>-0.010360</td>
+<td data-quarto-table-cell-role="th">2025-09-21</td>
+<td>0.007426</td>
+<td>-0.008718</td>
+<td>-0.026161</td>
+<td>-0.022657</td>
 </tr>
 </tbody>
 </table>
 
-<p>500 rows × 4 columns</p>
+<p>507 rows × 4 columns</p>
 </div>
 </div>
 </div>
 <p>Wit this data, it is relatively easy to calculate covariance and the means vector</p>
-<div id="5b556837" class="cell" data-execution_count="16">
+<div id="e8cec94d" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting X to a numpy array:</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array(X_df)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -758,7 +758,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 \tag{25}\]</span></span></p>
 <p>where <span class="math inline">\(\mu_{opt}={\mu}^{\prime}\mathbf{a}\)</span></p>
 <p>This formula automatically ensures that the sum of all the portfolio weights are 1. Now, let us define these variables, and the function. A, B and C in python:</p>
-<div id="ac750513" class="cell" data-execution_count="17">
+<div id="83112da6" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ones <span class="op">=</span> np.ones((<span class="bu">len</span>(means),<span class="dv">1</span>))</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> (ones.T <span class="op">@</span> np.linalg.inv(cov_matrix) <span class="op">@</span> ones)[<span class="dv">0</span>][<span class="dv">0</span>]</span>
@@ -770,11 +770,11 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                                <span class="op">@</span> (means<span class="op">-</span>rf))[<span class="dv">0</span>][<span class="dv">0</span>]</span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>rf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>np.float64(0.0005699165087607581)</code></pre>
+<pre><code>np.float64(0.0005634655544569712)</code></pre>
 </div>
 </div>
 <p>The portfolio front function, that returns the volatility associated with the minimum variance portfolio for a given <code>expected_excess_return</code> can then be defined as:</p>
-<div id="32716a2e" class="cell" data-execution_count="18">
+<div id="25635f6c" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> portfolio_front(expected_excess_return, a, b, c):</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> expected_excess_return</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    minimum_variance <span class="op">=</span> (<span class="dv">1</span><span class="op">/</span>a </span>
@@ -783,7 +783,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> minimum_volatility</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With a defined portfolio frontier function, we can now plot the portfolio frontier. To make the weekly returns comparable on an annual scale, we multiply them by a scaling factor, <code>plot_scale</code>, set to 52. We can simply multiply the returns, because returns in Titlon are conveniently defined as log returns, calculated as <span class="math inline">\(\log(x_{t}) - \log(x_{t-1})\)</span>, rather than the typical relative return <span class="math inline">\(\frac{x_{t} - x_{t-1}}{x_{t-1}}\)</span>.</p>
-<div id="7d5ed2b4" class="cell" data-execution_count="19">
+<div id="77c73975" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating plot</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
@@ -808,7 +808,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="3-lecture_optport_files/figure-html/cell-20-output-1.png" width="821" height="523" class="figure-img"></p>
+<p><img src="3-lecture_optport_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -838,7 +838,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 \mu_{port}=\frac{C}{B}
 \tag{30}\]</span></span></p>
 <p>Let us add that to the plot</p>
-<div id="333fca68" class="cell" data-execution_count="20">
+<div id="444a0031" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the tangency point of the normalized </span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># optimal portfolio</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>tangency_sigma <span class="op">=</span>  portfolio_front(C<span class="op">/</span>B, A, B, C)</span>
@@ -852,7 +852,7 @@ C = {\mu-\mathbf{1}r}^{\prime}{\Sigma}^{-1}{\mu-\mathbf{1}r}
 <div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 <figure class="figure">
-<p><img src="3-lecture_optport_files/figure-html/cell-21-output-1.png" width="821" height="523" class="figure-img"></p>
+<p><img src="3-lecture_optport_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -882,7 +882,7 @@ S=\frac{C/B}{f(C/B)}
 <div id="fig-cml" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cml-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="3-lecture_optport_files/figure-html/fig-cml-output-1.png" width="821" height="523" class="figure-img">
+<img src="3-lecture_optport_files/figure-html/fig-cml-output-1.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cml-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Capital Market Line and Portfolio Front
@@ -897,7 +897,7 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 <section id="adding-the-stocks-spanning-the-portfolio-front" class="level2">
 <h2 class="anchored" data-anchor-id="adding-the-stocks-spanning-the-portfolio-front">Adding the stocks spanning the portfolio front</h2>
 <p>It is interesting to check where the original stocks that span the front, are in the picture. Let us add the cooridnates of these. We first calcualate their mean and standard devaition, and then plot them.</p>
-<div id="1c879af5" class="cell" data-execution_count="22">
+<div id="af478dbb" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>expected <span class="op">=</span> X_df.mean()<span class="op">*</span><span class="dv">52</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>std <span class="op">=</span> X_df.std()<span class="op">*</span><span class="dv">52</span><span class="op">**</span><span class="fl">0.5</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -910,7 +910,7 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 <div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 <figure class="figure">
-<p><img src="3-lecture_optport_files/figure-html/cell-23-output-1.png" width="821" height="523" class="figure-img"></p>
+<p><img src="3-lecture_optport_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -925,7 +925,7 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 \tag{32}\]</span></span></p>
 <p>where <span class="math inline">\(B\)</span> is the sum of the optimal portfolio, as previously defined in <span class="math inline">\(\ref{eq:B}\)</span></p>
 <p>We can code that as</p>
-<div id="55541024" class="cell" data-execution_count="23">
+<div id="95644497" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculating the normalized optimal portfolio</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>opt_port <span class="op">=</span> np.linalg.inv(cov_matrix) <span class="op">@</span> (means<span class="op">-</span>rf)<span class="op">/</span>B</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -964,10 +964,10 @@ Figure&nbsp;1: Capital Market Line and Portfolio Front
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>62.0%</td>
-<td>14.0%</td>
-<td>34.0%</td>
-<td>-9.0%</td>
+<td>54.0%</td>
+<td>22.0%</td>
+<td>42.0%</td>
+<td>-18.0%</td>
 </tr>
 </tbody>
 </table>

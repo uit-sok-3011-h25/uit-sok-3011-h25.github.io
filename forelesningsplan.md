@@ -20,8 +20,8 @@ Støttelitteratur:
 | 42  | 15.10 | [2 - Forventning, nytte og risiko](finans/2-expectation_utility.html) [pdf](finans/2-expectation_utility.pdf) [jupyter](finans/2-expectation_utility.ipynb)| ES|
 | 42  | 17.10 | Profit maximization - Theory and estimation (Lecture notes. TK-25. Sec. 5, 8, 9); Presentations of Case I | TK |
 | 43  | 22.10 | [3 - Optimale porteføljer og matriseregning](finans/3-lecture_optport.html) [pdf](finans/3-lecture_optport.pdf) [jupyter](finans/3-lecture_optport.ipynb)| ES|
-| 44  | 29.10 | [4 - Faktorer og prestasjonsmål](finans/4-lecture_factors.html) [pdf](finans/4-lecture_factors.pdf) [jupyter](finans/4-lecture_factors.ipynb)| ES|  |         |
-| 45  | 05.11 | [VAR (Value At Risk) og risikobudsjettering](finans/5-lecture_VaR.html) [pdf](finans/5-lecture_VaR.pdf) [jupyter](finans/5-lecture_VaR.ipynb)| ES|
+| 44  | 29.10 | [4 - Faktorer og prestasjonsmål](finans/4-lecture_factors.html) [pdf](finans/4-lecture_factors.pdf) [jupyter](finans/4-lecture_factors.ipynb)| ES|
+| 45  | 05.11 | [5 - VAR (Value At Risk) og risikobudsjettering](finans/5-lecture_VaR.html) [pdf](finans/5-lecture_VaR.pdf) [jupyter](finans/5-lecture_VaR.ipynb)| ES|
 | 46  | 12.11 | Presentasjoner Case II Finans      | ES|
 | 47  | 22.11 | Endelig innlevering case I og case II (WISEFLOW)         |         |
 
