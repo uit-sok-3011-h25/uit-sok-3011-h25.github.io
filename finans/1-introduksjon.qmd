@@ -17,24 +17,24 @@ Hver gruppe får tildelt [tre aksjer](case/portfolios.html)
 1.  Bruk historisk avkastning frem til 1. januar 2025 og tilgjengelig offentlig informasjon da, slik som års-/kvartalrapporter, og lage en portefølje for to typer investorer:
     a) Risikoavers
     b) Risikosøkende
-2. Tegn opp i samme diagram 
+2. Lag en graf med normalfordelingen og frekvensene til hver av aksjene, og kommenter.
+3. Tegn opp i samme diagram 
     a) porteføljefronten
     b) hver av de tre aksjene
     c) faktorene 
     d) den optimale tilpasningen.
-3. Regn ut den optimale porteføljen, og forklar hvorfor du bruker eller ikke bruker disse vektene.
-4. Bruk forskjellige VaR-modell på de historiske datane, kjør en tilbaketest på den (backtesting) og gi din vurdering av modellene.
-5. Hent nye data på aksjene og bruk den til å:
+4. Regn ut den optimale porteføljen, og forklar hvorfor du bruker eller ikke bruker disse vektene.
+5. Bruk forskjellige VaR-modell på de historiske datane, kjør en tilbaketest på den (backtesting) og gi din vurdering av modellene.
+6. Hent nye data på aksjene og bruk den til å:
     a) Evaluer faktisk avkastning
     b) Tegn opp ny porteføljefront med aksjer og faktorer
     c) Evaluer VaR-modellene. 
-6. Forklar funnene. 
+7. Forklar funnene. 
     a) Var det ventet eller uventet?
     b) Fungerte VaR? 
     c) Gav porteføljen god avkastning?
     d) Hva kunne vært gjort anderledes?
-
-7. Faktorene ligger "utfor" (til venstre) for porteføljefronten i forelesningsnotat 4 og antakeligvis i din besvarelse. Hvorder er dette uventet, og hva kan være årsaken?
+8. Faktorene ligger "utfor" (til venstre) for porteføljefronten i forelesningsnotat 4 og antakeligvis i din besvarelse. Hvorder er dette uventet, og hva kan være årsaken?
 
 
 All kode må legges ved og være kjørbar. Kjører ikke koden er ikke oppgaven besvart. Før du leverer bør dere åpne filene dere skal legge ved besvarelsen på en maskin som ikke har kjørt koden før, for å sjekke at koden fungerer utenfor miljøet der den er utvikliet. (Dette gjelder også for mikroopgaven).
