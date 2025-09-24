@@ -42,7 +42,8 @@ All kode må legges ved og være kjørbar. Kjører ikke koden er ikke oppgaven b
 ## I denne forelesningen
 
 Korte om kursets tema:
-* Forelesning 2: Forventning, nytte og risiko
+
+* Forelesning 2: Forventning, nytte, risiko og optimal portefølje for én 
 * Forelesning 3: Porteføljeteori og matriser
 * Forelesning 4: Faktorer
 * Forelesning 5: Value at Risk (VaR)
@@ -115,20 +116,7 @@ plt.grid(True)
 
 # Forelesning 3: Porteføljeteori og matriser
 
-Her bruker vi titlondatabasen:
 
-```{python}
-from IPython.display import IFrame
-
-# Embed the web page using an iframe
-IFrame("https://titlon.uit.no/", width=700, height=200)
-```
-
-Vi bruker scriptmuligheten i Titlon for å hente data
-
-## Porteføljefronten
-
-## Utregninger
 
 Reduserer utvalget:
 
