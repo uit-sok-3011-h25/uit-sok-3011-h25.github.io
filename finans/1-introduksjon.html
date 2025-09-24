@@ -170,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-2-forventning-nytte-og-risiko" class="level1">
 <h1>Forelesning 2: Forventning, nytte og risiko</h1>
 <p>Nyttefunksjonen:</p>
-<div id="731eda9c" class="cell" data-tags="[]" data-execution_count="1">
+<div id="0b24cf98" class="cell" data-tags="[]" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -242,7 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-3-porteføljeteori-og-matriser" class="level1">
 <h1>Forelesning 3: Porteføljeteori og matriser</h1>
 <p>Reduserer utvalget:</p>
-<div id="923939f8" class="cell" data-execution_count="2">
+<div id="f87895ec" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Lager avkastningsmatrisen:</p>
-<div id="28276a37" class="cell" data-execution_count="3">
+<div id="e15bbbf3" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_matrix(df, field):</span>
@@ -443,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Finner gjennomsnittsvektoren og varians-kovarians-matrisen:</p>
-<div id="111732c1" class="cell" data-execution_count="4">
+<div id="d01441ae" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting X to a numpy array:</span></span>
@@ -459,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>Definerer porteføljefrontfunksjonen:</p>
-<div id="7035b5cc" class="cell" data-execution_count="5">
+<div id="66b193e7" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ones <span class="op">=</span> np.ones((<span class="bu">len</span>(means),<span class="dv">1</span>))</span>
@@ -481,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>Plotter porteføljefronten:</p>
-<div id="8fd974bf" class="cell" data-execution_count="6">
+<div id="a4606bfd" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -514,7 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Legger til punkte for den optimale porteføljen:</p>
-<div id="14b37ebb" class="cell" data-execution_count="7">
+<div id="14ddc897" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the tangency point of the normalized </span></span>
@@ -538,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="porteføljefronten-med-optimal-portefølje-og-tangeringslinje" class="level2">
 <h2 class="anchored" data-anchor-id="porteføljefronten-med-optimal-portefølje-og-tangeringslinje">Porteføljefronten med optimal portefølje og tangeringslinje</h2>
-<div id="1e7773ce" class="cell" data-execution_count="8">
+<div id="3ac7e0bd" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sigma_range <span class="op">=</span> np.linspace(<span class="dv">0</span>, np.<span class="bu">max</span>(sigma_values), <span class="dv">100</span>)</span>
@@ -567,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-4-faktorer" class="level1">
 <h1>Forelesning 4: Faktorer</h1>
 <p>Finner volatilitet og avkastning til faktorene:</p>
-<div id="9177a696" class="cell" data-execution_count="9">
+<div id="7d0b7858" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -703,7 +703,7 @@ dtype: float64</code></pre>
 </div>
 </div>
 <p>Plotter punktene i grafen fra forrige kapittel:</p>
-<div id="220f8ff2" class="cell" data-execution_count="10">
+<div id="b20fa239" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> series <span class="kw">in</span> means.index:</span>
@@ -726,48 +726,49 @@ dtype: float64</code></pre>
 <h1>Forelesning 5: VaR</h1>
 <section id="backtestfunksjonen" class="level4">
 <h4 class="anchored" data-anchor-id="backtestfunksjonen">Backtestfunksjonen:</h4>
-<div id="2e7bc2e1" class="cell" data-execution_count="11">
+<div id="823d61c4" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_backtest(f, df, name, estimation_win_size):</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize lists to store calculated values</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    datelist <span class="op">=</span> []</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    sigmalist <span class="op">=</span> []</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    d95list <span class="op">=</span> []</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    d99list <span class="op">=</span> []</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> []</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Iterate over returns to calculate and store VaR and volatility estimates</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(estimation_win_size, <span class="bu">len</span>(df)):</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Record date and current return</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        datelist.append(df.index[t].date())</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        ret.append(df[name].iloc[t])</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract data from the estimation window (t-estimation_win_size to t-1)</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> df[name].iloc[t<span class="op">-</span>estimation_win_size:t<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply the provided VaR estimation function using the historical data and past volatility</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        d95, d99, sigma <span class="op">=</span> f(x, sigmalist)</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Append the estimates to their respective lists</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        sigmalist.append(sigma)</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        d95list.append(d95)</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        d99list.append(d99)</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the results as numpy arrays for ease of analysis</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (np.array(d95list),</span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>            np.array(d99list),</span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>            np.array(sigmalist),</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>            np.array(datelist),</span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>            np.array(ret))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_backtest(f, df, name, estimation_win_size):</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize lists to store calculated values</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    datelist <span class="op">=</span> []</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    sigmalist <span class="op">=</span> []</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    d95list <span class="op">=</span> []</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    d99list <span class="op">=</span> []</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    ret <span class="op">=</span> []</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Iterate over returns to calculate and store VaR and volatility estimates</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(estimation_win_size, <span class="bu">len</span>(df)):</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Record date and current return</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        datelist.append(df.index[t].date())</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        ret.append(df[name].iloc[t])</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract data from the estimation window (t-estimation_win_size to t-1)</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> df[name].iloc[t<span class="op">-</span>estimation_win_size:t<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply the provided VaR estimation function using the historical data and past volatility</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        d95, d99, sigma <span class="op">=</span> f(x, sigmalist)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Append the estimates to their respective lists</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        sigmalist.append(sigma)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        d95list.append(d95)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>        d99list.append(d99)</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the results as numpy arrays for ease of analysis</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (np.array(d95list),</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>            np.array(d99list),</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>            np.array(sigmalist),</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>            np.array(datelist),</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>            np.array(ret))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="evalueringsfunksjonen" class="level4">
 <h4 class="anchored" data-anchor-id="evalueringsfunksjonen">Evalueringsfunksjonen:</h4>
-<div id="16bb0c78" class="cell" data-execution_count="12">
+<div id="636637dd" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -782,32 +783,39 @@ dtype: float64</code></pre>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Highlight instances where returns breach the 95% VaR</span></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    maxret <span class="op">=</span> <span class="bu">max</span>(ret)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    breaches_95 <span class="op">=</span> [maxret <span class="cf">if</span> d <span class="op">&gt;</span> r <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> d, r <span class="kw">in</span> <span class="bu">zip</span>(d95, ret)]</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    plt.bar(dates, breaches_95, color<span class="op">=</span><span class="st">'gray'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, width<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Breaches 95% VaR'</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set labels and title</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'VaR'</span>)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Date'</span>)</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    plt.title(heading)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.15</span>)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate and print the breach percentage for each confidence level</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    backtest_results <span class="op">=</span> [np.<span class="bu">round</span>(<span class="bu">sum</span>(d <span class="op">&gt;</span> ret) <span class="op">/</span> <span class="bu">len</span>(ret) <span class="op">*</span> <span class="dv">100</span>, <span class="dv">1</span>) <span class="cf">for</span> d <span class="kw">in</span> [d95, d99]]</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, level <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="dv">95</span>, <span class="dv">99</span>]):</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>        breaches <span class="op">=</span> <span class="bu">sum</span>([d95, d99][i] <span class="op">&gt;</span> ret)</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>heading<span class="sc">}</span><span class="ss"> with </span><span class="sc">{</span>level<span class="sc">}</span><span class="ss">% confidence interval:</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Breaches: </span><span class="sc">{</span>breaches<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Backtesting (Realized VaR - % breaches): </span><span class="sc">{</span>backtest_results[i]<span class="sc">}</span><span class="ss">%</span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    minret <span class="op">=</span> <span class="bu">min</span>(ret)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    breaches_95 <span class="op">=</span> np.array([maxret<span class="op">-</span>minret <span class="cf">if</span> d <span class="op">&gt;</span> r <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> d, r <span class="kw">in</span> <span class="bu">zip</span>(d95, ret)])</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    np.savetxt(<span class="st">'breaches.csv'</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                    np.concatenate( ([[<span class="st">'date'</span>,<span class="st">'breaches'</span>, <span class="st">'d95'</span>, <span class="st">'d99'</span>, <span class="st">'ret'</span>]], </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>                                np.array([dates,breaches_95, d95, d99,ret]).T),  </span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                    axis<span class="op">=</span><span class="dv">0</span>), </span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>                fmt<span class="op">=</span><span class="st">'</span><span class="sc">%s</span><span class="st">'</span>, delimiter<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    plt.bar(dates, breaches_95, bottom<span class="op">=</span>minret, color<span class="op">=</span><span class="st">'gray'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, width<span class="op">=</span><span class="fl">4.0</span>, label<span class="op">=</span><span class="st">'Breaches 95% VaR'</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set labels and title</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'VaR'</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Date'</span>)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    plt.title(heading)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.15</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate and print the breach percentage for each confidence level</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    backtest_results <span class="op">=</span> [np.<span class="bu">round</span>(<span class="bu">sum</span>(d <span class="op">&gt;</span> ret) <span class="op">/</span> <span class="bu">len</span>(ret) <span class="op">*</span> <span class="dv">100</span>, <span class="dv">1</span>) <span class="cf">for</span> d <span class="kw">in</span> [d95, d99]]</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, level <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="dv">95</span>, <span class="dv">99</span>]):</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>        breaches <span class="op">=</span> <span class="bu">sum</span>([d95, d99][i] <span class="op">&gt;</span> ret)</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>heading<span class="sc">}</span><span class="ss"> with </span><span class="sc">{</span>level<span class="sc">}</span><span class="ss">% confidence interval:</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Breaches: </span><span class="sc">{</span>breaches<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Backtesting (Realized VaR - % breaches): </span><span class="sc">{</span>backtest_results[i]<span class="sc">}</span><span class="ss">%</span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="ulike-modeller-for-volatilitetsestimat" class="level4">
 <h4 class="anchored" data-anchor-id="ulike-modeller-for-volatilitetsestimat">Ulike modeller for volatilitetsestimat:</h4>
-<div id="98db5ae9" class="cell" data-execution_count="13">
+<div id="5c84c9f3" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>PVALS <span class="op">=</span> [<span class="fl">0.05</span>, <span class="fl">0.01</span>]  <span class="co"># Confidence intervals (95% and 99%)</span></span>
@@ -836,7 +844,7 @@ dtype: float64</code></pre>
 </section>
 <section id="evaluering" class="level4">
 <h4 class="anchored" data-anchor-id="evaluering">Evaluering</h4>
-<div id="156a5335" class="cell" data-execution_count="14">
+<div id="5c586166" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>NAME <span class="op">=</span> <span class="st">'EQNR'</span></span>

@@ -317,6 +317,7 @@ fig
 ```{python}
 #| code-fold: true
 import numpy as np
+import pandas as pd
 def generate_backtest(f, df, name, estimation_win_size):
     # Initialize lists to store calculated values
     datelist = []
@@ -366,8 +367,15 @@ def evaluate(plt, d95, d99, ret, dates, heading):
 
     # Highlight instances where returns breach the 95% VaR
     maxret = max(ret)
-    breaches_95 = [maxret if d > r else 0 for d, r in zip(d95, ret)]
-    plt.bar(dates, breaches_95, color='gray', alpha=0.5, width=0.5, label='Breaches 95% VaR')
+    minret = min(ret)
+
+    breaches_95 = np.array([maxret-minret if d > r else 0 for d, r in zip(d95, ret)])
+    np.savetxt('breaches.csv',
+                    np.concatenate( ([['date','breaches', 'd95', 'd99', 'ret']], 
+                                np.array([dates,breaches_95, d95, d99,ret]).T),  
+                    axis=0), 
+                fmt='%s', delimiter=";")
+    plt.bar(dates, breaches_95, bottom=minret, color='gray', alpha=0.5, width=4.0, label='Breaches 95% VaR')
 
     # Set labels and title
     plt.ylabel('VaR')
