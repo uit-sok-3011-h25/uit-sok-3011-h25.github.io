@@ -1,0 +1,7 @@
+# ChatGPT's svar på caset:
+
+```{python}
+
+
+
+```
