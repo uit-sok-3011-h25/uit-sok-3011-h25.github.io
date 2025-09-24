@@ -1,5 +1,5 @@
 ---
-title: "2 - Utility and investor types"
+title: "2 - Utility, investor types and optimal portfolio with one asset"
 author: "Espen Sirnes"
 date: "2025-8-10"
 bibliography: references.bib
