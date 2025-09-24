@@ -8,6 +8,7 @@ project:
     - 5-lecture_VaR.qmd
     - 1-introduksjon.qmd
     - case/portfolios.md
+    - chatgpt.qmd
 bibliography: references.bib
 format:
   html:
