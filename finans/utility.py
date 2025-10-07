@@ -2,22 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def normaldist(dx, maxmin):
+def plot_descrete_and_normal(p,x, dx, maxmin):
 	import numpy as np
 	import matplotlib.pyplot as plt
 	from scipy.stats import norm
 
 	# Create the figure and axis
 	fig, ax = plt.subplots()
-
-	# Define the x range from -2.5 to 2.5
-	x = np.arange(-maxmin, maxmin + dx, dx)
-
-	# Calculate the corresponding normal distribution
-	# values
-	p = norm.pdf(x, 0, 1)
-
-
 
 	# Plot the bars with blue color and dark blue border
 	bars = ax.bar(x, p, width=dx, align='center', 
@@ -44,9 +35,9 @@ def normaldist(dx, maxmin):
 		'corresponding discrete probabilities '
 		' (dx = {})'.format(dx))
 
-	return fig, ax, p, x
+	return fig, ax
 	
-def plot(rho, x_gamble, p_gamble):
+def plot(rho, x_gamble, p_gamble, u_func, x_func):
 	
 
 	# Gamble expectations
@@ -112,14 +103,6 @@ def plot(rho, x_gamble, p_gamble):
 	  
 	return fig, ax
 
-
-#utility function
-def u_func(x, rho):
-	return -np.exp(-rho*np.array(x))
-
-# Inverse of the exponential utility function
-def x_func(u, rho): 
-	return -np.log(-u)/rho
 
 def plot_vertical(x, ax, u_x):
 	text = f"${x}$"

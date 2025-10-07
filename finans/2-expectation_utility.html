@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.7.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -83,15 +83,14 @@ div.csl-indent {
 <script src="2-expectation_utility_files/libs/clipboard/clipboard.min.js"></script>
 <script src="2-expectation_utility_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="2-expectation_utility_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="2-expectation_utility_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="2-expectation_utility_files/libs/quarto-html/popper.min.js"></script>
 <script src="2-expectation_utility_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="2-expectation_utility_files/libs/quarto-html/anchor.min.js"></script>
 <link href="2-expectation_utility_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="2-expectation_utility_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="2-expectation_utility_files/libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="2-expectation_utility_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="2-expectation_utility_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="2-expectation_utility_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="2-expectation_utility_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -107,7 +106,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -171,14 +170,14 @@ window.Quarto = {
 \mathbb{E}[X] = \sum_{i=0}^{N} P(x_i) x_i
 \tag{1}\]</span></span></p>
 <p>For example</p>
-<div id="4df06e5f" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="a538d715" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>])</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">3</span>,<span class="dv">10</span>, <span class="dv">20</span>])</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(p<span class="op">*</span>x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(p<span class="op">*</span>x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>np.float64(9.5)</code></pre>
 </div>
 </div>
@@ -188,15 +187,15 @@ U(X) = \mathbb{E}[u(X)] = \sum_{i=0}^{N} P(x_i) u(x_i)
 \tag{2}\]</span></span></p>
 <p>where <span class="math inline">\(P(x_i)\)</span> is the probability that <span class="math inline">\(X\)</span> assumes the value <span class="math inline">\(x_i\)</span>, and <span class="math inline">\(u(x_i)\)</span> represents the utility derived if that event occurs.</p>
 <p>For example, say utilities 2,-4 and 6 occur with probabilities 0.5,0.2 and 0.3, then the expected utility is</p>
-<div id="7455c0a6" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="5dc67bfe" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>])</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="op">-</span><span class="dv">4</span>, <span class="dv">6</span>])</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>u)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>U</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>U</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>np.float64(1.9999999999999998)</code></pre>
 </div>
 </div>
@@ -205,28 +204,45 @@ U(X) = \mathbb{E}[u(X)] = \sum_{i=0}^{N} P(x_i) u(x_i)
 U(X) = \mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx,
 \tag{3}\]</span></span></p>
 <p>where <span class="math inline">\(f(x)\)</span> is the density function of <span class="math inline">\(X\)</span>, such as the normal distribution.</p>
-<section id="expectation-of-the-normal-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="expectation-of-the-normal-distribution">Expectation of the normal distribution</h2>
-<p>To make this a bit more tangible, let us assume f(x) represents the standard normal distribution (variance=1 and mean=0), and assume we collect the outcomes x into five intervals. According to the normal distribution <span class="citation" data-cites="Gauss1809">(<a href="#ref-Gauss1809" role="doc-biblioref">Gauss 1809</a>)</span>, each outcome will then have the probabilities shown in the following figure (the code to is to long to have in this document, but it can be found in the local module <code>utility.py</code> in this repository):</p>
-<p><em>Figure 1</em>:</p>
-<div id="cell-fig-discrete-normal" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<section id="descrerte-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="descrerte-normal-distribution">Descrerte normal distribution</h2>
+<p>To make this a bit more tangible, let us assume f(x) represents the standard normal distribution (variance=1 and mean=0), and assume we categorize the outcomes x into five intervals. In python we can obtain descrete quivalents of the the normal probabities <span class="citation" data-cites="Gauss1809">(<a href="#ref-Gauss1809" role="doc-biblioref">Gauss 1809</a>)</span> of a set of intervalas in the range <code>-maximin</code> to <code>maxmin</code>, each with a width of <code>dx</code>, as follows</p>
+<div id="calc-descrete-dist" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>maxmin <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>fig, ax, p, x <span class="op">=</span> utility.normaldist(dx, maxmin)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Probabilities: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(dx<span class="op">*</span>p,<span class="dv">3</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Outcomes: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(x,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the x range from -maxmin to maxmin</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span>maxmin, maxmin <span class="op">+</span> dx, dx)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding standard normal distribution,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># where mean = 0 and standard deviation = 1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> norm.pdf(x, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Outcomes: </span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>p_perc <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">%"</span> <span class="cf">for</span> i <span class="kw">in</span> np.<span class="bu">round</span>(p<span class="op">*</span><span class="dv">100</span>,<span class="dv">0</span>)]</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Probabilities: </span><span class="sc">{</span>p_perc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sum of probabilities: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(dx<span class="op">*</span>p)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Probabilities: [0.    0.108 0.798 0.108 0.   ]
-Outcomes: [-4 -2  0  2  4]</code></pre>
+<pre><code>Outcomes: [-4 -2  0  2  4]
+Probabilities: ['0.0%', '5.0%', '40.0%', '5.0%', '0.0%']
+Sum of probabilities: 1.014383747758677</code></pre>
 </div>
+</div>
+<p>The probabilities do not sum exactly to one, as expected for a probability distribution. This discrepancy arises due to the coarse nature of the discrete categories.</p>
+<p>We can use the function <code>plot_descrete_and_normal</code> in the local module <code>utility.py</code> in this repository to visualize the probabilities and the normal distribution:</p>
+<p><em>Figure 1</em>:</p>
+<div id="cell-fig-discrete-normal" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using utility.plot_descrete_and_normal() to plot the descrete </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution and the corresponding normal distribution.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> utility.plot_descrete_and_normal(p, x, dx, maxmin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="fig-discrete-normal" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-discrete-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="2-expectation_utility_files/figure-html/fig-discrete-normal-output-2.png" width="598" height="449" class="figure-img">
+<img src="2-expectation_utility_files/figure-html/fig-discrete-normal-output-1.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-discrete-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Descrete version of the normal distribution
@@ -235,21 +251,36 @@ Figure&nbsp;1: Descrete version of the normal distribution
 </div>
 </div>
 </div>
-<p>The argument <code>dx</code> is the widht of the bars in the figure, and <code>maxmin</code> determines which range of values should be plottet. <code>maxmin = 4</code> means that values from -4 to 4 are plotted.</p>
-<p>The probability of each outcome (bar) and the associated outcmes, are returned as p and x, respectively.</p>
-<p>The probabilities do not sum exactly to one, as expected for a probability distribution. This discrepancy arises due to the coarse nature of the discrete categories.</p>
 <p><em>Coding Challenges:</em></p>
 <ul>
-<li><p><strong>Challenge 1</strong>: Reduce the interval size <span class="math inline">\(dx\)</span> and sum the probabilities to observe if the total approaches 1.</p></li>
-<li><p><strong>Challenge 2</strong>: Now, assume the utility function is <span class="math inline">\(f(x) = -\mathrm{e}(-\rho x)\)</span> (the natural logarithm). What is the expected utility for different values of <span class="math inline">\(dx\)</span>?</p></li>
+<li><strong>Challenge 1</strong>: Reduce the interval size <span class="math inline">\(dx\)</span> and sum the probabilities to observe if the total approaches 1.</li>
 </ul>
 <p>As demonstrated above, decreasing the interval size <span class="math inline">\(dx\)</span> brings the discrete distribution closer to the continuous one. The continuous distribution serves as an approximation when outcomes are real numbers, which is often the case in investment scenarios.</p>
 <p>The primary advantage of continuous variables over discrete ones is that we can apply powerful mathematical tools, such as derivatives and integrals, from calculus.</p>
 </section>
-<section id="a-descrete-example" class="level2">
-<h2 class="anchored" data-anchor-id="a-descrete-example">A descrete example</h2>
-<p>A key outcome of this model is that with a concave utility function, an individual will always prefer a guaranteed cash flow over a speculative investment with the same expected return. This behavior is illustrated by the following example.</p>
-<p>Consider an individual with an exponential <span class="citation" data-cites="Euler1748">(<a href="#ref-Euler1748" role="doc-biblioref">Euler 1748</a>)</span> utility function:</p>
+<section id="caclulating-the-mean-and-variance-with-a-descrete-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="caclulating-the-mean-and-variance-with-a-descrete-distribution">Caclulating the mean and variance with a descrete distribution</h2>
+<p>With the descrete distribution given by the probabilities <code>p</code> and values <code>x</code> calculated shown in <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a>, we can for example calculate the expected value and variance with theses probabilities. Since the standard normal distribution was assumed, we would expect the mean to be close to 0 and the variance to be close to one</p>
+<div id="calc-mean-variance" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calculated mean is: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>x)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calculated variance is: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        p<span class="op">*</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>           ((x<span class="op">-</span>np.<span class="bu">sum</span>(p<span class="op">*</span>x))<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                <span class="op">*</span>dx)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Calculated mean is: 5.7462715141731735e-18
+Calculated variance is: 0.8724205986599617</code></pre>
+</div>
+</div>
+<p>We see that the mean is pretty close to zero, but the variance is not that close to one. The likely reason for the latter is the coarse grouping.</p>
+<ul>
+<li><strong>Challenge 3</strong>: See if a finer categorization will give a more exact variance estimate.</li>
+</ul>
+</section>
+<section id="calculating-expected-utility" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-expected-utility">Calculating expected utility</h2>
+<p>Let us now get back to the main topic, expected utility theory. A key outcome of this model is that with a concave utility function, an individual will always prefer a guaranteed cash flow over a speculative investment with the same expected return. Consider an individual with an exponential <span class="citation" data-cites="Euler1748">(<a href="#ref-Euler1748" role="doc-biblioref">Euler 1748</a>)</span> utility function:</p>
 <p><span id="eq-CARA_utility"><span class="math display">\[
 u(x) = -\mathrm{e}^{-\rho\cdot x}
 \tag{4}\]</span></span></p>
@@ -260,49 +291,56 @@ u'(x) = -\rho \cdot u(x)&gt;0
 u''(x) = \rho^2 \cdot u(x)&lt; 0
 \tag{6}\]</span></span></p>
 <p>Suppose there is a 50% chance of <span class="math inline">\(x=0.5\)</span> and a 50% chance of <span class="math inline">\(x=1.5\)</span>. That is, the possible outcomes are given by <span class="math inline">\(X = \{0.5, 1.5\}\)</span>, with associated probabilities <span class="math inline">\(P(X) = \{0.5, 0.5\}\)</span>. The expected value is then <span class="math inline">\(\frac{1}{2}(-\mathrm{e}^{-\rho\cdot 0.5}-\mathrm{e}^{-\rho\cdot 1.5})\)</span>.</p>
-<p>Below is the utility function defiend as the function <code>ufunc(x, rho)</code>, and both the expected utitlity and the utility of the expected value are calculated, assuming <span class="math inline">\(\rho = 1.0\)</span>:</p>
-<div id="f92335cd" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Values and probabilities</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>x_gamble <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">1.5</span>])  <span class="co"># Outcomes of the </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="co"># gamble</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>p_gamble <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.5</span>])  <span class="co"># Probabilities</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="fl">5.0</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#utility function</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> u_func(x, rho):</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.exp(<span class="op">-</span>rho<span class="op">*</span>x)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected utility</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p_gamble <span class="op">*</span> </span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                                u_func(x_gamble, RHO))</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>expected_value <span class="op">=</span> np.<span class="bu">sum</span>(p_gamble <span class="op">*</span> </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>                                x_gamble)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>utility_exp_value <span class="op">=</span> u_func(expected_value, RHO)</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected utility: </span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected value: </span><span class="sc">{</span>expected_value<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Utility of expected value: </span><span class="sc">{</span>utility_exp_value<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Below is the utility function defiend as the function <code>u_func(x, rho)</code>. It is convenient to also define the inverse of the utility function <code>x_func(u, rho)</code>. Assuming <span class="math inline">\(\rho = 15.0\)</span>, we can calculate excpected utilities and outcomes as follows:</p>
+<div id="7a9b3241" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Values and probabilities</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>x_gamble <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">1.5</span>])  <span class="co"># Outcomes of the </span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="co"># gamble</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>p_gamble <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.5</span>])  <span class="co"># Probabilities</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#utility function</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> u_func(x, rho):</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.exp(<span class="op">-</span>rho<span class="op">*</span>np.array(x))</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We will also need the inverse of the utility function:</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> x_func(u, rho): </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.log(<span class="op">-</span>u)<span class="op">/</span>rho</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected utility</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p_gamble <span class="op">*</span> </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                                u_func(x_gamble, RHO))</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>expected_outcome <span class="op">=</span> np.<span class="bu">sum</span>(p_gamble <span class="op">*</span> </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                                x_gamble)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>utility_exp_outcome <span class="op">=</span> u_func(expected_outcome, RHO)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected utility: </span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected outcome: </span><span class="sc">{</span>expected_outcome<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Utility of expected value: </span><span class="sc">{</span>utility_exp_outcome<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Expected utility: -0.04131904149702332
-Expected value: 1.0
+Expected outcome: 1.0
 Utility of expected value: -0.006737946999085467</code></pre>
 </div>
 </div>
+<ul>
+<li><strong>Challenge 2</strong>: Now, assume the utility function is <span class="math inline">\(f(x) = -\mathrm{log}(\rho x)\)</span> (the natural logarithm). What is the expected utility for different values of <span class="math inline">\(x\)</span>?</li>
+</ul>
 <p>By comparing the utility of the expected value of 1.0 with the expected utility, you can veryfy that the utility of expected value is greater than the expected utility:</p>
 <p><span id="eq-CARA_utility_expected_diff"><span class="math display">\[
 u(\mathbb{E}X) = \mathrm{e}^{\rho\cdot 1} &gt; \frac{1}{2}\mathrm{e}^{\rho\cdot 0.5}+\frac{1}{2}\mathrm{e}^{\rho\cdot 1.5} = \mathbb{E}u(X),
 \tag{7}\]</span></span></p>
 <p>This example demonstrates that the utility of a certain outcome <span class="math inline">\((-\mathrm{e}^{\rho})\)</span> is preferred over the expected utility of a gamble . This preference underscores risk aversion. The situation is illustrated in the following plot:</p>
-<div id="cell-fig-graphical-risk-prem" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> utility.plot(RHO, x_gamble, p_gamble)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-fig-graphical-risk-prem" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> utility.plot(RHO, x_gamble, p_gamble, u_func, x_func)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="fig-graphical-risk-prem" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-graphical-risk-prem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="2-expectation_utility_files/figure-html/fig-graphical-risk-prem-output-1.png" width="834" height="518" class="figure-img">
+<img src="2-expectation_utility_files/figure-html/fig-graphical-risk-prem-output-1.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-graphical-risk-prem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Graphical illustration of the risk premium
@@ -312,105 +350,72 @@ Figure&nbsp;2: Graphical illustration of the risk premium
 </div>
 </div>
 <p>The code is a bit to long to be included here, but can be found in the local module <code>utility.py</code> in this repository.</p>
-<p>As we can see, the utility at wealth 1 is 0, while the mean utility is lower. If you draw a line between the utility of 0.5 and 1.5, you will see that the indicated expected utility, is where that line intersects 1.</p>
+<p>As we can see, the utility at expected wealth 1 is about -0.37, while the mean utility is lower at -0.41. You can verify that the line drawn between the utility of 0.5 and 1.5 intersects the mean utility of -0.41.</p>
 <p>Hence, with a concave uitlity function, a person will allways prefere a sure amount rather than a bet with the same expected payoff. In this case, the risk-averse investor will invariably prefer the certain payment of 1 over the gamble.</p>
 <p>The difference indicated by <span class="math inline">\(\rho\)</span> in the figure, is the certainty equivalence. It is the amount that you would need to compensate the investor, in order to take the gamble. In a real market, this is the premium that investors demand to hold risky assets to safe bills. It is usually about 2-4% on average for the whole market.</p>
 </section>
 <section id="a-continous-example" class="level2">
 <h2 class="anchored" data-anchor-id="a-continous-example">A continous example</h2>
-<p>Let us now calculate the expecte utility with more than two outcomes. We remember from the calculation of <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a> and calculation of descrete expectations in <a href="#eq-descrete_exp" class="quarto-xref">Equation&nbsp;2</a> that a descrete version of the continous normal distribution can be calculated as</p>
-<div id="cell-fig-descrete-nomrmal_2" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>fig, ax, p, x <span class="op">=</span> utility.normaldist(dx, minmax) </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>utility.u_func(x, RHO))</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="fl">0.0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Exact expected utility:-268337.2865208745
-Approximate expected utility:-132238.79351363966</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div id="fig-descrete-nomrmal_2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-descrete-nomrmal_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="2-expectation_utility_files/figure-html/fig-descrete-nomrmal_2-output-2.png" width="598" height="449" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-descrete-nomrmal_2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Graphical illustration of the risk premium
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Given these descrete probabilties and outcomes, we can calculate the expected utility of <span class="math inline">\(u(x) = - \mathrm{e}(-\rho x)\)</span> by multiplying probabilites by outcomes in terms of utility:</p>
-<div id="558052af" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>utility.u_func(x, RHO))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Let us now calculate the expecte utility with more than three outcomes. We remember from the calculation of <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a> and calculation of descrete expectations in <a href="#eq-descrete_exp" class="quarto-xref">Equation&nbsp;2</a> that a descrete version of the continous normal distribution can be calculated by taking the sum of probabilities and outcomes. When the outcomes are utilities, we sum over probabilites and utilitites for each <span class="math inline">\(x\)</span>. If the utility is <span class="math inline">\(u(x) = - \mathrm{e}(-\rho x)\)</span> and <span class="math inline">\(x\)</span> and <span class="math inline">\(p\)</span> are calculated as above, a descrete approximation to the continous expected utility given <span class="math inline">\(x\)</span> is normally distributed, is</p>
+<div id="bf6dfa79" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Approximate expected utility:-132238.79351363966</code></pre>
 </div>
 </div>
-<p>Now, the normal distribution is defined as</p>
+<p>The above is a discrete approximation. How do we calculate the exact expected utilituy? We can find this by integration, see <strong>?@eq-eq-cont_exp</strong>. The normal density funciton is given by</p>
 <p><span id="eq-normal_density"><span class="math display">\[
 \frac{1}{\sigma \sqrt{2 \rho}}e^{-\frac{(x-\mu)^2}{2 \sigma}}
 \tag{8}\]</span></span></p>
-<p>If we calculate the expected utility by taking the integral, it turns out that</p>
+<p>We can calculate the expected utility by taking the integral over the product of the density and the utility function. It turns out that if we do that, we obtain the analytical expected utility function:</p>
 <p><span id="eq-exp_utility"><span class="math display">\[
 \mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx = e^{-\rho(\mu-\frac{1}{2}\rho \sigma^2)}
 \tag{9}\]</span></span></p>
-<p>Let us now try to compare this with our apporxmated expeted utility above. If we have a standard normal distribution, so <span class="math inline">\(\sigma=1\)</span> and <span class="math inline">\(\mu=0\)</span>. The risk aversion coefficient is <span class="math inline">\(\rho=5\)</span>. The exact and approximate expected utility is</p>
-<div id="bfcdd905" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="dv">0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span>  np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>utility.u_func(x, RHO))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Let us now try to compare this with our apporxmated expeted utility above. If we have a standard normal distribution, so <span class="math inline">\(\sigma=1\)</span> and <span class="math inline">\(\mu=0\)</span>. The risk aversion coefficient is <span class="math inline">\(\rho=5\)</span>. The exact and approximate expected utility are</p>
+<div id="6116f8da" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="dv">0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Exact expected utility:-268337.2865208745
 Approximate expected utility:-132238.79351363966</code></pre>
 </div>
 </div>
 <p>As we can clearly see fromn above, the approximation is not good. The problem is that the discret normal probability function that we have used, is too coarse. We therefore need to try smaller intervals for the bars. Also, we want to calculate a wider range than +/-4. Let us try with bar witdht of 0.25 and a range +/- 8:</p>
-<div id="cell-fig-descrete-normal_fine" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.25</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">8</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>fig, ax, p, x <span class="op">=</span> utility.normaldist(dx, minmax) </span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>utility.u_func(x, RHO))</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="fl">0.0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>expected_utility<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-fig-descrete-normal_fine" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.25</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span>maxmin, maxmin <span class="op">+</span> dx, dx)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> norm.pdf(x, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> utility.plot_descrete_and_normal(p, x, dx, maxmin)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="dv">0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Exact expected utility:-268337.2865208745
-Approximate expected utility:-268105.24655357056</code></pre>
+Approximate expected utility:-51028.22485443736</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div id="fig-descrete-normal_fine" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-descrete-normal_fine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="2-expectation_utility_files/figure-html/fig-descrete-normal_fine-output-2.png" width="611" height="449" class="figure-img">
+<img src="2-expectation_utility_files/figure-html/fig-descrete-normal_fine-output-2.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-descrete-normal_fine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Graphical illustration of the risk premium
+Figure&nbsp;3: Graphical illustration of the risk premium
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>We see now in <a href="#fig-descrete-normal_fine" class="quarto-xref">Figure&nbsp;4</a> that the descrete distribution is quite similar to the continous one, and the approximation is also very close to the analytical exact expected utility.</p>
+<p>We see now in <a href="#fig-descrete-normal_fine" class="quarto-xref">Figure&nbsp;3</a> that the descrete distribution is quite similar to the continous one, and the approximation is also very close to the analytical exact expected utility.</p>
 </section>
 <section id="the-objective-function" class="level2">
 <h2 class="anchored" data-anchor-id="the-objective-function">The objective function</h2>
@@ -432,6 +437,9 @@ Figure&nbsp;4: Graphical illustration of the risk premium
 <p><span id="eq-mean-variance2"><span class="math display">\[
 w\mu-\frac{w^2}{2}\rho \sigma^2
 \tag{11}\]</span></span></p>
+<ul>
+<li><strong>Challenge 1</strong>: Show that when multiplying a random variable with a constant, the variance is the variance of the random variable times the square of the constant.</li>
+</ul>
 <p>Taking the derivative of <a href="#eq-mean-variance2" class="quarto-xref">Equation&nbsp;11</a>, which we assume is a concave and increasing function, we get</p>
 <p><span id="eq-mean-variance-diff"><span class="math display">\[
 \frac{d(w\mu-\frac{w^2}{2}\rho \sigma^2)}{dw} = \mu-w\rho \sigma^2
@@ -498,40 +506,40 @@ u_{CRRA}(x) = x^{1-\pi_{CRRA}}
 <p>It is well known that returns in financial markets are not normally distributed.For example, under the assumption that returns on the Oslo Stock Exchange follow a normal distribution, statistically extreme changes exceeding 10% would be exceedingly rare—estimated to occur once every 17,000 years. Yet, during the 2008 financial crisis, such anomalies were observed twice.</p>
 <p>This is called “fat tails”. It means that extreme events are much more likely in actual financial markets, than in the normal distribution world.</p>
 <p>However, in most cases, we can represent the empirical distribution with a “mixed normal distribution”. A mixed normal distribution, is a linear combination of normal distirbutino with different mean and varinaces.</p>
-<div id="2505a0bc" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Set range</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>MAX_MIN <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="op">-</span>MAX_MIN, MAX_MIN, <span class="dv">1000</span>)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot using fig and ax</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean and std:</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>rmean <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>rstd <span class="op">=</span> <span class="fl">0.01</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Normal distribution and mixed normal distribution:</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>norm_dist    <span class="op">=</span>     norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>fat_tails <span class="op">=</span> (<span class="fl">0.8</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="fl">0.5</span>) </span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>           <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="dv">2</span>))</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, norm_dist, label<span class="op">=</span><span class="st">"Normal Distribution"</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, fat_tails, label<span class="op">=</span><span class="st">"Mixed Normal (Fat Tails)"</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title, labels, and grid and legend</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Mixed Normal Distribution Illustrating Fat Tails'</span>)</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'X'</span>)</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Probability Density'</span>)</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="43dd5369" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Set range</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>MAX_MIN <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="op">-</span>MAX_MIN, MAX_MIN, <span class="dv">1000</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot using fig and ax</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean and std:</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>rmean <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>rstd <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Normal distribution and mixed normal distribution:</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>norm_dist    <span class="op">=</span>     norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>fat_tails <span class="op">=</span> (<span class="fl">0.8</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="fl">0.5</span>) </span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>           <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, norm_dist, label<span class="op">=</span><span class="st">"Normal Distribution"</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, fat_tails, label<span class="op">=</span><span class="st">"Mixed Normal (Fat Tails)"</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title, labels, and grid and legend</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Mixed Normal Distribution Illustrating Fat Tails'</span>)</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'X'</span>)</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Probability Density'</span>)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="2-expectation_utility_files/figure-html/cell-11-output-1.png" width="659" height="449" class="figure-img"></p>
+<p><img src="2-expectation_utility_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -543,103 +551,103 @@ u_{CRRA}(x) = x^{1-\pi_{CRRA}}
 </ul>
 <p><em>Solution:</em></p>
 <p>We start by fetching data for the OSEBX index from <a href="https://titlon.uit.no">titlon.uit.no</a></p>
-<div id="8ffd4cbd" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>con <span class="op">=</span> pymysql.<span class="ex">connect</span>(host<span class="op">=</span><span class="st">'titlon.uit.no'</span>, </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                user      <span class="op">=</span> <span class="st">"user@uit.no"</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                password  <span class="op">=</span> <span class="st">"pawswordfromtitlon"</span>,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                    database<span class="op">=</span><span class="st">'OSE'</span>)  </span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>crsr<span class="op">=</span>con.cursor()</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>crsr.execute(<span class="st">"""</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT </span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">    `Date`, `OSEBXLinked`, `OBXLinked`, `OSEFXLinked`, `ID` </span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `OSE`.`equityindex_linked` </span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE year(`Date`) &gt;= 1980</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>r<span class="op">=</span>crsr.fetchall()</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.DataFrame(<span class="bu">list</span>(r), </span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span>[i[<span class="dv">0</span>] <span class="cf">for</span> i <span class="kw">in</span> crsr.description])</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>df</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">#YOU NEED TO BE CONNECTED TO YOUR INSTITUTION VIA VPN, </span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co">#OR BE AT THE INSTITUTION, FOR THIS CODE TO WORK</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'data/index.df'</span>)</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span> <span class="co">#in order to avoid memory problems</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="79f5617d" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>con <span class="op">=</span> pymysql.<span class="ex">connect</span>(host<span class="op">=</span><span class="st">'titlon.uit.no'</span>, </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                user      <span class="op">=</span> <span class="st">"user@uit.no"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                password  <span class="op">=</span> <span class="st">"pawswordfromtitlon"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                    database<span class="op">=</span><span class="st">'OSE'</span>)  </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>crsr<span class="op">=</span>con.cursor()</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>crsr.execute(<span class="st">"""</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT </span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="st">    `Date`, `OSEBXLinked`, `OBXLinked`, `OSEFXLinked`, `ID` </span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM `OSE`.`equityindex_linked` </span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE year(`Date`) &gt;= 1980</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>r<span class="op">=</span>crsr.fetchall()</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.DataFrame(<span class="bu">list</span>(r), </span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        columns<span class="op">=</span>[i[<span class="dv">0</span>] <span class="cf">for</span> i <span class="kw">in</span> crsr.description])</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">#YOU NEED TO BE CONNECTED TO YOUR INSTITUTION VIA VPN, </span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co">#OR BE AT THE INSTITUTION, FOR THIS CODE TO WORK</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'data/index.df'</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span> <span class="co">#in order to avoid memory problems</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can then calculate the return series and creating a histogram. The period mean and standard deviation is also calculated.</p>
-<div id="0bde9e75" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/index.df'</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the plot using fig and ax</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#fixing Date, setting index and calculate returns</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'Date'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Returns'</span>] <span class="op">=</span> df[<span class="st">'OSEBXLinked'</span>].pct_change()</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean and std:</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>rmean <span class="op">=</span> np.mean(df[<span class="st">'Returns'</span>])</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>rstd <span class="op">=</span> np.std(df[<span class="st">'Returns'</span>])</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the histogram intervals (dx = 0.01)</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.002</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> <span class="bu">int</span>((<span class="fl">0.2</span> <span class="op">-</span> (<span class="op">-</span><span class="fl">0.2</span>)) <span class="op">/</span> dx)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>ax.hist(df[<span class="st">'Returns'</span>].dropna(), bins<span class="op">=</span>bins, </span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">range</span><span class="op">=</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>), density<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Set x-axis limits</span></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span>MAX_MIN, MAX_MIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a4d68553" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/index.df'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the plot using fig and ax</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#fixing Date, setting index and calculate returns</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'Date'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Returns'</span>] <span class="op">=</span> df[<span class="st">'OSEBXLinked'</span>].pct_change()</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean and std:</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>rmean <span class="op">=</span> np.mean(df[<span class="st">'Returns'</span>])</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>rstd <span class="op">=</span> np.std(df[<span class="st">'Returns'</span>])</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the histogram intervals (dx = 0.01)</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.002</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> <span class="bu">int</span>((<span class="fl">0.2</span> <span class="op">-</span> (<span class="op">-</span><span class="fl">0.2</span>)) <span class="op">/</span> dx)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>ax.hist(df[<span class="st">'Returns'</span>].dropna(), bins<span class="op">=</span>bins, </span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">range</span><span class="op">=</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>), density<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Set x-axis limits</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span>MAX_MIN, MAX_MIN)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="2-expectation_utility_files/figure-html/cell-13-output-1.png" width="660" height="411" class="figure-img"></p>
+<p><img src="2-expectation_utility_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The normal distribution and the mixed normal is now calculated, based on the estimated mean and standard deviation, and some assumptions on how the mixed normal distributions deviate form the single normal. In this example, it is just done by trail and error, which lead to a weight of 80% on a normal distribution with 40% of the estimated volatility, and 20% on a normal distribution with 200% of the estimated volatility.</p>
 <p>This is then addd to the existing chart:</p>
-<div id="8dfb07bf" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Defining the range of x-values:</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>MAX_MIN <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="op">-</span>MAX_MIN, MAX_MIN, <span class="dv">1000</span>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate normal dist and the mixed normal dist:</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>norm_dist    <span class="op">=</span>     norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>fat_tails <span class="op">=</span> (<span class="fl">0.8</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="fl">0.4</span>) <span class="op">+</span> </span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>             <span class="fl">0.2</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="dv">2</span>))</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting normal dist and mixed normal dist</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, norm_dist, </span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="st">"Normal Distribution"</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, fat_tails, </span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="st">"Mixed Normal (Fat Tails)"</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title, labels and legend</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Mixed Normal Distribution'</span> </span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>                <span class="st">'Illustrating Fat Tails'</span>)</span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'X'</span>)</span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Probability Density'</span>)</span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div id="0d05d170" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Defining the range of x-values:</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>MAX_MIN <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="op">-</span>MAX_MIN, MAX_MIN, <span class="dv">1000</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate normal dist and the mixed normal dist:</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>norm_dist    <span class="op">=</span>     norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>fat_tails <span class="op">=</span> (<span class="fl">0.8</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="fl">0.4</span>) <span class="op">+</span> </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>             <span class="fl">0.2</span> <span class="op">*</span> norm.pdf(x_vals, loc<span class="op">=</span>rmean, scale<span class="op">=</span>rstd<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting normal dist and mixed normal dist</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, norm_dist, </span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="st">"Normal Distribution"</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>ax.plot(x_vals, fat_tails, </span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="st">"Mixed Normal (Fat Tails)"</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Set title, labels and legend</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Mixed Normal Distribution'</span> </span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>                <span class="st">'Illustrating Fat Tails'</span>)</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'X'</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Probability Density'</span>)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
 <div>
 <figure class="figure">
-<p><img src="2-expectation_utility_files/figure-html/cell-14-output-1.png" width="678" height="449" class="figure-img"></p>
+<p><img src="2-expectation_utility_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -725,14 +733,13 @@ Tobin, James. 1958. <span>“Liquidity Preference as Behavior Towards Risk.”</
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

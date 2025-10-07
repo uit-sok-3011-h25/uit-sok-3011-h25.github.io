@@ -58,45 +58,75 @@ $${#eq-cont_exp}
 
 where $f(x)$ is the density function of $X$, such as the normal distribution.
 
-## Expectation of the normal distribution
-To make this a bit more tangible, let us assume f(x) represents the standard normal distribution (variance=1 and mean=0), and assume we collect the outcomes x into five intervals. According to the normal distribution [@Gauss1809], each outcome will then have the probabilities shown in the following figure (the code to is to long to have in this document, but it can be found in the local module `utility.py` in this repository):
+## Descrerte normal distribution
+To make this a bit more tangible, let us assume f(x) represents the standard normal distribution (variance=1 and mean=0), and assume we categorize the outcomes x into five intervals. In python we can obtain descrete quivalents of the the normal probabities [@Gauss1809] of a set of intervalas in the range `-maximin` to `maxmin`, each with a width of `dx`, as follows
+```{python}
+#| label: calc-descrete-dist
+#| fig-cap: "Descrete version of the normal distribution"
+from scipy.stats import norm
+
+dx = 2
+maxmin = 4
+
+# Define the x range from -maxmin to maxmin
+x = np.arange(-maxmin, maxmin + dx, dx)
+
+# Calculate the corresponding standard normal distribution,
+# where mean = 0 and standard deviation = 1
+p = norm.pdf(x, 0, 1)
+
+print(f"Outcomes: {x}")
+p_perc = [f"{i}%" for i in np.round(p*100,0)]
+print(f"Probabilities: {p_perc}")
+print(f"Sum of probabilities: {np.sum(dx*p)}")
+```
+
+The probabilities do not sum exactly to one, as expected for a probability distribution. This discrepancy arises due to the coarse nature of the discrete categories.
+
+We can use the function `plot_descrete_and_normal` in the local module `utility.py` in this repository to visualize the probabilities and the normal distribution:
 
 *Figure 1*:
 ```{python}
 #| label: fig-discrete-normal
 #| fig-cap: "Descrete version of the normal distribution"
+
+# Using utility.plot_descrete_and_normal() to plot the descrete 
+# distribution and the corresponding normal distribution.
 import utility
-import numpy as np
-dx = 2
-maxmin = 4
-fig, ax, p, x = utility.normaldist(dx, maxmin)
+fig, ax = utility.plot_descrete_and_normal(p, x, dx, maxmin)
 
-print(f"Probabilities: {np.round(dx*p,3)}")
-print(f"Outcomes: {np.round(x,2)}")
 ```
-
-The argument `dx` is the widht of the bars in the figure, and `maxmin` determines which range of values should be plottet. `maxmin = 4` means that values from -4 to 4 are plotted. 
-
-The probability of each outcome (bar) and the associated outcmes, are returned as p and x, respectively. 
-
-The probabilities do not sum exactly to one, as expected for a probability distribution. This discrepancy arises due to the coarse nature of the discrete categories.
 
 
 *Coding Challenges:*
 
 - **Challenge 1**: Reduce the interval size $dx$ and sum the probabilities to observe if the total approaches 1.
 
-- **Challenge 2**: Now, assume the utility function is $f(x) = -\mathrm{e}(-\rho x)$ (the natural logarithm). What is the expected utility for different values of $dx$?
-
 As demonstrated above, decreasing the interval size $dx$ brings the discrete distribution closer to the continuous one. The continuous distribution serves as an approximation when outcomes are real numbers, which is often the case in investment scenarios.
 
 The primary advantage of continuous variables over discrete ones is that we can apply powerful mathematical tools, such as derivatives and integrals, from calculus.
 
+## Caclulating the mean and variance with a descrete distribution
 
-## A descrete example
-A key outcome of this model is that with a concave utility function, an individual will always prefer a guaranteed cash flow over a speculative investment with the same expected return. This behavior is illustrated by the following example.
+With the descrete distribution given by the probabilities `p` and values `x` calculated shown in @fig-discrete-normal, we can for example calculate the expected value and variance with theses probabilities. Since the standard normal distribution was assumed, we would expect the mean to be close to 0 and the variance to be close to one
 
-Consider an individual with an exponential [@Euler1748] utility function:
+```{python}
+#| label: calc-mean-variance
+#| fig-cap: "Calculation of mean and variance"
+
+print(f"Calculated mean is: {np.sum(p*x)}")
+print(f"Calculated variance is: {np.sum(
+        p*
+           ((x-np.sum(p*x))**2)
+                *dx)
+        }")
+```
+We see that the mean is pretty close to zero, but the variance is not that close to one. The likely reason for the latter is the coarse grouping.
+
+- **Challenge 3**: See if a finer categorization will give a more exact variance estimate.
+
+## Calculating expected utility
+Let us now get back to the main topic, expected utility theory. A key outcome of this model is that with a concave utility function, an individual will always prefer a guaranteed cash flow over a speculative investment with the same expected return. Consider an individual with an exponential [@Euler1748] utility function:
 
 $$
 u(x) = -\mathrm{e}^{-\rho\cdot x}
@@ -113,7 +143,7 @@ $${#eq-CARA_utility_2derivative}
 
 Suppose there is a 50% chance of $x=0.5$ and a 50% chance of $x=1.5$. That is, the possible outcomes are given by $X = \{0.5, 1.5\}$, with associated probabilities $P(X) = \{0.5, 0.5\}$. The expected value is then $\frac{1}{2}(-\mathrm{e}^{-\rho\cdot 0.5}-\mathrm{e}^{-\rho\cdot 1.5})$. 
 
-Below is the utility function defiend as the function `ufunc(x, rho)`, and both the expected utitlity and the utility of the expected value are calculated, assuming $\rho = 1.0$:
+Below is the utility function defiend as the function `u_func(x, rho)`. It is convenient to also define the inverse of the utility function `x_func(u, rho)`. Assuming $\rho = 15.0$, we can calculate excpected utilities and outcomes as follows:
 
 ```{python}
 import numpy as np
@@ -126,20 +156,26 @@ RHO = 5.0
 
 #utility function
 def u_func(x, rho):
-    return -np.exp(-rho*x)
+	return -np.exp(-rho*np.array(x))
+
+# We will also need the inverse of the utility function:
+def x_func(u, rho): 
+	return -np.log(-u)/rho
 
 # Expected utility
 expected_utility = np.sum(p_gamble * 
                                 u_func(x_gamble, RHO))
-expected_value = np.sum(p_gamble * 
+expected_outcome = np.sum(p_gamble * 
                                 x_gamble)
-utility_exp_value = u_func(expected_value, RHO)
+utility_exp_outcome = u_func(expected_outcome, RHO)
 
 print(f"Expected utility: {expected_utility}")
-print(f"Expected value: {expected_value}")
-print(f"Utility of expected value: {utility_exp_value}")
+print(f"Expected outcome: {expected_outcome}")
+print(f"Utility of expected value: {utility_exp_outcome}")
 
 ```
+
+- **Challenge 2**: Now, assume the utility function is $f(x) = -\mathrm{log}(\rho x)$ (the natural logarithm). What is the expected utility for different values of $x$?
 
 By comparing the utility of the expected value of 1.0 with the expected utility, you can veryfy that the utility of expected value is greater than the expected utility:
 
@@ -155,68 +191,43 @@ This example demonstrates that the utility of a certain outcome $(-\mathrm{e}^{\
 #| label: fig-graphical-risk-prem
 #| fig-cap: "Graphical illustration of the risk premium"
 import utility
-fig,ax = utility.plot(RHO, x_gamble, p_gamble)
+fig,ax = utility.plot(RHO, x_gamble, p_gamble, u_func, x_func)
 
 ```
 
 The code is a bit to long to be included here, but can be found in the local module `utility.py` in this repository. 
 
-As we can see, the utility at wealth 1 is 0, while the mean utility is lower. If you draw a line between the utility of 0.5 and 1.5, you will see that the indicated expected utility, is where that line intersects 1.
+As we can see, the utility at expected wealth 1 is about -0.37, while the mean utility is lower at -0.41. You can verify that the line drawn between the utility of 0.5 and 1.5 intersects the mean utility of -0.41.
 
 Hence, with a concave uitlity function, a person will allways prefere a sure amount rather than a bet with the same expected payoff. In this case, the risk-averse investor will invariably prefer the certain payment of 1 over the gamble.
 
 The difference indicated by $\rho$ in the figure, is the certainty equivalence. It is the amount that you would need to compensate the investor, in order to take the gamble. In a real market, this is the premium that investors demand to hold risky assets to safe bills. It is usually about 2-4% on average for the whole market.
 
 ## A continous example
-Let us now calculate the expecte utility with more than two outcomes. We remember from the calculation of @fig-discrete-normal and calculation of descrete expectations in  @eq-descrete_exp that a descrete version of the continous normal distribution can be calculated as 
+Let us now calculate the expecte utility with more than three outcomes. We remember from the calculation of @fig-discrete-normal and calculation of descrete expectations in  @eq-descrete_exp that a descrete version of the continous normal distribution can be calculated by taking the sum of probabilities and outcomes. When the outcomes are utilities, we sum over probabilites and utilitites for each $x$. If the utility is  $u(x) = - \mathrm{e}(-\rho x)$ and $x$ and $p$ are calculated as above, a descrete approximation to the continous expected utility given $x$ is normally distributed, is
 
 ```{python}
-#| label: fig-descrete-nomrmal_2
-#| fig-cap: "Graphical illustration of the risk premium"
-import utility
-import numpy as np
-
-dx = 2
-minmax = 4
-RHO = 5
-fig, ax, p, x = utility.normaldist(dx, minmax) 
-expected_utility = np.sum(p*dx*utility.u_func(x, RHO))
-
-
-print(f'Exact expected utility:{-np.exp(-RHO*(0.0-0.5*RHO*1.0))}')
-print(f'Approximate expected utility:{expected_utility}')
+print(f'Approximate expected utility:{np.sum(p*dx*u_func(x, RHO))}')
 ```
 
-Given these descrete probabilties and outcomes, we can calculate the expected utility  of  $u(x) = - \mathrm{e}(-\rho x)$ by multiplying probabilites by outcomes in terms of utility: 
-
-```{python}
-import utility
-
-expected_utility = np.sum(p*dx*utility.u_func(x, RHO))
-
-print(f'Approximate expected utility:{expected_utility}')
-```
-
-Now, the normal distribution is defined as
+The above is a discrete approximation. How do we calculate the exact expected utilituy? We can find this by integration, see @eq-eq-cont_exp. The normal density funciton is given by
 
 $$
  \frac{1}{\sigma \sqrt{2 \rho}}e^{-\frac{(x-\mu)^2}{2 \sigma}}
 $$ {#eq-normal_density}
 
-If we calculate the expected utility by taking the integral, it turns out that
+We can calculate the expected utility by taking the integral over the product of the density and the utility function. It turns out that if we do that, we obtain the analytical expected utility function:
 
 $$
 \mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx = e^{-\rho(\mu-\frac{1}{2}\rho \sigma^2)}
 $${#eq-exp_utility}
 
-Let us now try to compare this with our apporxmated expeted utility above. If we have a standard normal distribution, so $\sigma=1$ and $\mu=0$. The risk aversion coefficient is  $\rho=5$. The exact and approximate expected utility is
+Let us now try to compare this with our apporxmated expeted utility above. If we have a standard normal distribution, so $\sigma=1$ and $\mu=0$. The risk aversion coefficient is  $\rho=5$. The exact and approximate expected utility are
 
 ```{python}
 
 print(f'Exact expected utility:{-np.exp(-RHO*(0-0.5*RHO*1.0))}')
-
-expected_utility =  np.sum(p*dx*utility.u_func(x, RHO))
-print(f'Approximate expected utility:{expected_utility}')
+print(f'Approximate expected utility:{np.sum(p*dx*u_func(x, RHO))}')
 ```
 
 As we can clearly see fromn above, the approximation is not good. The problem is that the discret normal probability function that we have used, is too coarse. We therefore need to try smaller intervals for the bars. Also, we want to calculate a wider range than +/-4. Let us try with bar witdht of 0.25 and a range +/- 8:
@@ -230,16 +241,16 @@ import numpy as np
 dx = 0.25
 minmax = 8
 RHO = 5
-fig, ax, p, x = utility.normaldist(dx, minmax) 
-expected_utility = np.sum(p*dx*utility.u_func(x, RHO))
+
+x = np.arange(-maxmin, maxmin + dx, dx)
+p = norm.pdf(x, 0, 1)
+
+fig, ax = utility.plot_descrete_and_normal(p, x, dx, maxmin)
+expected_utility = np.sum(p*dx*u_func(x, RHO))
 
 
-print(f'Exact expected utility:{-np.exp(-RHO*(0.0-0.5*RHO*1.0))}')
-print(f'Approximate expected utility:{expected_utility}')
-```
-
-```{python}
-
+print(f'Exact expected utility:{-np.exp(-RHO*(0-0.5*RHO*1.0))}')
+print(f'Approximate expected utility:{np.sum(p*dx*u_func(x, RHO))}')
 ```
 
 We see now in @fig-descrete-normal_fine that the descrete distribution is quite similar to the continous one, and the approximation is also very close to the analytical exact expected utility. 
@@ -266,6 +277,8 @@ With the knowledge from @eq-mean-variance, we can actually calculate the optimal
 $$
 w\mu-\frac{w^2}{2}\rho \sigma^2
 $${#eq-mean-variance2}
+
+- **Challenge 1**: Show that when multiplying a random variable with a constant, the variance is the variance of the random variable times the square of the constant.
 
 Taking the derivative of @eq-mean-variance2, which we assume is a concave and increasing function, we get
 
