@@ -10,7 +10,10 @@ project:
     - case/portfolios.md
     - chatgpt.qmd
 bibliography: references.bib
+execute:
+  enabled: true     # ensure code chunks are executed
 format:
+  ipynb: default
   html:
     equation-numbering: true
   pdf:
@@ -27,4 +30,4 @@ format:
     titlepage-text-color: "000000"
     titlepage-rule-color: "000000"
     titlepage-rule-height: 2
-  ipynb: default
+  

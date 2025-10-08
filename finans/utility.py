@@ -1,11 +1,10 @@
 import numpy as np
-import matplotlib.pyplot as plt
+from scipy.stats import norm
 
 
-def plot_descrete_and_normal(p,x, dx, maxmin):
-	import numpy as np
-	import matplotlib.pyplot as plt
-	from scipy.stats import norm
+
+def plot_descrete_and_normal(p,x, dx, maxmin, plt):
+
 
 	# Create the figure and axis
 	fig, ax = plt.subplots()
@@ -34,10 +33,10 @@ def plot_descrete_and_normal(p,x, dx, maxmin):
 	ax.set_title('Normal Distribution and '
 		'corresponding discrete probabilities '
 		' (dx = {})'.format(dx))
-
+	ax.legend()
 	return fig, ax
 	
-def plot(rho, x_gamble, p_gamble, u_func, x_func):
+def plot(rho, x_gamble, p_gamble, u_func, x_func, plt):
 	
 
 	# Gamble expectations

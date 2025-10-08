@@ -129,7 +129,7 @@ window.Quarto = {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="2-expectation_utility.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="2-expectation_utility.ipynb" download="2-expectation_utility.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="2-expectation_utility.ipynb" download="2-expectation_utility.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="2-expectation_utility.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -165,30 +165,30 @@ window.Quarto = {
 
 <section id="expected-utility" class="level1">
 <h1>Expected Utility</h1>
-<p>In finance, the utility function is typically defined as the utility derived from a certain amount <span class="math inline">\(x\)</span>. It is generally assumed that greater wealth yields higher utility, hence the utility function should be increasing, meaning <span class="math inline">\(U'(x) &gt; 0\)</span>. In situations involving risk, such as holding shares with uncertain future values, it becomes useful calculate the <em>expected utility</em> of a set of possible outcomes <span class="math inline">\(x_i\)</span> with probabilities <span class="math inline">\(P(x_i)\)</span> and utilities <span class="math inline">\(u(x_i)\)</span> <span class="citation" data-cites="vonNeumann1947">(<a href="#ref-vonNeumann1947" role="doc-biblioref">Neumann and Morgenstern 1947</a>)</span>.</p>
-<p>This builds on the general notion of expectations in statistics. For a set of outcomes <span class="math inline">\(x_i\)</span> and probabilities <span class="math inline">\(P(x_i)\)</span> for example, the expected value is <span class="math inline">\(X=\{ x_0, x_1,\dots,x_n \}\)</span> is</p>
+<p>In finance, the utility function is typically defined as the utility derived from a certain amount <span class="math inline">\(x\)</span>. It is generally assumed that greater wealth yields higher utility; hence, the utility function should be increasing, meaning <span class="math inline">\(U'(x) &gt; 0\)</span>. In situations involving risk, such as holding shares with uncertain future values, it becomes useful to calculate the <em>expected utility</em> of a set of possible outcomes <span class="math inline">\(x_i\)</span> with probabilities <span class="math inline">\(P(x_i)\)</span> and utilities <span class="math inline">\(u(x_i)\)</span> <span class="citation" data-cites="vonNeumann1947">(<a href="#ref-vonNeumann1947" role="doc-biblioref">Neumann and Morgenstern 1947</a>)</span>.</p>
+<p>This builds on the general notion of expectations in statistics. For a set of outcomes <span class="math inline">\(x_i\)</span> and probabilities <span class="math inline">\(P(x_i)\)</span>, for example, the expected value is <span class="math inline">\(X=\{ x_0, x_1,\dots,x_n \}\)</span> and is given by</p>
 <p><span id="eq-descrete_exp"><span class="math display">\[
 \mathbb{E}[X] = \sum_{i=0}^{N} P(x_i) x_i
 \tag{1}\]</span></span></p>
-<p>For example</p>
-<div id="29032c4b" class="cell" data-execution_count="1">
+<p>For example:</p>
+<div id="62cfe369" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>])</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">3</span>,<span class="dv">10</span>, <span class="dv">20</span>])</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(p<span class="op">*</span>x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>np.float64(9.5)</code></pre>
 </div>
 </div>
-<p>In the same way, the descrete expected utility for a set of outcomes <span class="math inline">\(x_i\)</span> with probabilities <span class="math inline">\(P(x_i)\)</span> is defined as follows:</p>
+<p>In the same way, the discrete expected utility for a set of outcomes <span class="math inline">\(x_i\)</span> with probabilities <span class="math inline">\(P(x_i)\)</span> is defined as follows:</p>
 <p><span id="eq-descrete_exp"><span class="math display">\[
 U(X) = \mathbb{E}[u(X)] = \sum_{i=0}^{N} P(x_i) u(x_i)
 \tag{2}\]</span></span></p>
 <p>where <span class="math inline">\(P(x_i)\)</span> is the probability that <span class="math inline">\(X\)</span> assumes the value <span class="math inline">\(x_i\)</span>, and <span class="math inline">\(u(x_i)\)</span> represents the utility derived if that event occurs.</p>
-<p>For example, say utilities 2,-4 and 6 occur with probabilities 0.5,0.2 and 0.3, then the expected utility is</p>
-<div id="4a626e33" class="cell" data-execution_count="2">
+<p>For example, say utilities 2, -4, and 6 occur with probabilities 0.5, 0.2, and 0.3; then the expected utility is</p>
+<div id="39f81edc" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>])</span>
@@ -196,19 +196,19 @@ U(X) = \mathbb{E}[u(X)] = \sum_{i=0}^{N} P(x_i) u(x_i)
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>u)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>U</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>np.float64(1.9999999999999998)</code></pre>
 </div>
 </div>
-<p>For a continuous distribution, the idea is the same. We multipliy each utility state <span class="math inline">\(u(x_i)\)</span> with the probability it occurs <span class="math inline">\(f(x)dx\)</span>. The integral sign <span class="math inline">\(\int_{-\infty}^{\infty} \dots \,\)</span> <span class="citation" data-cites="Leibniz1969">(<a href="#ref-Leibniz1969" role="doc-biblioref">Leibniz 1969</a>)</span>, is the equvalent of a sum for continous variables. The expected utility is therefore given by:</p>
+<p>For a continuous distribution, the idea is the same. We multiply each utility state <span class="math inline">\(u(x_i)\)</span> with the probability it occurs <span class="math inline">\(f(x)dx\)</span>. The integral sign <span class="math inline">\(\int_{-\infty}^{\infty} \dots ,\)</span> <span class="citation" data-cites="Leibniz1969">(<a href="#ref-Leibniz1969" role="doc-biblioref">Leibniz 1969</a>)</span> is the equivalent of a sum for continuous variables. The expected utility is therefore given by:</p>
 <p><span id="eq-cont_exp"><span class="math display">\[
 U(X) = \mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx,
 \tag{3}\]</span></span></p>
 <p>where <span class="math inline">\(f(x)\)</span> is the density function of <span class="math inline">\(X\)</span>, such as the normal distribution.</p>
-<section id="descrerte-normal-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="descrerte-normal-distribution">Descrerte normal distribution</h2>
-<p>To make this a bit more tangible, let us assume f(x) represents the standard normal distribution (variance=1 and mean=0), and assume we categorize the outcomes x into five intervals. In python we can obtain descrete quivalents of the the normal probabities <span class="citation" data-cites="Gauss1809">(<a href="#ref-Gauss1809" role="doc-biblioref">Gauss 1809</a>)</span> of a set of intervalas in the range <code>-maximin</code> to <code>maxmin</code>, each with a width of <code>dx</code>, as follows</p>
-<div id="calc-descrete-dist" class="cell" data-execution_count="3">
+<section id="discrete-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="discrete-normal-distribution">Discrete normal distribution</h2>
+<p>To make this a bit more tangible, let us assume <span class="math inline">\(f(x)\)</span> represents the standard normal distribution (variance = 1 and mean = 0), and assume we categorize the outcomes <span class="math inline">\(x\)</span> into five intervals. In Python, we can obtain discrete equivalents of the normal probabilities <span class="citation" data-cites="Gauss1809">(<a href="#ref-Gauss1809" role="doc-biblioref">Gauss 1809</a>)</span> of a set of intervals in the range <code>-maxmin</code> to <code>maxmin</code>, each with a width of <code>dx</code>, as follows:</p>
+<div id="2de120c5" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="dv">2</span></span>
@@ -233,12 +233,13 @@ Sum of probabilities: 1.014383747758677</code></pre>
 </div>
 <p>Probabilities sum by definition to one, but we see that these do not sum to exactly 1.0. This discrepancy arises due to the coarse nature of the discrete categories.</p>
 <p>We can use the function <code>plot_descrete_and_normal</code> in the local module <code>utility.py</code> in this repository to visualize the probabilities and the normal distribution:</p>
-<p><em>Figure 1</em>:</p>
+<p><em><a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a></em>:</p>
 <div id="cell-fig-discrete-normal" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using utility.plot_descrete_and_normal() to plot the descrete </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using utility.plot_descrete_and_normal() to plot the discrete </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution and the corresponding normal distribution.</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> utility.plot_descrete_and_normal(p, x, dx, maxmin)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot  <span class="im">as</span> plt</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> utility.plot_descrete_and_normal(p, x, dx, maxmin, plt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-discrete-normal" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -246,7 +247,7 @@ Sum of probabilities: 1.014383747758677</code></pre>
 <img src="2-expectation_utility_files/figure-html/fig-discrete-normal-output-1.png" width="598" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-discrete-normal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Descrete version of the normal distribution
+Figure&nbsp;1: Discrete version of the normal distribution
 </figcaption>
 </figure>
 </div>
@@ -259,10 +260,10 @@ Figure&nbsp;1: Descrete version of the normal distribution
 <p>As demonstrated above, decreasing the interval size <span class="math inline">\(dx\)</span> brings the discrete distribution closer to the continuous one. The continuous distribution serves as an approximation when outcomes are real numbers, which is often the case in investment scenarios.</p>
 <p>The primary advantage of continuous variables over discrete ones is that we can apply powerful mathematical tools, such as derivatives and integrals, from calculus.</p>
 </section>
-<section id="caclulating-the-mean-and-variance-with-a-descrete-distribution" class="level2">
-<h2 class="anchored" data-anchor-id="caclulating-the-mean-and-variance-with-a-descrete-distribution">Caclulating the mean and variance with a descrete distribution</h2>
-<p>With the descrete distribution given by the probabilities <code>p</code> and values <code>x</code> calculated shown in <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a>, we can for example calculate the expected value and variance with theses probabilities. Since the standard normal distribution was assumed, we would expect the mean to be close to 0 and the variance to be close to one</p>
-<div id="calc-mean-variance" class="cell" data-execution_count="5">
+<section id="calculating-the-mean-and-variance-with-a-discrete-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-the-mean-and-variance-with-a-discrete-distribution">Calculating the mean and variance with a discrete distribution</h2>
+<p>With the discrete distribution given by the probabilities <code>p</code> and values <code>x</code> calculated in <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a>, we can, for example, calculate the expected value and variance with these probabilities. Since the standard normal distribution was assumed, we would expect the mean to be close to 0 and the variance to be close to 1.</p>
+<div id="5903d0ec" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calculated mean is: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>x)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calculated variance is: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        p<span class="op">*</span></span>
@@ -274,14 +275,14 @@ Figure&nbsp;1: Descrete version of the normal distribution
 Calculated variance is: 0.8724205986599617</code></pre>
 </div>
 </div>
-<p>We see that the mean is pretty close to zero, but the variance is not that close to one. The likely reason for the latter is the coarse grouping.</p>
+<p>We see that the mean is quite close to zero, but the variance is not that close to one. The likely reason for the latter is the coarse grouping.</p>
 <ul>
-<li><strong>Challenge 2</strong>: See if a finer categorization will give a more exact variance estimate.</li>
+<li><strong>Challenge 2</strong>: See if a finer categorization gives a more exact variance estimate.</li>
 </ul>
 </section>
 <section id="calculating-expected-utility" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-expected-utility">Calculating expected utility</h2>
-<p>Let us now get back to the main topic, expected utility theory. A key outcome of this model is that with a concave utility function, an individual will always prefer a guaranteed cash flow over a speculative investment with the same expected return. Consider an individual with an exponential <span class="citation" data-cites="Euler1748">(<a href="#ref-Euler1748" role="doc-biblioref">Euler 1748</a>)</span> utility function:</p>
+<p>Let us now return to the main topic: expected utility theory. A key outcome of this model is that with a concave utility function, an individual will always prefer a guaranteed cash flow over a speculative investment with the same expected return. Consider an individual with an exponential <span class="citation" data-cites="Euler1748">(<a href="#ref-Euler1748" role="doc-biblioref">Euler 1748</a>)</span> utility function:</p>
 <p><span id="eq-CARA_utility"><span class="math display">\[
 u(x) = -\mathrm{e}^{-\rho\cdot x}
 \tag{4}\]</span></span></p>
@@ -291,9 +292,9 @@ u'(x) = -\rho \cdot u(x)&gt;0
 \tag{5}\]</span></span> <span id="eq-CARA_utility_2derivative"><span class="math display">\[
 u''(x) = \rho^2 \cdot u(x)&lt; 0
 \tag{6}\]</span></span></p>
-<p>Suppose there is a 50% chance of <span class="math inline">\(x=0.5\)</span> and a 50% chance of <span class="math inline">\(x=1.5\)</span>. That is, the possible outcomes are given by <span class="math inline">\(X = \{0.5, 1.5\}\)</span>, with associated probabilities <span class="math inline">\(P(X) = \{0.5, 0.5\}\)</span>. The expected value is then <span class="math inline">\(\frac{1}{2}(-\mathrm{e}^{-\rho\cdot 0.5}-\mathrm{e}^{-\rho\cdot 1.5})\)</span>.</p>
-<p>Below is the utility function defiend as the function <code>u_func(x, rho)</code>. It is convenient to also define the inverse of the utility function <code>x_func(u, rho)</code>. Assuming <span class="math inline">\(\rho = 15.0\)</span>, we can calculate excpected utilities and outcomes as follows:</p>
-<div id="a57e4f94" class="cell" data-execution_count="6">
+<p>Suppose there is a 50% chance of <span class="math inline">\(x=0.5\)</span> and a 50% chance of <span class="math inline">\(x=1.5\)</span>. That is, the possible outcomes are given by <span class="math inline">\(X = {0.5, 1.5}\)</span>, with associated probabilities <span class="math inline">\(P(X) = {0.5, 0.5}\)</span>. The expected value is then <span class="math inline">\(\frac{1}{2}(-\mathrm{e}^{-\rho\cdot 0.5}-\mathrm{e}^{-\rho\cdot 1.5})\)</span>.</p>
+<p>Below is the utility function defined as the function <code>u_func(x, rho)</code>. It is convenient to also define the inverse of the utility function <code>x_func(u, rho)</code>. Assuming <span class="math inline">\(\rho = 15.0\)</span>, we can calculate expected utilities and outcomes as follows:</p>
+<div id="8302e9f5" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Values and probabilities</span></span>
@@ -329,14 +330,15 @@ Utility of expected value: -0.006737946999085467</code></pre>
 <ul>
 <li><strong>Challenge 3</strong>: Now, assume the utility function is <span class="math inline">\(f(x) = -\mathrm{log}(\rho x)\)</span> (the natural logarithm). What is the expected utility for different values of <span class="math inline">\(x\)</span>?</li>
 </ul>
-<p>By comparing the utility of the expected value of 1.0 with the expected utility, you can veryfy that the utility of expected value is greater than the expected utility:</p>
+<p>By comparing the utility of the expected value of 1.0 with the expected utility, you can verify that the utility of the expected value is greater than the expected utility:</p>
 <p><span id="eq-CARA_utility_expected_diff"><span class="math display">\[
 u(\mathbb{E}X) = \mathrm{e}^{\rho\cdot 1} &gt; \frac{1}{2}\mathrm{e}^{\rho\cdot 0.5}+\frac{1}{2}\mathrm{e}^{\rho\cdot 1.5} = \mathbb{E}u(X),
 \tag{7}\]</span></span></p>
-<p>This example demonstrates that the utility of a certain outcome <span class="math inline">\((-\mathrm{e}^{\rho})\)</span> is preferred over the expected utility of a gamble . This preference underscores risk aversion. The situation is illustrated in the following plot:</p>
+<p>This example demonstrates that the utility of a certain outcome <span class="math inline">\((-\mathrm{e}^{\rho})\)</span> is preferred over the expected utility of a gamble. This preference underscores risk aversion. The situation is illustrated in the following plot:</p>
+<p><em><a href="#fig-graphical-risk-prem" class="quarto-xref">Figure&nbsp;2</a>:</em></p>
 <div id="cell-fig-graphical-risk-prem" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> utility.plot(RHO, x_gamble, p_gamble, u_func, x_func)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> utility.plot(RHO, x_gamble, p_gamble, u_func, x_func, plt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-graphical-risk-prem" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -350,21 +352,21 @@ Figure&nbsp;2: Graphical illustration of the risk premium
 </div>
 </div>
 </div>
-<p>The code is a bit to long to be included here, but can be found in the local module <code>utility.py</code> in this repository.</p>
+<p>The code is a bit too long to be included here but can be found in the local module <code>utility.py</code> in this repository.</p>
 <p>As we can see, the utility at expected wealth 1 is about -0.37, while the mean utility is lower at -0.41. You can verify that the line drawn between the utility of 0.5 and 1.5 intersects the mean utility of -0.41.</p>
-<p>Hence, with a concave uitlity function, a person will allways prefere a sure amount rather than a bet with the same expected payoff. In this case, the risk-averse investor will invariably prefer the certain payment of 1 over the gamble.</p>
-<p>The difference indicated by <span class="math inline">\(\rho\)</span> in the figure, is the certainty equivalence. It is the amount that you would need to compensate the investor, in order to take the gamble. In a real market, this is the premium that investors demand to hold risky assets to safe bills. It is usually about 2-4% on average for the whole market.</p>
+<p>Hence, with a concave utility function, a person will always prefer a sure amount rather than a bet with the same expected payoff. In this case, the risk-averse investor will invariably prefer the certain payment of 1 over the gamble.</p>
+<p>The difference indicated by <span class="math inline">\(\rho\)</span> in the figure is the certainty equivalence. It is the amount that you would need to compensate the investor in order to take the gamble. In a real market, this is the premium that investors demand to hold risky assets compared to safe bills. It is usually about 2-4% on average for the whole market.</p>
 </section>
-<section id="a-continous-example" class="level2">
-<h2 class="anchored" data-anchor-id="a-continous-example">A continous example</h2>
-<p>Let us now calculate the expecte utility with more than three outcomes. We remember from the calculation of <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a> and calculation of descrete expectations in <a href="#eq-descrete_exp" class="quarto-xref">Equation&nbsp;2</a> that a descrete version of the continous normal distribution can be calculated by taking the sum of probabilities and outcomes. When the outcomes are utilities, we sum over probabilites and utilitites for each <span class="math inline">\(x\)</span>. If the utility is <span class="math inline">\(u(x) = - \mathrm{e}(-\rho x)\)</span> and <span class="math inline">\(x\)</span> and <span class="math inline">\(p\)</span> are calculated as above, a descrete approximation to the continous expected utility given <span class="math inline">\(x\)</span> is normally distributed, is</p>
-<div id="d8cc1d1e" class="cell" data-execution_count="8">
+<section id="a-continuous-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-continuous-example">A continuous example</h2>
+<p>Let us now calculate the expected utility with more than three outcomes. We remember from the calculation of <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a> and the calculation of discrete expectations in <a href="#eq-descrete_exp" class="quarto-xref">Equation&nbsp;2</a> that a discrete version of the continuous normal distribution can be calculated by taking the sum of probabilities and outcomes. When the outcomes are utilities, we sum over probabilities and utilities for each <span class="math inline">\(x\)</span>. If the utility is <span class="math inline">\(u(x) = - \mathrm{e}(-\rho x)\)</span> and <span class="math inline">\(x\)</span> and <span class="math inline">\(p\)</span> are calculated as above, a discrete approximation to the continuous expected utility, given <span class="math inline">\(x\)</span> is normally distributed, is</p>
+<div id="5fe7520d" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Approximate expected utility:-132238.79351363966</code></pre>
 </div>
 </div>
-<p>The above is a discrete approximation. How do we calculate the exact expected utilituy? We can find this by integration, see <strong>?@eq-eq-cont_exp</strong>. The normal density funciton is given by</p>
+<p>The above is a discrete approximation. How do we calculate the exact expected utility? We can find this by integration; see <a href="#eq-cont_exp" class="quarto-xref">Equation&nbsp;3</a>. The normal density function is given by</p>
 <p><span id="eq-normal_density"><span class="math display">\[
 \frac{1}{\sigma \sqrt{2 \rho}}e^{-\frac{(x-\mu)^2}{2 \sigma}}
 \tag{8}\]</span></span></p>
@@ -372,8 +374,8 @@ Figure&nbsp;2: Graphical illustration of the risk premium
 <p><span id="eq-exp_utility"><span class="math display">\[
 \mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx = e^{-\rho(\mu-\frac{1}{2}\rho \sigma^2)}
 \tag{9}\]</span></span></p>
-<p>Let us now try to compare this with our apporxmated expeted utility above. If we have a standard normal distribution, so <span class="math inline">\(\sigma=1\)</span> and <span class="math inline">\(\mu=0\)</span>. The risk aversion coefficient is <span class="math inline">\(\rho=5\)</span>. The exact and approximate expected utility are</p>
-<div id="5da97d5e" class="cell" data-execution_count="9">
+<p>Let us now try to compare this with our approximated expected utility above. If we have a standard normal distribution, so <span class="math inline">\(\sigma=1\)</span> and <span class="math inline">\(\mu=0\)</span>. The risk aversion coefficient is <span class="math inline">\(\rho=5\)</span>. The exact and approximate expected utility are</p>
+<div id="00f7691c" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="dv">0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -381,24 +383,21 @@ Figure&nbsp;2: Graphical illustration of the risk premium
 Approximate expected utility:-132238.79351363966</code></pre>
 </div>
 </div>
-<p>As we can clearly see fromn above, the approximation is not good. The problem is that the discret normal probability function that we have used, is too coarse. We therefore need to try smaller intervals for the bars. Also, we want to calculate a wider range than +/-4. Let us try with bar witdht of 0.25 and a range +/- 8:</p>
+<p>As we can clearly see from above, the approximation is not good. The problem is that the discrete normal probability function that we have used is too coarse. We therefore need to try smaller intervals for the bars. Also, we want to calculate a wider range than +/-4. Let us try with a bar width of 0.25 and a range of +/- 8: <em><a href="#fig-descrete-normal_fine" class="quarto-xref">Figure&nbsp;3</a>:</em></p>
 <div id="cell-fig-descrete-normal_fine" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> utility</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.25</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">8</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="dv">5</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.25</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span>maxmin, maxmin <span class="op">+</span> dx, dx)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> norm.pdf(x, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span>maxmin, maxmin <span class="op">+</span> dx, dx)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> norm.pdf(x, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> utility.plot_descrete_and_normal(p, x, dx, maxmin, plt)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> utility.plot_descrete_and_normal(p, x, dx, maxmin)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>expected_utility <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="dv">0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Exact expected utility:</span><span class="sc">{</span><span class="op">-</span>np<span class="sc">.</span>exp(<span class="op">-</span>RHO<span class="op">*</span>(<span class="dv">0</span><span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>RHO<span class="op">*</span><span class="fl">1.0</span>))<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Exact expected utility:-268337.2865208745
 Approximate expected utility:-51028.22485443736</code></pre>
@@ -416,30 +415,30 @@ Figure&nbsp;3: Graphical illustration of the risk premium
 </div>
 </div>
 </div>
-<p>We see now in <a href="#fig-descrete-normal_fine" class="quarto-xref">Figure&nbsp;3</a> that the descrete distribution is quite similar to the continous one, and the approximation is also very close to the analytical exact expected utility.</p>
+<p>We see now in <a href="#fig-descrete-normal_fine" class="quarto-xref">Figure&nbsp;3</a> that the discrete distribution is quite similar to the continuous one, and the approximation is also very close to the analytically exact expected utility.</p>
 </section>
 <section id="the-objective-function" class="level2">
 <h2 class="anchored" data-anchor-id="the-objective-function">The objective function</h2>
-<p>The most important lesson here, is what is inside the brackets in equation(<a href="#eq-exp_utility" class="quarto-xref">Equation&nbsp;9</a>). That expression determines in effect the utility, so let us rewrite it here:</p>
+<p>The most important lesson here is what is inside the brackets in equation (<a href="#eq-exp_utility" class="quarto-xref">Equation&nbsp;9</a>). That expression effectively determines the utility, so let us rewrite it here:</p>
 <p><span id="eq-mean-variance"><span class="math display">\[
 \mu-\frac{1}{2}\rho \sigma^2
 \tag{10}\]</span></span></p>
 <p>This is therefore usually assumed to be the <em>objective function</em> of any investor.</p>
-<p>Hence, if returns are normally distributed, then investors would want to maximize the difference between the meand and the variance. This is true for any utility function if returns are normally distributed, but it is not in general true if returns are distributed differently.</p>
+<p>Hence, if returns are normally distributed, then investors would want to maximize the difference between the mean and the variance. This is true for any utility function if returns are normally distributed, but it is not in general true if returns are distributed differently.</p>
 <p><em>Coding Challenges:</em></p>
 <ul>
-<li><strong>Challenge 4</strong>: Calculate the approximate expected utility with some other parameters and a non standard normal distribution (<span class="math inline">\(\sigma&lt;&gt;1\)</span> and <span class="math inline">\(\mu&lt;&gt;1\)</span>, and see if the approxmate is still a good approximation.</li>
+<li><strong>Challenge 4</strong>: Calculate the approximate expected utility with some other parameters and a non-standard normal distribution (<span class="math inline">\(\sigma&lt;&gt;1\)</span> and <span class="math inline">\(\mu&lt;&gt;1\)</span>), and see if the approximate is still a good approximation.</li>
 </ul>
 </section>
 </section>
 <section id="optimal-portfolio-with-one-asset" class="level1">
 <h1>Optimal Portfolio with One Asset</h1>
-<p>With the knowledge from <a href="#eq-mean-variance" class="quarto-xref">Equation&nbsp;10</a>, we can actually calculate the optimal level of investment for one risky asset and a risk free allocation <span class="citation" data-cites="Tobin1958">(<a href="#ref-Tobin1958" role="doc-biblioref">Tobin 1958</a>)</span>. We will later see that the method for doing that, is very similar to how we calcualte optmal portfolios with many different assets. For now, we will assume we only consider one asset, for example the market index. Say you buy shares for <span class="math inline">\(w\)</span> NOK. Then, we can use the method in the previoius section to find that the expected utility depends on</p>
+<p>With the knowledge from <a href="#eq-mean-variance" class="quarto-xref">Equation&nbsp;10</a>, we can actually calculate the optimal level of investment for one risky asset and a risk-free allocation <span class="citation" data-cites="Tobin1958">(<a href="#ref-Tobin1958" role="doc-biblioref">Tobin 1958</a>)</span>. We will later see that the method for doing that is very similar to how we calculate optimal portfolios with many different assets. For now, we will assume we only consider one asset, for example the market index. Say you buy shares for <span class="math inline">\(w\)</span> NOK. Then, we can use the method in the previous section to find that the expected utility depends on</p>
 <p><span id="eq-mean-variance2"><span class="math display">\[
 w\mu-\frac{w^2}{2}\rho \sigma^2
 \tag{11}\]</span></span></p>
 <ul>
-<li><strong>Challenge 5</strong>: Show that when multiplying a random variable with a constant, the variance is the variance of the random variable times the square of the constant.</li>
+<li><strong>Challenge 5</strong>: Show that when multiplying a random variable by a constant, the variance is the variance of the random variable times the square of the constant.</li>
 </ul>
 <p>Taking the derivative of <a href="#eq-mean-variance2" class="quarto-xref">Equation&nbsp;11</a>, which we assume is a concave and increasing function, we get</p>
 <p><span id="eq-mean-variance-diff"><span class="math display">\[
@@ -449,21 +448,26 @@ w\mu-\frac{w^2}{2}\rho \sigma^2
 <p><span id="eq-mean-variance-diff0"><span class="math display">\[
 w=\frac{\mu}{\rho \sigma^2}
 \tag{13}\]</span></span></p>
-<p>From this, we conclude: 1. Higher risk aversion leads to lesser investment. 2. Greater expected returns encourage more investment. 3. Increased risk (<span class="math inline">\(\sigma^2\)</span>) discourages investment.</p>
+<p>From this, we conclude:</p>
+<ol type="1">
+<li>Higher risk aversion leads to less investment.</li>
+<li>Greater expected returns encourage more investment.</li>
+<li>Increased risk (<span class="math inline">\(\sigma^2\)</span>) discourages investment.</li>
+</ol>
 <p>In the next lecture, we will extend these principles to portfolios with multiple assets using matrix algebra.</p>
 <section id="investor-types" class="level2">
 <h2 class="anchored" data-anchor-id="investor-types">Investor Types</h2>
 <p>The shape of a utility function critically influences how individuals respond to risk. This subsection discusses three primary types of investors based on their risk preferences and the corresponding shapes of their utility functions.</p>
 <ul>
-<li><p><strong>Risk-Averse Investors:</strong> These individuals have concave utility functions, as in the example above, indicating a preference for certain outcomes over uncertain ones with the same expected value. Commonly modeled in financial theory, risk-averse investors prioritize minimizing risk over maximizing returns. They tend to diversify their portfolios across various asset classes to reduce volatility. Even with the option of unlimited borrowing, they typically opt to limit their investment exposure.</p></li>
-<li><p><strong>Risk-Neutral Investors:</strong> For risk-neutral individuals, volatility is inconsequential. Their utility functions are linear, reflecting indifference to the level of risk associated with any investment. They focus solely on maximizing expected returns and are likely to invest in the asset with the highest expected payoff, irrespective of the associated risks. This type of investor is willing to allocate as much capital as possible to maximize potential gains.</p></li>
-<li><p><strong>Risk-Loving (Risk-Seeking) Investors:</strong> Risk lovers have convex utility functions and engage in behaviors akin to gambling, where the expected return is typically negative. They derive satisfaction from the risk itself and often pursue investments that offer the highest possible returns, irrespective of the high levels of risk involved. Such behavior is commonly seen in speculative ventures and high-stakes gambling.</p></li>
+<li><p><strong>Risk-Averse Investors:</strong> These individuals have concave utility functions, as in the example above, indicating a preference for certain outcomes over uncertain ones with the same expected value. Commonly modelled in financial theory, risk-averse investors prioritise minimising risk over maximising returns. They tend to diversify their portfolios across various asset classes to reduce volatility. Even with the option of unlimited borrowing, they typically opt to limit their investment exposure.</p></li>
+<li><p><strong>Risk-Neutral Investors:</strong> For risk-neutral individuals, volatility is inconsequential. Their utility functions are linear, reflecting indifference to the level of risk associated with any investment. They focus solely on maximising expected returns and are likely to invest in the asset with the highest expected payoff, irrespective of the associated risks. This type of investor is willing to allocate as much capital as possible to maximise potential gains.</p></li>
+<li><p><strong>Risk-Loving (Risk-Seeking) Investors:</strong> Risk lovers have convex utility functions and engage in behaviours akin to gambling, where the expected return is typically negative. They derive satisfaction from the risk itself and often pursue investments that offer the highest possible returns, irrespective of the high levels of risk involved. Such behaviour is commonly seen in speculative ventures and high-stakes gambling.</p></li>
 </ul>
-<p>Interestingly, it is not uncommon for individuals to display traits of both risk-averse and risk-seeking behaviors, a phenomenon that may seem paradoxical. For instance, the same person might purchase insurance (a risk-averse action) while also indulging in lottery gambling (a risk-seeking behavior). This can be explained by the utility function’s varying shape at different levels of wealth or stakes: a person might be risk-seeking with small, disposable amounts of money but risk-averse with larger, life-impacting sums. This dual nature influences how individuals choose to allocate their investments across different risk levels.</p>
+<p>Interestingly, it is not uncommon for individuals to display traits of both risk-averse and risk-seeking behaviours, a phenomenon that may seem paradoxical. For instance, the same person might purchase insurance (a risk-averse action) while also indulging in lottery gambling (a risk-seeking behaviour). This can be explained by the utility function’s varying shape at different levels of wealth or stakes: a person might be risk-seeking with small, disposable amounts of money but risk-averse with larger, life-impacting sums. This dual nature influences how individuals choose to allocate their investments across different risk levels.</p>
 </section>
 <section id="assumptions-in-a-financial-market" class="level2">
 <h2 class="anchored" data-anchor-id="assumptions-in-a-financial-market">Assumptions in a Financial Market</h2>
-<p>In financial theory, the assumption typically made about market participants is that they are predominantly risk averse. This assumption is crucial as portfolio optimization and related strategies largely rely on this characteristic. Risk-neutral or risk-loving investors, who either disregard risk or actively seek it, are considered exceptions rather than the norm in these models. This foundational assumption allows for the development of investment strategies that aim to maximize returns while minimizing risk, aligning with the preferences of risk-averse individuals.</p>
+<p>In financial theory, the assumption typically made about market participants is that they are predominantly risk-averse. This assumption is crucial, as portfolio optimisation and related strategies largely rely on this characteristic. Risk-neutral or risk-loving investors, who either disregard risk or actively seek it, are considered exceptions rather than the norm in these models. This foundational assumption allows for the development of investment strategies that aim to maximise returns while minimising risk, aligning with the preferences of risk-averse individuals.</p>
 </section>
 </section>
 <section id="the-risk-premium" class="level1">
@@ -476,7 +480,7 @@ w=\frac{\mu}{\rho \sigma^2}
 <p><span id="eq-ARA_def"><span class="math display">\[
 \rho_{ARA}(x) = -\frac{u''(x)}{u'(x)}
 \tag{14}\]</span></span></p>
-<p>This metric, also known as the Arrow-Pratt measure of risk aversion, remains robust against the non-linear scaling of wealth. As wealth increases, both the second derivative <span class="math inline">\(u''(x)\)</span> and the first derivative <span class="math inline">\(u'(x)\)</span> typically decrease, but their ratio, representing the ARA, adjusts proportionally. Thus, the measure of risk aversion does not necessarily approach zero as wealth grows, providing a more reliable indicator across different wealth levels.</p>
+<p>This metric, also known as the Arrow–Pratt measure of risk aversion, remains robust against the non-linear scaling of wealth. As wealth increases, both the second derivative <span class="math inline">\(u''(x)\)</span> and the first derivative <span class="math inline">\(u'(x)\)</span> typically decrease, but their ratio, representing the ARA, adjusts proportionally. Thus, the measure of risk aversion does not necessarily approach zero as wealth grows, providing a more reliable indicator across different wealth levels.</p>
 <p>This measure is intrinsically linked to the concept of the risk premium.</p>
 <section id="constant-absolute-risk-aversion-cara" class="level3">
 <h3 class="anchored" data-anchor-id="constant-absolute-risk-aversion-cara">Constant Absolute Risk Aversion (CARA)</h3>
@@ -484,18 +488,18 @@ w=\frac{\mu}{\rho \sigma^2}
 <p><span id="eq-CARA_def"><span class="math display">\[
 u(x) = -e^{-x \cdot \rho_{CARA}}
 \tag{15}\]</span></span></p>
-<p>This is the exact same utility function as in the previoius examples. Although the CARA utility function is negative, it should not be interpreted as the individual deriving negative utility from wealth. Instead, it serves as a ranking mechanism among different wealth levels, ensuring $ u(x) &gt; u(y) $ whenever $ x &gt; y $, and $ u(x) &gt; u(y) $ whenever $ var(x) &gt; var(y)$ and <span class="math inline">\(x=y\)</span></p>
+<p>This is the exact same utility function as in the previous examples. Although the CARA utility function is negative, it should not be interpreted as the individual deriving negative utility from wealth. Instead, it serves as a ranking mechanism among different wealth levels, ensuring <span class="math inline">\(u(x) &gt; u(y)\)</span> whenever <span class="math inline">\(x &gt; y\)</span>, and <span class="math inline">\(u(x) &gt; u(y)\)</span> whenever <span class="math inline">\(\mathrm{var}(x) &gt; \mathrm{var}(y)\)</span> and <span class="math inline">\(x=y\)</span>.</p>
 <p>This utility specification simplifies calculations and is extensively used due to its mathematical tractability. It also implies that for a CARA utility function, the risk premium can be calculated exactly as <span class="math inline">\(\frac{1}{2} \pi_{ARA} \sigma^2\)</span>.</p>
 </section>
 </section>
 <section id="relative-risk-aversion-rra" class="level2">
 <h2 class="anchored" data-anchor-id="relative-risk-aversion-rra">Relative Risk Aversion (RRA)</h2>
-<p>Relative Risk Aversion (RRA) is more applicable when the risky decision involves a proportion of an individual’s wealth, rather than a fixed amount. This measure is particularly relevant when returns are expressed as a percentage of wealth, aligning more closely with practical financial scenarios. RRA is mathematically defined as:</p>
+<p>Relative Risk Aversion (RRA) is more applicable when the risky decision involves a proportion of an individual’s wealth rather than a fixed amount. This measure is particularly relevant when returns are expressed as a percentage of wealth, aligning more closely with practical financial scenarios. RRA is mathematically defined as:</p>
 <p><span id="eq-RRA_def"><span class="math display">\[
 \pi_{RRA}(x) = -x \frac{u''(x)}{u'(x)}
 \tag{16}\]</span></span></p>
-<p>The choice between using Absolute Risk Aversion (ARA) and RRA depends on the nature of the risk involved. RRA is preferred when analyzing bets that are proportional to wealth, while ARA is more suitable for fixed-level bets.</p>
-<p>The constant RRA utility, is a Cobb-Douglas-type function:</p>
+<p>The choice between using Absolute Risk Aversion (ARA) and RRA depends on the nature of the risk involved. RRA is preferred when analysing bets that are proportional to wealth, while ARA is more suitable for fixed-level bets.</p>
+<p>The constant RRA utility is a Cobb–Douglas-type function:</p>
 <p><span id="eq-CRRA_def"><span class="math display">\[
 u_{CRRA}(x) = x^{1-\pi_{CRRA}}
 \tag{17}\]</span></span></p>
@@ -503,11 +507,11 @@ u_{CRRA}(x) = x^{1-\pi_{CRRA}}
 </section>
 <section id="the-normal-distribution-and-risk" class="level1">
 <h1>The Normal Distribution and risk</h1>
-<p>As mentioned, if the distribution of the returns is normal, the investor should allways maximize the difference between mean and variance. However, if the returns are distributed differently, that is not the case.</p>
-<p>It is well known that returns in financial markets are not normally distributed.For example, under the assumption that returns on the Oslo Stock Exchange follow a normal distribution, statistically extreme changes exceeding 10% would be exceedingly rare—estimated to occur once every 17,000 years. Yet, during the 2008 financial crisis, such anomalies were observed twice.</p>
-<p>This is called “fat tails”. It means that extreme events are much more likely in actual financial markets, than in the normal distribution world.</p>
-<p>However, in most cases, we can represent the empirical distribution with a “mixed normal distribution”. A mixed normal distribution, is a linear combination of normal distirbutino with different mean and varinaces.</p>
-<div id="200084d1" class="cell" data-execution_count="11">
+<p>As mentioned, if the distribution of returns is normal, the investor should always maximise the difference between mean and variance. However, if the returns are distributed differently, that is not the case.</p>
+<p>It is well known that returns in financial markets are not normally distributed. For example, under the assumption that returns on the Oslo Stock Exchange follow a normal distribution, statistically extreme changes exceeding 10% would be exceedingly rare—estimated to occur once every 17,000 years. Yet, during the 2008 financial crisis, such anomalies were observed twice.</p>
+<p>This is called “fat tails”. It means that extreme events are much more likely in actual financial markets than in the normal-distribution world.</p>
+<p>However, in most cases, we can represent the empirical distribution with a “mixed normal distribution”. A mixed normal distribution is a linear combination of normal distributions with different means and variances.</p>
+<div id="f4f4976d" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
@@ -551,8 +555,8 @@ u_{CRRA}(x) = x^{1-\pi_{CRRA}}
 <li><strong>Challenge 7</strong>: Try to fit a mixed normal distribution to the empirical distribution.</li>
 </ul>
 <p><em>Solution:</em></p>
-<p>We start by fetching data for the OSEBX index from <a href="https://titlon.uit.no">titlon.uit.no</a></p>
-<div id="6b013390" class="cell" data-execution_count="12">
+<p>We start by fetching data for the OSEBX index from <a href="https://titlon.uit.no">titlon.uit.no</a>:</p>
+<div id="c7334631" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
@@ -578,36 +582,37 @@ u_{CRRA}(x) = x^{1-\pi_{CRRA}}
 <span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>pd.to_pickle(df,<span class="st">'data/index.df'</span>)</span>
 <span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span> <span class="co">#in order to avoid memory problems</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>We can then calculate the return series and creating a histogram. The period mean and standard deviation is also calculated.</p>
-<div id="1f6470e9" class="cell" data-execution_count="13">
+<p>We can then calculate the return series and create a histogram. The period mean and standard deviation are also calculated.</p>
+<div id="ab23226c" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/index.df'</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the plot using fig and ax</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#fixing Date, setting index and calculate returns</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'Date'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Returns'</span>] <span class="op">=</span> df[<span class="st">'OSEBXLinked'</span>].pct_change()</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean and std:</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>rmean <span class="op">=</span> np.mean(df[<span class="st">'Returns'</span>])</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>rstd <span class="op">=</span> np.std(df[<span class="st">'Returns'</span>])</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the histogram intervals (dx = 0.01)</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.002</span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> <span class="bu">int</span>((<span class="fl">0.2</span> <span class="op">-</span> (<span class="op">-</span><span class="fl">0.2</span>)) <span class="op">/</span> dx)</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>ax.hist(df[<span class="st">'Returns'</span>].dropna(), bins<span class="op">=</span>bins, </span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">range</span><span class="op">=</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>), density<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Set x-axis limits</span></span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span>MAX_MIN, MAX_MIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/index.df'</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the plot using fig and ax</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#fixing Date, setting index and calculate returns</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>df.set_index(<span class="st">'Date'</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Returns'</span>] <span class="op">=</span> df[<span class="st">'OSEBXLinked'</span>].pct_change()</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate mean and std:</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>rmean <span class="op">=</span> np.mean(df[<span class="st">'Returns'</span>])</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>rstd <span class="op">=</span> np.std(df[<span class="st">'Returns'</span>])</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the histogram intervals (dx = 0.01)</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.002</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> <span class="bu">int</span>((<span class="fl">0.2</span> <span class="op">-</span> (<span class="op">-</span><span class="fl">0.2</span>)) <span class="op">/</span> dx)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>ax.hist(df[<span class="st">'Returns'</span>].dropna(), bins<span class="op">=</span>bins, </span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">range</span><span class="op">=</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>), density<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>        edgecolor<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Set x-axis limits</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span>MAX_MIN, MAX_MIN)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -616,9 +621,9 @@ u_{CRRA}(x) = x^{1-\pi_{CRRA}}
 </div>
 </div>
 </div>
-<p>The normal distribution and the mixed normal is now calculated, based on the estimated mean and standard deviation, and some assumptions on how the mixed normal distributions deviate form the single normal. In this example, it is just done by trail and error, which lead to a weight of 80% on a normal distribution with 40% of the estimated volatility, and 20% on a normal distribution with 200% of the estimated volatility.</p>
-<p>This is then addd to the existing chart:</p>
-<div id="d9af28fe" class="cell" data-execution_count="14">
+<p>The normal distribution and the mixed normal are now calculated, based on the estimated mean and standard deviation, and some assumptions on how the mixed normal distributions deviate from the single normal. In this example, it is just done by trial and error, which leads to a weight of 80% on a normal distribution with 40% of the estimated volatility, and 20% on a normal distribution with 200% of the estimated volatility.</p>
+<p>This is then added to the existing chart:</p>
+<div id="b69ba108" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
@@ -643,15 +648,7 @@ u_{CRRA}(x) = x^{1-\pi_{CRRA}}
 <span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>                <span class="st">'Illustrating Fat Tails'</span>)</span>
 <span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'X'</span>)</span>
 <span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Probability Density'</span>)</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<div>
-<figure class="figure">
-<p><img src="2-expectation_utility_files/figure-html/cell-15-output-1.png" width="678" height="449" class="figure-img"></p>
-</figure>
-</div>
-</div>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="literature" class="level1">
