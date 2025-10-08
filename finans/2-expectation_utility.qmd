@@ -81,7 +81,7 @@ print(f"Probabilities: {p_perc}")
 print(f"Sum of probabilities: {np.sum(dx*p)}")
 ```
 
-The probabilities do not sum exactly to one, as expected for a probability distribution. This discrepancy arises due to the coarse nature of the discrete categories.
+Probabilities sum by definition to one, but we see that these do not sum to exactly 1.0. This discrepancy arises due to the coarse nature of the discrete categories.
 
 We can use the function `plot_descrete_and_normal` in the local module `utility.py` in this repository to visualize the probabilities and the normal distribution:
 
@@ -123,7 +123,7 @@ print(f"Calculated variance is: {np.sum(
 ```
 We see that the mean is pretty close to zero, but the variance is not that close to one. The likely reason for the latter is the coarse grouping.
 
-- **Challenge 3**: See if a finer categorization will give a more exact variance estimate.
+- **Challenge 2**: See if a finer categorization will give a more exact variance estimate.
 
 ## Calculating expected utility
 Let us now get back to the main topic, expected utility theory. A key outcome of this model is that with a concave utility function, an individual will always prefer a guaranteed cash flow over a speculative investment with the same expected return. Consider an individual with an exponential [@Euler1748] utility function:
@@ -175,7 +175,7 @@ print(f"Utility of expected value: {utility_exp_outcome}")
 
 ```
 
-- **Challenge 2**: Now, assume the utility function is $f(x) = -\mathrm{log}(\rho x)$ (the natural logarithm). What is the expected utility for different values of $x$?
+- **Challenge 3**: Now, assume the utility function is $f(x) = -\mathrm{log}(\rho x)$ (the natural logarithm). What is the expected utility for different values of $x$?
 
 By comparing the utility of the expected value of 1.0 with the expected utility, you can veryfy that the utility of expected value is greater than the expected utility:
 
@@ -268,7 +268,7 @@ Hence, if returns are normally distributed, then investors would want to maximiz
 
 *Coding Challenges:*
 
-- **Challenge 1**: Calculate the approximate expected utility with some other parameters and a non standard normal distribution ($\sigma<>1$ and $\mu<>1$, and see if the approxmate is still a good approximation.
+- **Challenge 4**: Calculate the approximate expected utility with some other parameters and a non standard normal distribution ($\sigma<>1$ and $\mu<>1$, and see if the approxmate is still a good approximation.
 
 # Optimal Portfolio with One Asset
 
@@ -278,7 +278,7 @@ $$
 w\mu-\frac{w^2}{2}\rho \sigma^2
 $${#eq-mean-variance2}
 
-- **Challenge 1**: Show that when multiplying a random variable with a constant, the variance is the variance of the random variable times the square of the constant.
+- **Challenge 5**: Show that when multiplying a random variable with a constant, the variance is the variance of the random variable times the square of the constant.
 
 Taking the derivative of @eq-mean-variance2, which we assume is a concave and increasing function, we get
 
@@ -413,8 +413,8 @@ ax.legend()
 
 *Coding Challenges:*
 
-- **Challenge 1**: Use data from [https://titlon.uit.no](https://titlon.uit.no) to create a histogram, and overlay the normal distribution to see if the empirical distribution has fat tails. 
-- **Challenge 2**: Try to fit a mixed normal distribution to the empirical distribution. 
+- **Challenge 6**: Use data from [https://titlon.uit.no](https://titlon.uit.no) to create a histogram, and overlay the normal distribution to see if the empirical distribution has fat tails. 
+- **Challenge 7**: Try to fit a mixed normal distribution to the empirical distribution. 
 
 *Solution:*
 
