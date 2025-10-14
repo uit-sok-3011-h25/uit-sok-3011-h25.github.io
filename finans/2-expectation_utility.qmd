@@ -317,7 +317,7 @@ In the next lecture, we will extend these principles to portfolios with multiple
 
 ## Investor Types
 
-The shape of a utility function critically influences how individuals respond to risk. This subsection discusses three primary types of investors based on their risk preferences and the corresponding shapes of their utility functions. $\rho>0$.
+The shape of a utility function critically influences how individuals respond to risk. This subsection discusses three primary types of investors based on their risk preferences and the corresponding shapes of their utility functions.
 
 * **Risk-Averse Investors:** These individuals have concave utility functions, as in the example above, indicating a preference for certain outcomes over uncertain ones with the same expected value. Commonly modelled in financial theory, risk-averse investors prioritise minimising risk over maximising returns. They tend to diversify their portfolios across various asset classes to reduce volatility. Even with the option of unlimited borrowing, they typically opt to limit their investment exposure. $\rho>0$.
 
@@ -353,7 +353,7 @@ This measure is intrinsically linked to the concept of the risk premium.
 
 ### Constant Absolute Risk Aversion (CARA)
 
-If ARA is constant, we refer to it as Constant Absolute Risk Aversion (CARA). The utility function aligning with CARA can be derived by solving the differential equation $ \rho_{CARA} = -u''/u' $, which gives:
+If ARA is constant, we refer to it as Constant Absolute Risk Aversion (CARA). The utility function aligning with CARA can be derived by solving the differential equation $\rho_{CARA} = -u''/u'$, which gives:
 
 $$
 u(x) = -e^{-x \cdot \rho_{CARA}}
