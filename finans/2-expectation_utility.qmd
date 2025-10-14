@@ -55,16 +55,16 @@ where $f(x)$ is the density function of $X$, such as the normal distribution.
 
 ## Discrete normal distribution
 
-To make this a bit more tangible, let us assume $f(x)$ represents the standard normal distribution (variance = 1 and mean = 0), and assume we categorize the outcomes $x$ into five intervals. In Python, we can obtain discrete equivalents of the normal probabilities [@Gauss1809] of a set of intervals in the range `-maxmin` to `maxmin`, each with a width of `dx`, as follows:
+To make this a bit more tangible, let us assume $f(x)$ represents the standard normal distribution (variance = 1 and mean = 0), and assume we categorize the outcomes $x$ into five intervals. In Python, we can obtain discrete equivalents of the normal probabilities [@Gauss1809] of a set of intervals in the range `-minmax` to `minmax`, each with a width of `dx`, as follows:
 
 ```{python}
 from scipy.stats import norm
 
 dx = 2
-maxmin = 4
+minmax = 4
 
-# Define the x range from -maxmin to maxmin
-x = np.arange(-maxmin, maxmin + dx, dx)
+# Define the x range from -minmax to minmax
+x = np.arange(-minmax, minmax + dx, dx)
 
 # Calculate the corresponding standard normal distribution,
 # where mean = 0 and standard deviation = 1
@@ -90,11 +90,11 @@ We can use the function `plot_descrete_and_normal` in the local module `utility.
 # distribution and the corresponding normal distribution.
 from matplotlib import pyplot  as plt
 import utility
-fig, ax = utility.plot_descrete_and_normal(p, x, dx, maxmin, plt)
+fig, ax = utility.plot_descrete_and_normal(p, x, dx, minmax, plt)
 
 ```
 
-*Coding Challenges:*
+
 
 * **Challenge 1**: Reduce the interval size $dx$ and sum the probabilities to observe if the total approaches 1.
 
@@ -107,12 +107,25 @@ The primary advantage of continuous variables over discrete ones is that we can 
 With the discrete distribution given by the probabilities `p` and values `x` calculated in @fig-discrete-normal, we can, for example, calculate the expected value and variance with these probabilities. Since the standard normal distribution was assumed, we would expect the mean to be close to 0 and the variance to be close to 1.
 
 ```{python}
-print(f"Calculated mean is: {np.sum(p*x)}")
-print(f"Calculated variance is: {np.sum(
-        p*
-           ((x-np.sum(p*x))**2)
-                *dx)
-        }")
+dx = 0.1
+minmax = 8
+
+
+true_mean = 0
+true_variance = 1
+
+
+x = np.arange(-minmax + true_mean, minmax + true_mean + dx, dx)
+p = norm.pdf(x, true_mean, true_variance**0.5)
+
+mean = np.sum(p*x*dx)
+
+variance = np.sum(
+        p*((x-mean)**2)*dx
+        )
+        
+print(f"Numerically calculated mean is: {mean}")
+print(f"Numerically variance is: {variance}")
 ```
 
 We see that the mean is quite close to zero, but the variance is not that close to one. The likely reason for the latter is the coarse grouping.
@@ -169,7 +182,7 @@ print(f"Expected outcome: {expected_outcome}")
 print(f"Utility of expected value: {utility_exp_outcome}")
 ```
 
-* **Challenge 3**: Now, assume the utility function is $f(x) = -\mathrm{log}(\rho x)$ (the natural logarithm). What is the expected utility for different values of $x$?
+* **Challenge 3**: Now, assume the utility function is $f(x) = -\mathrm{log}(\rho x)$ (the natural logarithm). What is the expected utility?
 
 By comparing the utility of the expected value of 1.0 with the expected utility, you can verify that the utility of the expected value is greater than the expected utility:
 
@@ -200,7 +213,7 @@ The difference indicated by $\rho$ in the figure is the certainty equivalence. I
 
 
 ## A continuous example
-Let us now calculate the expected utility with more than three outcomes. We remember from the calculation of @fig-discrete-normal and the calculation of discrete expectations in @eq-descrete_exp that a discrete version of the continuous normal distribution can be calculated by taking the sum of probabilities and outcomes. When the outcomes are utilities, we sum over probabilities and utilities for each $x$. If the utility is $u(x) = - \mathrm{e}(-\rho x)$ and $x$ and $p$ are calculated as above, a discrete approximation to the continuous expected utility, given $x$ is normally distributed, is
+Let us now calculate the expected utility with more than two outcomes. We remember from the calculation of @fig-discrete-normal and the calculation of discrete expectations in @eq-descrete_exp that a discrete version of the continuous normal distribution can be calculated by taking the sum of probabilities and outcomes. When the outcomes are utilities, we sum over probabilities and utilities for each $x$. If the utility is $u(x) = - \mathrm{e}(-\rho x)$ and $x$ and $p$ are calculated as above, a discrete approximation to the continuous expected utility, given $x$ is normally distributed, is
 
 ```{python}
 print(f'Approximate expected utility:{np.sum(p*dx*u_func(x, RHO))}')
@@ -209,18 +222,24 @@ print(f'Approximate expected utility:{np.sum(p*dx*u_func(x, RHO))}')
 The above is a discrete approximation. How do we calculate the exact expected utility? We can find this by integration; see @eq-cont_exp. The normal density function is given by
 
 $$
-\frac{1}{\sigma \sqrt{2 \rho}}e^{-\frac{(x-\mu)^2}{2 \sigma}}
+\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(x-\mu)^2}{2 \sigma}}
 $$ {#eq-normal_density}
 
 We can calculate the expected utility by taking the integral over the product of the density and the utility function. It turns out that if we do that, we obtain the analytical expected utility function:
 
 $$
-\mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx = e^{-\rho(\mu-\frac{1}{2}\rho \sigma^2)}
+\mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx = -e^{-\rho(\mu-\frac{1}{2}\rho \sigma^2)}
 $${#eq-exp_utility}
 
-Let us now try to compare this with our approximated expected utility above. If we have a standard normal distribution, so $\sigma=1$ and $\mu=0$. The risk aversion coefficient is $\rho=5$. The exact and approximate expected utility are
+Let us now try to compare this with our approximated expected utility above. If we have a standard normal distribution, so $\sigma=1$ and $\mu=0$. The risk aversion coefficient is $\rho=1$. The exact and approximate expected utility are
 
 ```{python}
+RHO = 1
+dx = 2
+minmax = 4
+
+x = np.arange(-minmax, minmax + dx, dx)
+p = norm.pdf(x, 0, 1)
 
 print(f'Exact expected utility:{-np.exp(-RHO*(0-0.5*RHO*1.0))}')
 print(f'Approximate expected utility:{np.sum(p*dx*u_func(x, RHO))}')
@@ -233,14 +252,14 @@ As we can clearly see from above, the approximation is not good. The problem is 
 #| label: fig-descrete-normal_fine
 #| fig-cap: "Graphical illustration of the risk premium"
 
-dx = 0.25
+RHO = 1
+dx = 0.01
 minmax = 8
-RHO = 5
 
-x = np.arange(-maxmin, maxmin + dx, dx)
+x = np.arange(-minmax, minmax + dx, dx)
 p = norm.pdf(x, 0, 1)
 
-fig, ax = utility.plot_descrete_and_normal(p, x, dx, maxmin, plt)
+fig, ax = utility.plot_descrete_and_normal(p, x, dx, minmax, plt)
 expected_utility = np.sum(p*dx*u_func(x, RHO))
 
 
@@ -263,9 +282,8 @@ This is therefore usually assumed to be the *objective function* of any investor
 
 Hence, if returns are normally distributed, then investors would want to maximize the difference between the mean and the variance. This is true for any utility function if returns are normally distributed, but it is not in general true if returns are distributed differently.
 
-*Coding Challenges:*
 
-* **Challenge 4**: Calculate the approximate expected utility with some other parameters and a non-standard normal distribution ($\sigma<>1$ and $\mu<>1$), and see if the approximate is still a good approximation.
+* **Challenge 4**: Calculate the approximate expected utility with some other parameters and a non-standard normal distribution ($\sigma\neq1$ and $\mu\neq1$), and see if the approximate is still a good approximation.
 
 # Optimal Portfolio with One Asset
 
@@ -299,13 +317,13 @@ In the next lecture, we will extend these principles to portfolios with multiple
 
 ## Investor Types
 
-The shape of a utility function critically influences how individuals respond to risk. This subsection discusses three primary types of investors based on their risk preferences and the corresponding shapes of their utility functions.
+The shape of a utility function critically influences how individuals respond to risk. This subsection discusses three primary types of investors based on their risk preferences and the corresponding shapes of their utility functions. $\rho>0$.
 
-* **Risk-Averse Investors:** These individuals have concave utility functions, as in the example above, indicating a preference for certain outcomes over uncertain ones with the same expected value. Commonly modelled in financial theory, risk-averse investors prioritise minimising risk over maximising returns. They tend to diversify their portfolios across various asset classes to reduce volatility. Even with the option of unlimited borrowing, they typically opt to limit their investment exposure.
+* **Risk-Averse Investors:** These individuals have concave utility functions, as in the example above, indicating a preference for certain outcomes over uncertain ones with the same expected value. Commonly modelled in financial theory, risk-averse investors prioritise minimising risk over maximising returns. They tend to diversify their portfolios across various asset classes to reduce volatility. Even with the option of unlimited borrowing, they typically opt to limit their investment exposure. $\rho>0$.
 
-* **Risk-Neutral Investors:** For risk-neutral individuals, volatility is inconsequential. Their utility functions are linear, reflecting indifference to the level of risk associated with any investment. They focus solely on maximising expected returns and are likely to invest in the asset with the highest expected payoff, irrespective of the associated risks. This type of investor is willing to allocate as much capital as possible to maximise potential gains.
+* **Risk-Neutral Investors:** For risk-neutral individuals, volatility is inconsequential. Their utility functions are linear, reflecting indifference to the level of risk associated with any investment. They focus solely on maximising expected returns and are likely to invest in the asset with the highest expected payoff, irrespective of the associated risks. This type of investor is willing to allocate as much capital as possible to maximise potential gains. $\rho<0$
 
-* **Risk-Loving (Risk-Seeking) Investors:** Risk lovers have convex utility functions and engage in behaviours akin to gambling, where the expected return is typically negative. They derive satisfaction from the risk itself and often pursue investments that offer the highest possible returns, irrespective of the high levels of risk involved. Such behaviour is commonly seen in speculative ventures and high-stakes gambling.
+* **Risk-Loving (Risk-Seeking) Investors:** Risk lovers have convex utility functions and engage in behaviours akin to gambling, where the expected return is typically negative. They derive satisfaction from the risk itself and often pursue investments that offer the highest possible returns, irrespective of the high levels of risk involved. Such behaviour is commonly seen in speculative ventures and high-stakes gambling. $\rho=0$
 
 Interestingly, it is not uncommon for individuals to display traits of both risk-averse and risk-seeking behaviours, a phenomenon that may seem paradoxical. For instance, the same person might purchase insurance (a risk-averse action) while also indulging in lottery gambling (a risk-seeking behaviour). This can be explained by the utility function’s varying shape at different levels of wealth or stakes: a person might be risk-seeking with small, disposable amounts of money but risk-averse with larger, life-impacting sums. This dual nature influences how individuals choose to allocate their investments across different risk levels.
 
@@ -317,7 +335,9 @@ In financial theory, the assumption typically made about market participants is 
 
 We understand that a risk-averse individual has a concave utility function, indicated by $u^{\prime \prime}(x) < 0$. But how do we quantify the degree of risk aversion?
 
-A direct approach might be to use the second derivative of the utility function, $u^{\prime \prime}(x)$, as a measure of risk aversion. However, this method has limitations, particularly at higher wealth levels. The issue arises because the curvature of the utility function tends to flatten as wealth increases, implying a decrease in relative risk aversion. If we solely relied on $u^{\prime \prime}(x)$ for measuring risk aversion, it might inaccurately suggest that wealthier individuals become nearly risk-neutral, due to the diminishing curvature in their utility functions. This phenomenon can be explained by the principle of decreasing marginal utility, which asserts that the incremental value or utility derived from each additional unit of wealth diminishes at higher wealth levels.
+A direct approach might be to use the second derivative of the utility function, $u^{\prime \prime}(x)$, as a measure of risk aversion. However, this method has limitations, particularly at higher wealth levels. The issue arises because the curvature of the utility function tends to flatten as wealth increases, implying a decrease in relative risk aversion. If we solely relied on $u^{\prime \prime}(x)$ for measuring risk aversion, it might inaccurately suggest that wealthier individuals become nearly risk-neutral, due to the diminishing curvature in their utility functions. In other words, we might prefere a measure of risk aversion that 
+
+This phenomenon can be explained by the principle of decreasing marginal utility, which asserts that the incremental value or utility derived from each additional unit of wealth diminishes at higher wealth levels.
 
 ## Absolute Risk Aversion (ARA)
 
@@ -357,6 +377,12 @@ The constant RRA utility is a Cobb–Douglas-type function:
 
 $$
 u_{CRRA}(x) = x^{1-\pi_{CRRA}}
+$${#eq-CRRA_def}
+
+Except for when $\pi_{CRRA}=1$, where 
+
+$$
+u_{CRRA}(x)|_{pi_{CRRA}=1} = \log(x)
 $${#eq-CRRA_def}
 
 # The Normal Distribution and risk
@@ -401,14 +427,13 @@ ax.set_ylabel('Probability Density')
 ax.legend()
 ```
 
-*Coding Challenges:*
 
-* **Challenge 6**: Use data from [https://titlon.uit.no](https://titlon.uit.no) to create a histogram, and overlay the normal distribution to see if the empirical distribution has fat tails.
-* **Challenge 7**: Try to fit a mixed normal distribution to the empirical distribution.
+## Empirical distribution
 
-*Solution:*
+Let us examine how empirical returns compare with the normal distribution, and also attempt to fit a mixed normal distribution to the data. We will use data from [https://titlon.uit.no](https://titlon.uit.no) to create a histogram and overlay a fitted normal density to assess whether the empirical distribution exhibits heavy (fat) tails. We will then compare this with a simple mixed normal (Gaussian mixture) fit.
 
-We start by fetching data for the OSEBX index from [titlon.uit.no](https://titlon.uit.no):
+We start by fetching data for the OSEBX index from [titlon.uit.no](https://titlon.uit.no).
+
 
 ```{python}
 #| eval: false
@@ -438,7 +463,8 @@ pd.to_pickle(df,'data/index.df')
 df = None #in order to avoid memory problems
 ```
 
-We can then calculate the return series and create a histogram. The period mean and standard deviation are also calculated.
+We then calculate the return series and create a histogram of daily returns. The sample mean and standard deviation for the period are also computed to provide a simple summary of the distribution.
+
 
 ```{python}
 import pandas as pd
@@ -472,9 +498,10 @@ df = None
 ax.set_xlim(-MAX_MIN, MAX_MIN)
 ```
 
-The normal distribution and the mixed normal are now calculated, based on the estimated mean and standard deviation, and some assumptions on how the mixed normal distributions deviate from the single normal. In this example, it is just done by trial and error, which leads to a weight of 80% on a normal distribution with 40% of the estimated volatility, and 20% on a normal distribution with 200% of the estimated volatility.
+Next, we compute the fitted normal and a simple mixed normal using the estimated mean and standard deviation. For the mixture, we choose (by trial and error) an 80% weight on a normal with 40% of the estimated volatility and a 20% weight on a normal with 200% of the estimated volatility. 
 
-This is then added to the existing chart:
+Both fitted densities are then overlaid on the existing histogram for comparison.
+
 
 ```{python}
 import numpy as np
@@ -501,7 +528,8 @@ ax.set_title('Mixed Normal Distribution'
                 'Illustrating Fat Tails')
 ax.set_xlabel('X')
 ax.set_ylabel('Probability Density')
-ax.legend()
+
+fig
 ```
 
 # Literature

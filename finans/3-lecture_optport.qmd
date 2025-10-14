@@ -205,7 +205,7 @@ Transposition is often used to conform to the requirements of matrix multiplicat
 
 # Calculus and matrices
 
-Deriving matrices follows similar principles to deriving polynomials [@Cayley1858]. For instance:
+Derivating matrices follows similar principles to derivating polynomials [@Cayley1858]. For instance:
 
 $$
 \frac{d\left( a^{2} \sigma^{2} \right)}{da} = 2a \sigma^{2}
