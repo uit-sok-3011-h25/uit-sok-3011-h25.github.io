@@ -14,8 +14,9 @@ date: "2025-8-10"
 
 Hver gruppe får tildelt [tre aksjer](case/portfolios.html)
 
-1.  Bruk historisk avkastning frem til 1. januar 2025 og tilgjengelig offentlig informasjon da, slik som års-/kvartalrapporter, og lage en portefølje for to typer investorer:
+1.  Bruk historisk avkastning frem til 1. januar 2025 og tilgjengelig offentlig informasjon da, slik som års-/kvartalrapporter, og lage en portefølje for tre typer investorer:
     a) Risikoavers
+    b) Risikonøytral
     b) Risikosøkende
 2. Lag en graf med normalfordelingen og frekvensene til hver av aksjene, og kommenter.
 3. Tegn opp i samme diagram 

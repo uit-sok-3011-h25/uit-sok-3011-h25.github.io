@@ -22,5 +22,5 @@ Støttelitteratur:
 | 43  | 22.10 | [3 - Optimale porteføljer og matriseregning](finans/3-lecture_optport.html) [pdf](finans/3-lecture_optport.pdf) [jupyter](finans/3-lecture_optport.ipynb)| ES|
 | 44  | 29.10 | [4 - Faktorer og prestasjonsmål](finans/4-lecture_factors.html) [pdf](finans/4-lecture_factors.pdf) [jupyter](finans/4-lecture_factors.ipynb)| ES|
 | 45  | 05.11 | [5 - VAR (Value At Risk) og risikobudsjettering](finans/5-lecture_VaR.html) [pdf](finans/5-lecture_VaR.pdf) [jupyter](finans/5-lecture_VaR.ipynb)| ES|
-| 46  | 12.11 | Presentasjoner Case II Finans      | ES|
+| 46  | 10.11 | Presentasjoner Case II Finans      | ES| [Påmelding](https://forms.office.com/e/wTX5a5vJPf)|
 | 47  | 22.11 | Endelig innlevering case I og case II (WISEFLOW)         |         |
