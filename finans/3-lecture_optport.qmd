@@ -41,10 +41,11 @@ The core operation in matrix algebra is matrix multiplication, which combines el
 ```{python}
 X = np.random.randint(0,5,(2,3))
 Y = np.random.randint(0,5,(3,2))
-result = X @ Y
-print(X)
-print(Y)
-print(result)
+
+print(f"X:\n{X}")
+print(f"Y:\n{Y}")
+print(f"X @ Y:\n{X @ Y}")
+
 ```
 
 What happens is that we sum the product of the elements in each row of the first matrix and each column of the second. You can for example check that element [0,0] of the result is the sum of the product of the first row of the first matrix, and the first column of the second. An easy way to remember this is to think of the multiplication of $A \times B$ is to follow the lines of the letters:
@@ -57,10 +58,11 @@ The matrix multiplication is different from the normal multiplication in Python.
 ```{python}
 X = np.random.randint(0,5,(2,3))
 Y = np.random.randint(0,5,(2,3))
-result = X*Y
-print(X)
-print(Y)
-print(result)
+
+
+print(f"X:\n{X}")
+print(f"Y:\n{Y}")
+print(f"X*Y:\n{X*Y}")
 ```
 The reason for using the former method, is that the former is required for solving sets of equations. 
 
@@ -106,6 +108,8 @@ X_inv = np.linalg.inv(X)
 
 # Testing
 np.round(X_inv @ X,1)
+
+print(f"np.round(X_inv @ X,1):\n{np.round(X_inv @ X,1)}")
 ```
 
 
@@ -130,8 +134,8 @@ where $\mathbf{a}$ and $\mathbf{b}$ are column vectors. Let us define the right 
 b =  np.random.randint(0,100,(2,1))
 # Define matrix X
 X =  np.random.randint(0,100,(2,2))
-print(X)
-print(b)
+print(f"X:\n{X}")
+print(f"b:\n{b}")
 ```
 
 To solve for $\mathbf{a}$, we use the inverse of $\mathbf{X}$, provided it exists, and multiplies it with the left and right hand sides of the equation, just as we would divide with X on both sides to solve for a single equation:
@@ -150,7 +154,7 @@ Hence, we have found an easy way to solve any linear equation. We can test that 
 
 ```{python}
 a = np.linalg.inv(X) @ b
-a
+print(f"a:\n{a}")
 ```
 
 If you get a "Singular matrix" error its because we are generating `X` with a few random integers, which sometimes creates unsolvable systems, so just generate `X` and `b` again.
@@ -158,13 +162,11 @@ If you get a "Singular matrix" error its because we are generating `X` with a fe
 Now we can test, if the solution for a actually works, by applying it on the original equation $\mathbf{X \times a} = \mathbf{b}$. This should yield the right hand side of th equation, `b`:
 
 ```{python}
-X @ a
+print(f"Calculated b using solution for a:\n{X @ a}")
+print(f"Actual b:\n{X @ a}")
 ```
- Compare this with the actual `b`:
 
-```{python}
-b
-```
+
 
 Thus, we have identified an effective method to solve any system of equations, provided that $\mathbf{X}$ is invertible. If $\mathbf{X}$ cannot be inverted, it indicates that two or more equations are essentially identical, leading to an "underdetermined" system. In such cases, some equations are redundant, and there are not enough independent equations to determine the values of all variables. Remember the fundamental rule: we need an equal number of equations and unknowns to uniquely solve for each variable.
 
@@ -197,8 +199,10 @@ where $^{\prime}$ denotes the transposed matrix. For a column vector $\mathbf{a}
 ```{python}
 # Example of matrix transposition
 X_2x3 = np.random.randint(0,100,(2,3))
-X_transposed = X_2x3.T
-X_transposed
+
+print(f"Untransposed:\n{X_2x3}")
+print(f"Yransposed:\n{X_2x3.T}")
+
 ```
 
 Transposition is often used to conform to the requirements of matrix multiplication, where the number of columns in the first matrix must match the number of rows in the second. If this is not the case, one might transpose the first matrix to facilitate multiplication.
@@ -224,9 +228,13 @@ assuming ${\Sigma}$ is symmetric. In practical terms, the derivative with respec
 a = np.random.randint(0,100,(2,1))
 Sigma = np.random.randint(0,100,(2,2))
 
+print(f"a:\n{a}")
+print(f"Sigma:\n{Sigma}")
+print(f"a.T @ Sigma @ a:\n{a.T @ Sigma @ a}")
+
 # Derivative of a' Sigma a with respect to a
-derivative = 2 * Sigma @ a
-derivative
+print(f"Derivative 2 * Sigma @ a:\n{2 * Sigma @ a}")
+
 ```
 
 We can rewrite the matrix formulation in scalar form, to check that the rule is correct. The scalar form of $\mathbf{a}^{\prime} {\Sigma}\mathbf{a}$ is
@@ -488,10 +496,10 @@ $${#eq-opt_port_C}
 With these definition, the portfolio front, representing all minimum variance portfolios for a given expected return and a total investment of 1, is
 
 $$
-{\sigma}_{opt} =\frac{1}{A}+\frac{ \left(\mu_{opt}-\frac{B}{A}\right)^2}{C-\frac{B^2}{A}} 
+{\sigma}^2_{min} =\frac{1}{A}+\frac{ \left(\mu_{front}-\frac{B}{A}\right)^2}{C-\frac{B^2}{A}} 
 $${#eq-opt_port_front}
 
-where $\mu_{opt}={\mu}^{\prime}\mathbf{a}$ 
+where the *excess* return of the front is $\mu_{front}={\mu}^{\prime}\mathbf{a}$ 
 
 This formula automatically ensures that the sum of all the portfolio weights are 1. Now, let us define these variables, and the function. A, B and C in python:
 ```{python}
@@ -560,7 +568,7 @@ $$
 \mathbf{1}^{\prime}\mathbf{a}_{opt} = \frac{1}{\lambda} \mathbf{1}^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r) = B
 $${#eq-sum_eq}
 
-Where the last equality follows from Equation \ref{eq:B}. The normalized optimal portfolio is then
+Where the last equality follows from Equation @eq-opt_port_B. The normalized optimal portfolio is then
 
 $$
 \mathbf{a}_{norm}  = \frac{ {\Sigma}^{-1}({\mu} - \mathbf{1}r) }
@@ -568,25 +576,28 @@ $$
 {B}{\Sigma}^{-1}({\mu} - \mathbf{1}r)
 $${#eq-norm_opt}
 
-The expected return of the optimal portfolio on the frontier, is then 
+The expected excess return of the optimal portfolio on the frontier, is then 
 
 $$
-\mu_{port}=({\mu} - \mathbf{1}r)^{\prime}\mathbf{a_{norm}}  = \frac{({\mu} - \mathbf{1}r)^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r)}{ \mathbf{1}^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r)} 
+\mu_{opt}=({\mu} - \mathbf{1}r)^{\prime}\mathbf{a_{norm}}  = \frac{({\mu} - \mathbf{1}r)^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r)}{ \mathbf{1}^{\prime}{\Sigma}^{-1}({\mu} - \mathbf{1}r)} 
 $${#eq-opt_port_sol_exp_ret}
 
 Which is simply, according to the previous definitions of B and C:
 $$
-\mu_{port}=\frac{C}{B}
+\mu_{opt}=\frac{C}{B}
 $${#eq-opt_port_sol_exp_ret_simple}
+
+We can obtain the y-coordinate, the volatility of the optimal portfolio, by inserting its excess return into the portfolio front expression @eq-opt_port_front. After som simplification, turns out:
+$$
+{\sigma}^2_{opt} =\frac{1}{A}+\frac{ \left(\mu_{front}-\frac{B}{A}\right)^2}{C-\frac{B^2}{A}}=frac{C}{B^2}
+$${#eq-opt_port_front}
 
 Let us add that to the plot
 ```{python}
-# Calculating the tangency point of the normalized 
-# optimal portfolio
-tangency_sigma =  portfolio_front(C/B, A, B, C)
+# Calculating the tangency point 
 
-#plotting it, after annualizing the weekly data
-ax.plot(plot_scale**0.5*tangency_sigma, 
+
+ax.plot((plot_scale*C/(B**2))**0.5, 
 					plot_scale*(C/B + rf), 
 					'ro',label='Tangency Point')
 ax.legend()
@@ -595,11 +606,17 @@ fig
 ```
 
 ## Adding the tangency line
-Let us now draw a tangency line from the risk free interest rate `rf` to the optimal portfolio point. The slope will be the Sharp-ratio [@Sharpe1964]
+Let us now draw a tangency line from the risk free interest rate `rf` to the optimal portfolio point. The slope will be the Sharp-ratio, the ratio of excess return to volatility [@Sharpe1964]. For the optimal portfolio, it is
 
 $$
-S=\frac{C/B}{f(C/B)}
+S=\frac{\mu_{opt}}{{\sigma}^2_{opt}}=\sqrt{C}
 $${#eq-opt_port_sol_sharpe}
+
+Where the last equatlity follows from the previous definitions.
+
+
+- **Challenge**: Derive $\mu_{opt}$, ${\sigma}^2_{opt}$ and S mathematically. 
+
 
 where $f(C/B)$ is the portfolio front function `portfolio_front(C/B, A, B, C)` at `C/B`
 ```{python}
@@ -611,7 +628,7 @@ sigma_range = np.linspace(0, np.max(sigma_values), 100)
 # Plotting the portfolio front, after annualizing the 
 # weekly data
 ax.plot(plot_scale**0.5*sigma_range, plot_scale*(rf 
-				+ sigma_range*(C/B)/tangency_sigma), 
+				+ sigma_range*(C**0.5)), 
 				color='r', linestyle='--', 
 				label='Capital Market Line')
 
@@ -648,7 +665,7 @@ $$
 {B} {\Sigma}^{-1}({\mu} - \mathbf{1}r) 
 $${#eq-opt_port_sol_norm2}
 
-where $B$ is the sum of the optimal portfolio, as previously defined in \ref{eq:B}
+where $B$ is the sum of the optimal portfolio, as previously defined in @eq-opt_port_B
 
 We can code that as
 
