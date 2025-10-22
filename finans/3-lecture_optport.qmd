@@ -273,7 +273,7 @@ Now, let us consider the optimal investments if we have more than one asset, as 
 Let us now assume that the investor in the previous section has a portfolio of $N$ assets, not just one. Their wealth next period, assuming the entire amount is borrowed, is then expressed in matrix notation as:
 
 $$
-W_1 = \mathbf{a}'\mathbf{x} - \mathbf{1}r
+W_1 = \mathbf{a}'(\mathbf{x} - \mathbf{1}r)
 $${#eq-opt_port}
 
 where $\mathbf{a}$ represents the portfolio weights, $\mathbf{x}$ represents the returns, and $\mathbf{1}$ is a column vector of ones, such that $\mathbf{1}r$ is a column vector of the risk-free interest rate $r$. Recall from earlier that the investor aims to maximize the difference between expected return and variance:
