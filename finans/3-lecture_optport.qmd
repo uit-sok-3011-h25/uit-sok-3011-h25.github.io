@@ -589,7 +589,7 @@ $${#eq-opt_port_sol_exp_ret_simple}
 
 We can obtain the y-coordinate, the volatility of the optimal portfolio, by inserting its excess return into the portfolio front expression @eq-opt_port_front. After som simplification, turns out:
 $$
-{\sigma}^2_{opt} =\frac{1}{A}+\frac{ \left(\mu_{front}-\frac{B}{A}\right)^2}{C-\frac{B^2}{A}}=frac{C}{B^2}
+{\sigma}^2_{opt} =\frac{1}{A}+\frac{ \left(\mu_{front}-\frac{B}{A}\right)^2}{C-\frac{B^2}{A}}=\frac{C}{B^2}
 $${#eq-opt_port_front}
 
 Let us add that to the plot
@@ -609,7 +609,7 @@ fig
 Let us now draw a tangency line from the risk free interest rate `rf` to the optimal portfolio point. The slope will be the Sharp-ratio, the ratio of excess return to volatility [@Sharpe1964]. For the optimal portfolio, it is
 
 $$
-S=\frac{\mu_{opt}}{{\sigma}^2_{opt}}=\sqrt{C}
+S=\frac{\mu_{opt} }{ {\sigma}_{opt} }=\sqrt{C}
 $${#eq-opt_port_sol_sharpe}
 
 Where the last equatlity follows from the previous definitions.
