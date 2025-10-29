@@ -171,14 +171,14 @@ window.Quarto = {
 \mathbb{E}[X] = \sum_{i=0}^{N} P(x_i) x_i
 \tag{1}\]</span></span></p>
 <p>For example:</p>
-<div id="a6f7569f" class="cell" data-execution_count="1">
+<div id="5e1e1897" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>])</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">3</span>,<span class="dv">10</span>, <span class="dv">20</span>])</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(p<span class="op">*</span>x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>np.float64(9.5)</code></pre>
 </div>
 </div>
@@ -188,7 +188,7 @@ U(X) = \mathbb{E}[u(X)] = \sum_{i=0}^{N} P(x_i) u(x_i)
 \tag{2}\]</span></span></p>
 <p>where <span class="math inline">\(P(x_i)\)</span> is the probability that <span class="math inline">\(X\)</span> assumes the value <span class="math inline">\(x_i\)</span>, and <span class="math inline">\(u(x_i)\)</span> represents the utility derived if that event occurs.</p>
 <p>For example, say utilities 2, -4, and 6 occur with probabilities 0.5, 0.2, and 0.3; then the expected utility is</p>
-<div id="662106fb" class="cell" data-execution_count="2">
+<div id="f80e46b4" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>])</span>
@@ -196,7 +196,7 @@ U(X) = \mathbb{E}[u(X)] = \sum_{i=0}^{N} P(x_i) u(x_i)
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> np.<span class="bu">sum</span>(p<span class="op">*</span>u)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>U</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>np.float64(1.9999999999999998)</code></pre>
 </div>
 </div>
@@ -208,7 +208,7 @@ U(X) = \mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx,
 <section id="discrete-normal-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="discrete-normal-distribution">Discrete normal distribution</h2>
 <p>To make this a bit more tangible, let us assume <span class="math inline">\(f(x)\)</span> represents the standard normal distribution (variance = 1 and mean = 0), and assume we categorize the outcomes <span class="math inline">\(x\)</span> into five intervals. In Python, we can obtain discrete equivalents of the normal probabilities <span class="citation" data-cites="Gauss1809">(<a href="#ref-Gauss1809" role="doc-biblioref">Gauss 1809</a>)</span> of a set of intervals in the range <code>-minmax</code> to <code>minmax</code>, each with a width of <code>dx</code>, as follows:</p>
-<div id="dff5be1f" class="cell" data-execution_count="3">
+<div id="7b95bc9a" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="dv">2</span></span>
@@ -262,7 +262,7 @@ Figure&nbsp;1: Discrete version of the normal distribution
 <section id="calculating-the-mean-and-variance-with-a-discrete-distribution" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-the-mean-and-variance-with-a-discrete-distribution">Calculating the mean and variance with a discrete distribution</h2>
 <p>With the discrete distribution given by the probabilities <code>p</code> and values <code>x</code> calculated in <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a>, we can, for example, calculate the expected value and variance with these probabilities. Since the standard normal distribution was assumed, we would expect the mean to be close to 0 and the variance to be close to 1.</p>
-<div id="64aad75c" class="cell" data-execution_count="5">
+<div id="d91bf94e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="fl">0.1</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">8</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -306,7 +306,7 @@ u''(x) = \rho^2 \cdot u(x)&lt; 0
 \tag{6}\]</span></span></p>
 <p>Suppose there is a 50% chance of <span class="math inline">\(x=0.5\)</span> and a 50% chance of <span class="math inline">\(x=1.5\)</span>. That is, the possible outcomes are given by <span class="math inline">\(X = {0.5, 1.5}\)</span>, with associated probabilities <span class="math inline">\(P(X) = {0.5, 0.5}\)</span>. The expected value is then <span class="math inline">\(\frac{1}{2}(-\mathrm{e}^{-\rho\cdot 0.5}-\mathrm{e}^{-\rho\cdot 1.5})\)</span>.</p>
 <p>Below is the utility function defined as the function <code>u_func(x, rho)</code>. It is convenient to also define the inverse of the utility function <code>x_func(u, rho)</code>. Assuming <span class="math inline">\(\rho = 15.0\)</span>, we can calculate expected utilities and outcomes as follows:</p>
-<div id="477aeb53" class="cell" data-execution_count="6">
+<div id="d4e59b4c" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Values and probabilities</span></span>
@@ -372,7 +372,7 @@ Figure&nbsp;2: Graphical illustration of the risk premium
 <section id="a-continuous-example" class="level2">
 <h2 class="anchored" data-anchor-id="a-continuous-example">A continuous example</h2>
 <p>Let us now calculate the expected utility with more than two outcomes. We remember from the calculation of <a href="#fig-discrete-normal" class="quarto-xref">Figure&nbsp;1</a> and the calculation of discrete expectations in <a href="#eq-descrete_exp" class="quarto-xref">Equation&nbsp;2</a> that a discrete version of the continuous normal distribution can be calculated by taking the sum of probabilities and outcomes. When the outcomes are utilities, we sum over probabilities and utilities for each <span class="math inline">\(x\)</span>. If the utility is <span class="math inline">\(u(x) = - \mathrm{e}(-\rho x)\)</span> and <span class="math inline">\(x\)</span> and <span class="math inline">\(p\)</span> are calculated as above, a discrete approximation to the continuous expected utility, given <span class="math inline">\(x\)</span> is normally distributed, is</p>
-<div id="e4edffc4" class="cell" data-execution_count="8">
+<div id="96067abc" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Approximate expected utility:</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">sum</span>(p<span class="op">*</span>dx<span class="op">*</span>u_func(x, RHO))<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Approximate expected utility:-268031.5499517654</code></pre>
@@ -387,7 +387,7 @@ Figure&nbsp;2: Graphical illustration of the risk premium
 \mathbb{E}[u(X)] = \int_{-\infty}^{\infty} u(x) f(x)\ dx = -e^{-\rho(\mu-\frac{1}{2}\rho \sigma^2)}
 \tag{9}\]</span></span></p>
 <p>Let us now try to compare this with our approximated expected utility above. If we have a standard normal distribution, so <span class="math inline">\(\sigma=1\)</span> and <span class="math inline">\(\mu=0\)</span>. The risk aversion coefficient is <span class="math inline">\(\rho=1\)</span>. The exact and approximate expected utility are</p>
-<div id="c18e7394" class="cell" data-execution_count="9">
+<div id="ae90ad9c" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>RHO <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dx <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> <span class="dv">4</span></span>
@@ -534,7 +534,7 @@ u_{CRRA}(x)|_{pi_{CRRA}=1} = \log(x)
 <p>It is well known that returns in financial markets are not normally distributed. For example, under the assumption that returns on the Oslo Stock Exchange follow a normal distribution, statistically extreme changes exceeding 10% would be exceedingly rare—estimated to occur once every 17,000 years. Yet, during the 2008 financial crisis, such anomalies were observed twice.</p>
 <p>This is called “fat tails”. It means that extreme events are much more likely in actual financial markets than in the normal-distribution world.</p>
 <p>However, in most cases, we can represent the empirical distribution with a “mixed normal distribution”. A mixed normal distribution is a linear combination of normal distributions with different means and variances.</p>
-<div id="fa6dee4f" class="cell" data-execution_count="11">
+<div id="eb678de9" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
@@ -576,7 +576,7 @@ u_{CRRA}(x)|_{pi_{CRRA}=1} = \log(x)
 <h2 class="anchored" data-anchor-id="empirical-distribution">Empirical distribution</h2>
 <p>Let us examine how empirical returns compare with the normal distribution, and also attempt to fit a mixed normal distribution to the data. We will use data from <a href="https://titlon.uit.no">https://titlon.uit.no</a> to create a histogram and overlay a fitted normal density to assess whether the empirical distribution exhibits heavy (fat) tails. We will then compare this with a simple mixed normal (Gaussian mixture) fit.</p>
 <p>We start by fetching data for the OSEBX index from <a href="https://titlon.uit.no">titlon.uit.no</a>.</p>
-<div id="aa150a49" class="cell" data-execution_count="12">
+<div id="aed099cd" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Query script for MySQL client</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymysql</span>
@@ -603,7 +603,7 @@ u_{CRRA}(x)|_{pi_{CRRA}=1} = \log(x)
 <span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span> <span class="co">#in order to avoid memory problems</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then calculate the return series and create a histogram of daily returns. The sample mean and standard deviation for the period are also computed to provide a simple summary of the distribution.</p>
-<div id="d9fc691a" class="cell" data-execution_count="13">
+<div id="2a54e04f" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the data</span></span>
@@ -643,7 +643,7 @@ u_{CRRA}(x)|_{pi_{CRRA}=1} = \log(x)
 </div>
 <p>Next, we compute the fitted normal and a simple mixed normal using the estimated mean and standard deviation. For the mixture, we choose (by trial and error) an 80% weight on a normal with 40% of the estimated volatility and a 20% weight on a normal with 200% of the estimated volatility.</p>
 <p>Both fitted densities are then overlaid on the existing histogram for comparison.</p>
-<div id="d7eb0c67" class="cell" data-execution_count="14">
+<div id="d17a099b" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
@@ -670,7 +670,7 @@ u_{CRRA}(x)|_{pi_{CRRA}=1} = \log(x)
 <span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Probability Density'</span>)</span>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 <figure class="figure">
 <p><img src="2-expectation_utility_files/figure-html/cell-15-output-1.png" width="678" height="449" class="figure-img"></p>

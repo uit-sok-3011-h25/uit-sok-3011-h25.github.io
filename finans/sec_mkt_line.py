@@ -109,10 +109,10 @@ def get_sec_mkt_line_data(df, names):
 		rf = gr['rf'].mean()*MULT
 		beta = beta_calc(gr)
 		index_rf = gr['lnDeltaOSEBX_rf'].mean()*MULT
-		mkt_shr = gr['OSEBXmktshare_prevmnth'].mean()
+		mcap = gr['OSEBXmktshare_prevmnth'].mean()
 		df_sml.append({'ISIN':isin, 'mean':(mean + rf), 'beta':beta, 'rf':rf, 
 				'index_rf':index_rf, 'symbol': names[isin], 
-				'mkt_shr':mkt_shr})
+				'mcap':mcap})
 
 	df_sml = pd.DataFrame(df_sml)
 
@@ -121,8 +121,8 @@ def get_sec_mkt_line_data(df, names):
 
 def plot_sec_mkt_line(df_sml, ax, mktsh, setlabel = False):
 
-	ax.set_title(f'Minimun {int(mktsh*100)} % markedsandel')
-	df_sml = df_sml[df_sml['mkt_shr']>mktsh]
+	ax.set_title(f'Min {int(mktsh*100)} % market cap')
+	df_sml = df_sml[df_sml['mcap']>mktsh]
 
 
 	rf = np.mean(df_sml['rf'])
@@ -155,8 +155,8 @@ def plot_sec_mkt_line(df_sml, ax, mktsh, setlabel = False):
 	pred_ret = p['const'] + xvals*p['beta']
 	capm = rf + xvals*index_rf
 	if setlabel:
-		ax.plot(xvals, pred_ret, label = 'Predikert avkastning')
-		ax.plot(xvals, capm, label = 'Verdipapirmarkedslinjen', color='red')
+		ax.plot(xvals, pred_ret, label = 'Predicted return')
+		ax.plot(xvals, capm, label = 'Security Market LIne', color='red')
 	else:
 		ax.plot(xvals, pred_ret)
 		ax.plot(xvals, capm, color='red')
@@ -164,7 +164,7 @@ def plot_sec_mkt_line(df_sml, ax, mktsh, setlabel = False):
 	ax.spines['top'].set_visible(False)
 
 	ax.scatter(1, index_rf+rf, color='red')
-	ax.text(1, index_rf+rf, 'INDEKS', fontsize=8, ha='left', va='top', fontweight='bold')
+	ax.text(1, index_rf+rf, 'INDEX', fontsize=8, ha='left', va='top', fontweight='bold')
 	ax.text(0, rf, 'rf', fontsize=8, ha='right', va='bottom', fontweight='bold')
 
 

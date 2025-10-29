@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-2-forventning-nytte-og-risiko" class="level1">
 <h1>Forelesning 2: Forventning, nytte og risiko</h1>
 <p>Nyttefunksjonen:</p>
-<div id="e83768b0" class="cell" data-tags="[]" data-execution_count="1">
+<div id="bb24077e" class="cell" data-tags="[]" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -243,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-3-porteføljeteori-og-matriser" class="level1">
 <h1>Forelesning 3: Porteføljeteori og matriser</h1>
 <p>Reduserer utvalget:</p>
-<div id="378037e3" class="cell" data-execution_count="2">
+<div id="1008459f" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -270,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                                how<span class="op">=</span><span class="st">'inner'</span>)</span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>res.head(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -288,19 +288,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">EQUINOR(NO0010096985)</th>
-<td>1.812403e+12</td>
+<td>1.825634e+12</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">NORSK HYDRO(NO0005052605)</th>
-<td>6.472283e+11</td>
+<td>6.522859e+11</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">TELENOR(NO0010063308)</th>
-<td>5.601747e+11</td>
+<td>5.638098e+11</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">YARA INTERNATIONAL(NO0010208051)</th>
-<td>5.466033e+11</td>
+<td>5.500643e+11</td>
 </tr>
 </tbody>
 </table>
@@ -309,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Lager avkastningsmatrisen:</p>
-<div id="5dcc4088" class="cell" data-execution_count="3">
+<div id="b14af807" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_matrix(df, field):</span>
@@ -337,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>X_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -402,49 +402,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>...</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2025-08-24</th>
-<td>0.028829</td>
-<td>0.002129</td>
-<td>0.003018</td>
-<td>-0.016429</td>
+<th data-quarto-table-cell-role="th">2025-09-28</th>
+<td>0.056725</td>
+<td>-0.006665</td>
+<td>-0.004226</td>
+<td>0.023466</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">2025-08-31</th>
-<td>-0.021953</td>
-<td>-0.010075</td>
-<td>0.010195</td>
-<td>-0.023244</td>
+<th data-quarto-table-cell-role="th">2025-10-05</th>
+<td>-0.039205</td>
+<td>0.052979</td>
+<td>-0.002423</td>
+<td>-0.007852</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2025-09-07</th>
-<td>-0.034486</td>
-<td>0.024550</td>
-<td>0.005949</td>
-<td>-0.015987</td>
+<th data-quarto-table-cell-role="th">2025-10-12</th>
+<td>-0.035351</td>
+<td>-0.013933</td>
+<td>0.008454</td>
+<td>0.018581</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">2025-09-14</th>
-<td>0.008734</td>
-<td>0.000299</td>
-<td>0.010619</td>
-<td>0.029027</td>
+<th data-quarto-table-cell-role="th">2025-10-19</th>
+<td>-0.024138</td>
+<td>0.020255</td>
+<td>0.023687</td>
+<td>0.005057</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2025-09-21</th>
-<td>0.007426</td>
-<td>-0.008718</td>
-<td>-0.026161</td>
-<td>-0.022657</td>
+<th data-quarto-table-cell-role="th">2025-10-26</th>
+<td>-0.001716</td>
+<td>0.001431</td>
+<td>0.000603</td>
+<td>-0.002658</td>
 </tr>
 </tbody>
 </table>
 
-<p>507 rows × 4 columns</p>
+<p>512 rows × 4 columns</p>
 </div>
 </div>
 </div>
 <p>Finner gjennomsnittsvektoren og varians-kovarians-matrisen:</p>
-<div id="8512fd4d" class="cell" data-execution_count="4">
+<div id="42aed950" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting X to a numpy array:</span></span>
@@ -460,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>Definerer porteføljefrontfunksjonen:</p>
-<div id="93509387" class="cell" data-execution_count="5">
+<div id="7332013e" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ones <span class="op">=</span> np.ones((<span class="bu">len</span>(means),<span class="dv">1</span>))</span>
@@ -482,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>Plotter porteføljefronten:</p>
-<div id="f36f534e" class="cell" data-execution_count="6">
+<div id="f1ad1ee2" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -515,7 +515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Legger til punkte for den optimale porteføljen:</p>
-<div id="d3ad53cc" class="cell" data-execution_count="7">
+<div id="0ca1cf15" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the tangency point of the normalized </span></span>
@@ -529,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <figure class="figure">
 <p><img src="1-introduksjon_files/figure-html/cell-8-output-1.png" width="821" height="523" class="figure-img"></p>
@@ -539,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="porteføljefronten-med-optimal-portefølje-og-tangeringslinje" class="level2">
 <h2 class="anchored" data-anchor-id="porteføljefronten-med-optimal-portefølje-og-tangeringslinje">Porteføljefronten med optimal portefølje og tangeringslinje</h2>
-<div id="64244f6a" class="cell" data-execution_count="8">
+<div id="e0125d2e" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sigma_range <span class="op">=</span> np.linspace(<span class="dv">0</span>, np.<span class="bu">max</span>(sigma_values), <span class="dv">100</span>)</span>
@@ -555,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 <figure class="figure">
 <p><img src="1-introduksjon_files/figure-html/cell-9-output-1.png" width="821" height="523" class="figure-img"></p>
@@ -568,7 +568,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="forelesning-4-faktorer" class="level1">
 <h1>Forelesning 4: Faktorer</h1>
 <p>Finner volatilitet og avkastning til faktorene:</p>
-<div id="0d44f064" class="cell" data-execution_count="9">
+<div id="f1ab9830" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -586,18 +586,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>df_weekly</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>SMB    0.140683
-HML    0.180303
-LIQ    0.152365
-MOM    0.210811
+<pre><code>SMB    0.140437
+HML    0.179257
+LIQ    0.152690
+MOM    0.209637
 dtype: float64
-SMB    0.049518
-HML    0.143938
-LIQ    0.010761
-MOM    0.172016
+SMB    0.047721
+HML    0.142255
+LIQ    0.014306
+MOM    0.168830
 dtype: float64</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -662,49 +662,49 @@ dtype: float64</code></pre>
 <td>...</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2025-08-24</th>
-<td>-0.002866</td>
+<th data-quarto-table-cell-role="th">2025-10-05</th>
+<td>0.010233</td>
 <td>0.000000</td>
-<td>0.002491</td>
-<td>0.025593</td>
+<td>-0.015183</td>
+<td>0.004564</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">2025-08-31</th>
-<td>-0.001207</td>
+<th data-quarto-table-cell-role="th">2025-10-12</th>
+<td>-0.009795</td>
 <td>0.000000</td>
-<td>-0.006485</td>
-<td>0.011409</td>
+<td>0.033613</td>
+<td>0.000467</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2025-09-07</th>
-<td>0.001087</td>
+<th data-quarto-table-cell-role="th">2025-10-19</th>
+<td>0.004841</td>
 <td>0.000000</td>
-<td>0.001918</td>
-<td>-0.006445</td>
+<td>0.032806</td>
+<td>0.003401</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">2025-09-14</th>
-<td>0.008998</td>
+<th data-quarto-table-cell-role="th">2025-10-26</th>
+<td>-0.035190</td>
 <td>0.000000</td>
-<td>0.012702</td>
-<td>0.020961</td>
+<td>-0.032422</td>
+<td>-0.002456</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2025-09-21</th>
-<td>-0.005925</td>
+<th data-quarto-table-cell-role="th">2025-11-02</th>
 <td>0.000000</td>
-<td>-0.012856</td>
-<td>0.032795</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
 </tr>
 </tbody>
 </table>
 
-<p>507 rows × 4 columns</p>
+<p>513 rows × 4 columns</p>
 </div>
 </div>
 </div>
 <p>Plotter punktene i grafen fra forrige kapittel:</p>
-<div id="cb7c6b1e" class="cell" data-execution_count="10">
+<div id="ae8aa9ca" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> series <span class="kw">in</span> means.index:</span>
@@ -714,7 +714,7 @@ dtype: float64</code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 <figure class="figure">
 <p><img src="1-introduksjon_files/figure-html/cell-11-output-1.png" width="821" height="523" class="figure-img"></p>
@@ -727,7 +727,7 @@ dtype: float64</code></pre>
 <h1>Forelesning 5: VaR</h1>
 <section id="backtestfunksjonen" class="level4">
 <h4 class="anchored" data-anchor-id="backtestfunksjonen">Backtestfunksjonen:</h4>
-<div id="1472ddcb" class="cell" data-execution_count="11">
+<div id="2ba70bed" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -769,7 +769,7 @@ dtype: float64</code></pre>
 </section>
 <section id="evalueringsfunksjonen" class="level4">
 <h4 class="anchored" data-anchor-id="evalueringsfunksjonen">Evalueringsfunksjonen:</h4>
-<div id="46c646cd" class="cell" data-execution_count="12">
+<div id="a1095b88" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -816,7 +816,7 @@ dtype: float64</code></pre>
 </section>
 <section id="ulike-modeller-for-volatilitetsestimat" class="level4">
 <h4 class="anchored" data-anchor-id="ulike-modeller-for-volatilitetsestimat">Ulike modeller for volatilitetsestimat:</h4>
-<div id="04e60753" class="cell" data-execution_count="13">
+<div id="1efa2535" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>PVALS <span class="op">=</span> [<span class="fl">0.05</span>, <span class="fl">0.01</span>]  <span class="co"># Confidence intervals (95% and 99%)</span></span>
@@ -845,7 +845,7 @@ dtype: float64</code></pre>
 </section>
 <section id="evaluering" class="level4">
 <h4 class="anchored" data-anchor-id="evaluering">Evaluering</h4>
-<div id="53f24957" class="cell" data-execution_count="14">
+<div id="b20be6d1" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>NAME <span class="op">=</span> <span class="st">'EQNR'</span></span>
@@ -870,7 +870,7 @@ dtype: float64</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>VaR Estimation Using the Normal Distribution Method with 95% confidence interval:
 Breaches: 25
-Backtesting (Realized VaR - % breaches): 5.5%
+Backtesting (Realized VaR - % breaches): 5.4%
 
 VaR Estimation Using the Normal Distribution Method with 99% confidence interval:
 Breaches: 10

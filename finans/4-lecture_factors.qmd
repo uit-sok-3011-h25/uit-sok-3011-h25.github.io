@@ -20,8 +20,9 @@ $${#eq-CAPM}
 A good way to evaluate the model, is by looking at the estimated $\hat{\beta}_M$, and compare it with the returns. This is a bit to complicated to put in a document like this, so it has been programmed in the local module `sec_mkt_line` included in this repository. This will plot the returns and betas for the stocks at Euronext Oslo Stock Exchane since 2016, for various filtrations of stocks. The stocks are filtered on average market share in the period.
 
 ```{python}
-#| fig-cap: "Returns and betas for stocks at Euronext Oslo Stock Exchange since 2019. The stocks are filtered on average market share in the period"
 #| label: fig-CAPM
+#| fig-cap: "Returns and betas for stocks at Euronext Oslo Stock Exchange since 2019. The stocks are filtered on average market share in the period"
+
 
 import sec_mkt_line
 
@@ -29,9 +30,16 @@ fig, ax = sec_mkt_line.plot_sec_mkt_lines()
 
 ```
 
-The stocks should lie on the line from the risk free interest rate $r_f$ to the beta and return of the market portfolio (OSEBX), which allways should have $\beta_M=1$, since it is itself the market. 
 
-As we can see, the CAPM
+In theory, individual stocks should lie along a line that starts at the risk-free interest rate, \( r_f \), and passes through the point representing the market portfolio (for example, OSEBX). The market portfolio has a beta of \( \beta_M = 1 \) by definition, since it represents the entire market and therefore has the same systematic risk as itself.  
+
+This line — shown in **red** in the figures — is called the **Security Market Line (SML)**. It represents the expected relationship between a stock’s **systematic risk** (β) and its **expected return** according to the **Capital Asset Pricing Model (CAPM)**.
+
+If a stock consistently yields returns *above* the SML, investors will be attracted to it. The resulting increase in demand drives its price up and its expected return down, until it moves back toward the SML. Conversely, if a stock yields returns *below* the SML, investors will sell it, lowering the price and raising the expected return, again moving it closer to the SML.  
+
+That is the theoretical prediction. In reality, however, the data tell a different story. As shown in the figures. The **blue line** in these plots represents the empirical regression line that best fit observed average returns and estimated betas. This empirical line typically lies **above** the SML and often has a **flatter** slope. When smaller stocks are included, the slope even turn **negative**. Only when the sample is restricted to the **largest stocks** does the relationship resemble the SML.  
+
+This discrepancy indicates that the CAPM leaves something unexplained. In the early 1990s, researchers proposed that this missing component could be **additional sources of systematic risk** — what we now call **factors**.
 
 
 
@@ -56,12 +64,12 @@ $$
 \begin{array}{rl}
 x - r_f = \alpha + \beta_M (r_M - r_f)  \\
 +\beta_{SMB} \cdot SMB \\
-+\beta_{HML} \cdot HML 
++\beta_{HML} \cdot HML \\
 +\beta_{LIQ} \cdot LIQ \\
-+\beta_{MOM} \cdot MOM
- + \epsilon
++\beta_{MOM} \cdot MOM \\
+ + \epsilon \\
 \end{array}
-$${#eq-factor_model}
+$$
 
 This is a multifactor model. If we only include the market factor, the model reduces to the well-known **CAPM** (Capital Asset Pricing Model). Adding the additional factors results in a more comprehensive **factor model**.
 
@@ -81,7 +89,7 @@ For investors seeking higher returns by taking on more market risk, simply buyin
 
 Similarly, the introduction of factor models showed that some managers were merely betting on small-cap stocks or undervalued companies to generate excess returns. When accounting for these factors, much of the supposed excess return often disappears.
 
-# Coding Challenges:
+
 
 - **Challenge 1**: 
 		- Download stock data from Titlon for a single stock.
@@ -100,7 +108,7 @@ Similarly, the introduction of factor models showed that some managers were mere
 		```
 		- Plot the performance and visually assess how each factor performs relative to the optimal portfolio.
 
-## Tentative answer to Challenge 1:
+## Answer:
 In the Titlon database, the `equity` table under the OSE tab all ready contains what we need to solve this. Let us therefore just load the data from lecture 3, and reduce it to weekly data for the variables we need:
 ```{python}
 import pandas as pd
@@ -179,7 +187,6 @@ print(model.summary())
 Conclusion, there has been no significant excess return since 2016 for Equinor. 
 
 
-## Tentative answer to Challenge 2:
 
 First, let us just rerun the last few cells of the previous chapter, in order to have the previous graph in the memory. That can is done with a custom function `calc_notebook` in the module `functions,py`in this directory. `d` contains the variable from those calculations.
 

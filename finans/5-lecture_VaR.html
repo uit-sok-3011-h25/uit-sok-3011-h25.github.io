@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -80,18 +80,19 @@ div.csl-indent {
 }</style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="5-lecture_VaR_files/libs/clipboard/clipboard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="5-lecture_VaR_files/libs/clipboard/clipboard.min.js"></script>
 <script src="5-lecture_VaR_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="5-lecture_VaR_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="5-lecture_VaR_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="5-lecture_VaR_files/libs/quarto-html/popper.min.js"></script>
 <script src="5-lecture_VaR_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="5-lecture_VaR_files/libs/quarto-html/anchor.min.js"></script>
 <link href="5-lecture_VaR_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="5-lecture_VaR_files/libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="5-lecture_VaR_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="5-lecture_VaR_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="5-lecture_VaR_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="5-lecture_VaR_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<link href="5-lecture_VaR_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -102,7 +103,7 @@ div.csl-indent {
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="5-lecture_VaR.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="5-lecture_VaR.ipynb" download="5-lecture_VaR.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="5-lecture_VaR.ipynb" download="5-lecture_VaR.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="5-lecture_VaR.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -142,15 +143,15 @@ div.csl-indent {
 <p>VaR provides a standardized way to assess risk, helping firms to understand potential losses and allocate capital effectively <span class="citation" data-cites="Jorion2007">(<a href="#ref-Jorion2007" role="doc-biblioref">Jorion 2007</a>)</span>. Regulators also rely heavily on VaR; in fact, this method is embedded directly in EU financial regulations, requiring banks to hold capital reserves proportional to their risk exposure <span class="citation" data-cites="Ong2007">(<a href="#ref-Ong2007" role="doc-biblioref">Ong 2007</a>)</span>. By setting a standardized measure for risk, VaR supports financial stability and resilience, making it invaluable for both risk managers and regulators.</p>
 <p>In this lecture, we’ll see that VaR is not a single, fixed method. Its accuracy and effectiveness depend on one crucial element: how volatility is predicted. Different approaches to forecasting volatility result in varying VaR outcomes, each with its strengths and limitations. By exploring these nuances, we’ll gain a deeper understanding of both the power and the limitations of VaR as a risk management tool.</p>
 <p>We start by loading the data from lecture 3:</p>
-<div id="94f8b334" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div id="f3257871" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_pickle(<span class="st">'data/X.df'</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">Symbol</th>
@@ -171,47 +172,47 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2016-01-10</td>
+<th data-quarto-table-cell-role="th">2016-01-10</th>
 <td>-0.118288</td>
 <td>-0.137636</td>
 <td>-0.008125</td>
 <td>-0.058065</td>
-<td>-0.087100</td>
+<td>-0.083888</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2016-01-17</td>
+<th data-quarto-table-cell-role="th">2016-01-17</th>
 <td>-0.060966</td>
 <td>-0.054818</td>
 <td>-0.085838</td>
 <td>-0.047905</td>
-<td>-0.072321</td>
+<td>-0.072114</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2016-01-24</td>
+<th data-quarto-table-cell-role="th">2016-01-24</th>
 <td>0.060966</td>
 <td>0.023505</td>
 <td>0.049143</td>
 <td>0.001741</td>
-<td>0.058322</td>
+<td>0.055133</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2016-01-31</td>
+<th data-quarto-table-cell-role="th">2016-01-31</th>
 <td>0.074498</td>
 <td>0.024710</td>
 <td>-0.007077</td>
 <td>-0.053584</td>
-<td>0.052179</td>
+<td>0.045256</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2016-02-07</td>
+<th data-quarto-table-cell-role="th">2016-02-07</th>
 <td>0.027490</td>
 <td>0.065780</td>
 <td>-0.029552</td>
 <td>0.024170</td>
-<td>0.012578</td>
+<td>0.012622</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
@@ -219,49 +220,49 @@ div.csl-indent {
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-08-24</td>
-<td>0.028829</td>
-<td>0.002129</td>
-<td>0.003018</td>
-<td>-0.016429</td>
-<td>0.020221</td>
+<th data-quarto-table-cell-role="th">2025-09-28</th>
+<td>0.056725</td>
+<td>-0.006665</td>
+<td>-0.004226</td>
+<td>0.023466</td>
+<td>0.019510</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2025-08-31</td>
-<td>-0.021953</td>
-<td>-0.010075</td>
-<td>0.010195</td>
-<td>-0.023244</td>
-<td>-0.005713</td>
+<th data-quarto-table-cell-role="th">2025-10-05</th>
+<td>-0.039205</td>
+<td>0.052979</td>
+<td>-0.002423</td>
+<td>-0.007852</td>
+<td>-0.005135</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-09-07</td>
-<td>-0.034486</td>
-<td>0.024550</td>
-<td>0.005949</td>
-<td>-0.015987</td>
-<td>-0.008017</td>
+<th data-quarto-table-cell-role="th">2025-10-12</th>
+<td>-0.035351</td>
+<td>-0.013933</td>
+<td>0.008454</td>
+<td>0.018581</td>
+<td>-0.018826</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">2025-09-14</td>
-<td>0.008734</td>
-<td>0.000299</td>
-<td>0.010619</td>
-<td>0.029027</td>
-<td>0.004108</td>
+<th data-quarto-table-cell-role="th">2025-10-19</th>
+<td>-0.024138</td>
+<td>0.020255</td>
+<td>0.023687</td>
+<td>0.005057</td>
+<td>0.003308</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2025-09-21</td>
-<td>0.007426</td>
-<td>-0.008718</td>
-<td>-0.026161</td>
-<td>-0.022657</td>
-<td>-0.004810</td>
+<th data-quarto-table-cell-role="th">2025-10-26</th>
+<td>-0.001716</td>
+<td>0.001431</td>
+<td>0.000603</td>
+<td>-0.002658</td>
+<td>0.000197</td>
 </tr>
 </tbody>
 </table>
 
-<p>507 rows × 5 columns</p>
+<p>512 rows × 5 columns</p>
 </div>
 </div>
 </div>
@@ -273,8 +274,8 @@ div.csl-indent {
 <p>To carry out this backtest, we’ll define a function to calculate VaR for historical returns from a financial time series. The function takes the following inputs: - A general function, <code>f(x, sigmalist)</code>, which calculates the 95% and 99% VaR and returns an updated volatility (if applicable). This function uses historical data <code>x</code> and past volatility <code>sigmalist</code>. The specific function provided will determine the method used for VaR calculation. - A <code>pandas</code> DataFrame <code>df</code> containing historical data. - The name of the data series in <code>df</code>. - An estimation window, specifying the number of periods used to estimate the current VaR.</p>
 <p>The function will return: - The 95% and 99% VaR for each date, - The estimated volatility (if applicable), - The corresponding dates, - The associated returns.</p>
 <p>Below is the function for generating the backtest:</p>
-<div id="c4c3db61" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="d0ad7dcd" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_backtest(f, df, name, estimation_win_size):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize lists to store calculated values</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    datelist <span class="op">=</span> []</span>
@@ -306,7 +307,7 @@ div.csl-indent {
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            np.array(d99list),</span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            np.array(sigmalist),</span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            np.array(datelist),</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            np.array(ret))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            np.array(ret))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This setup allows for a flexible approach to testing different VaR models by simply passing different VaR estimation functions into <code>generate_backtest</code>. The returned data can then be used to evaluate the model’s effectiveness by comparing predicted breaches against actual outcomes.</p>
 </section>
@@ -314,8 +315,8 @@ div.csl-indent {
 <h1>Evaluation Function</h1>
 <p>After generating the VaR time series, we need an <code>evaluate</code> function to assess the model’s effectiveness. This function will take the following arguments: - A plot object <code>plt</code> to visualize the performance, - The estimated 95% and 99% VaR series, - The returns, - The dates, - A heading for the plot.</p>
 <p>The function will produce an informative graph with bars wher there are breaches, and display the model’s performance by calculating the percentage of breaches. Here’s the function:</p>
-<div id="86b26849" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div id="0258b254" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate(plt, d95, d99, ret, dates, heading):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Clear the plot area to avoid overlapping plots</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    plt.cla()</span>
@@ -346,7 +347,7 @@ div.csl-indent {
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        breaches <span class="op">=</span> <span class="bu">sum</span>([d95, d99][i] <span class="op">&gt;</span> ret)</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>heading<span class="sc">}</span><span class="ss"> with </span><span class="sc">{</span>level<span class="sc">}</span><span class="ss">% confidence interval:</span><span class="ch">\n</span><span class="ss">"</span></span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Breaches: </span><span class="sc">{</span>breaches<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Backtesting (Realized VaR - % breaches): </span><span class="sc">{</span>backtest_results[i]<span class="sc">}</span><span class="ss">%</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Backtesting (Realized VaR - % breaches): </span><span class="sc">{</span>backtest_results[i]<span class="sc">}</span><span class="ss">%</span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This function provides a visual and numerical evaluation of VaR accuracy. The plot shows the 95% and 99% VaR levels alongside the actual returns, with breaches of the 95% VaR highlighted. The function then calculates and prints the percentage of breaches, allowing us to assess how well the model aligns with expected outcomes.</p>
 </section>
@@ -356,25 +357,25 @@ div.csl-indent {
 <section id="the-normal-distribution-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-normal-distribution-model">The Normal Distribution Model</h2>
 <p>The most straightforward approach is to assume that returns follow a normal distribution. We can estimate the standard deviation (volatility) of a sample <code>x</code> and apply the normal distribution to compute VaR. That in practice just means multiplying the volatility with a number corresponding to the confidence interval, in this case given by the function <code>norm.ppf(PVALS)</code>. This is implemented as follows</p>
-<div id="ebff10f9" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>PVALS <span class="op">=</span> [<span class="fl">0.05</span>, <span class="fl">0.01</span>]  <span class="co"># Confidence intervals (95% and 99%)</span></span>
+<div id="d2b767dd" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>PVALS <span class="op">=</span> [<span class="fl">0.05</span>, <span class="fl">0.01</span>]  <span class="co"># Confidence intervals (95% and 99%)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normal_est(x, sigmalist):</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> norm.ppf(PVALS)  <span class="co"># Z-scores for the specified confidence levels</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> np.std(x, ddof<span class="op">=</span><span class="dv">1</span>)  <span class="co"># Sample standard deviation</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z[<span class="dv">0</span>] <span class="op">*</span> sigma, z[<span class="dv">1</span>] <span class="op">*</span> sigma, sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z[<span class="dv">0</span>] <span class="op">*</span> sigma, z[<span class="dv">1</span>] <span class="op">*</span> sigma, sigma</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The global variable <code>PVALS</code> sets the confidence levels, making it easy to adjust later, though 95% and 99% are almost always used in practice.</p>
 </section>
 <section id="empirical-frequencies" class="level2">
 <h2 class="anchored" data-anchor-id="empirical-frequencies">Empirical Frequencies</h2>
 <p>An alternative method is to rely on empirical data, using historical quantiles to set the VaR thresholds. This method establishes limits that would have perfectly predicted historical data breaches at the 95% and 99% levels:</p>
-<div id="9ef813f7" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> historical_est(x, sigmalist):</span>
+<div id="fb5afd04" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> historical_est(x, sigmalist):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    q95 <span class="op">=</span> <span class="bu">abs</span>(np.quantile(x, PVALS[<span class="dv">0</span>]))  <span class="co"># 95th percentile of historical losses</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    q99 <span class="op">=</span> <span class="bu">abs</span>(np.quantile(x, PVALS[<span class="dv">1</span>]))  <span class="co"># 99th percentile of historical losses</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>q95, <span class="op">-</span>q99, <span class="va">None</span>  <span class="co"># VaR values are negative to indicate potential loss</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>q95, <span class="op">-</span>q99, <span class="va">None</span>  <span class="co"># VaR values are negative to indicate potential loss</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This approach is straightforward and does not assume any specific distribution of returns.</p>
 </section>
@@ -382,15 +383,15 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="past-volatility">Past Volatility</h2>
 <p>A third method involves modeling volatility based on its past behavior. Using only the volatility from the previous period would imply constant volatility, so we introduce an innovation term—specifically, the squared error from the previous period. This error is added to the previous period’s variance and then square-rooted to estimate current volatility. If no prior volatility exists (e.g., in the first period), historical volatility is used.</p>
 <p>After estimating the volatility, we can use the normal distribution to calculate VaR for each confidence interval. This type of volatility-based VaR estimation is required for financial firms under EU regulations <span class="citation" data-cites="Basel1996">(<a href="#ref-Basel1996" role="doc-biblioref">Banking Supervision 1996</a>)</span>.</p>
-<div id="bc120936" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> last_volat(x, sigmalist):</span>
+<div id="47a9ff41" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> last_volat(x, sigmalist):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.array(x)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> norm.ppf(PVALS)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> sigmalist:  <span class="co"># If sigmalist is empty, use initial standard deviation</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        sigma <span class="op">=</span> np.std(x, ddof<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:  <span class="co"># Update sigma based on past volatility and recent error</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        sigma <span class="op">=</span> (<span class="fl">0.1</span> <span class="op">*</span> (x[<span class="dv">0</span>] <span class="op">-</span> np.mean(x))<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="fl">0.9</span> <span class="op">*</span> sigmalist[<span class="op">-</span><span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="fl">0.5</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z[<span class="dv">0</span>] <span class="op">*</span> sigma, z[<span class="dv">1</span>] <span class="op">*</span> sigma, sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z[<span class="dv">0</span>] <span class="op">*</span> sigma, z[<span class="dv">1</span>] <span class="op">*</span> sigma, sigma</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>These methods offer varied approaches to calculating VaR, each with specific strengths: the normal model assumes a normal distribution, empirical quantiles base predictions on historical breaches, and the volatility-based method adjusts dynamically, often aligning with regulatory requirements.</p>
 </section>
@@ -398,26 +399,26 @@ div.csl-indent {
 <section id="evaluation" class="level1">
 <h1>Evaluation</h1>
 <p>We can now easily evaluate the different methods. We first evalueat under the normal distribution.</p>
-<div id="1e13a29a" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>NAME <span class="op">=</span> <span class="st">'EQNR'</span></span>
+<div id="92e053d7" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>NAME <span class="op">=</span> <span class="st">'EQNR'</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ESTIMATION_WINSIZE <span class="op">=</span> <span class="dv">52</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>(normal95, normal99, </span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a> sigma, dates, ret )<span class="op">=</span> generate_backtest(normal_est, </span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        df, NAME, ESTIMATION_WINSIZE)</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>evaluate(plt, normal95, normal99, ret, dates,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using the Normal Distribution Method'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using the Normal Distribution Method'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="5-lecture_VaR_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="5-lecture_VaR_files/figure-html/cell-8-output-1.png" width="600" height="451" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>VaR Estimation Using the Normal Distribution Method with 95% confidence interval:
 Breaches: 25
-Backtesting (Realized VaR - % breaches): 5.5%
+Backtesting (Realized VaR - % breaches): 5.4%
 
 VaR Estimation Using the Normal Distribution Method with 99% confidence interval:
 Breaches: 10
@@ -426,16 +427,16 @@ Backtesting (Realized VaR - % breaches): 2.2%
 </div>
 </div>
 <p>Then we apply the function that simply calculates the empirical distribution of passed returns:</p>
-<div id="d8a56850" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(hist95, hist99, </span>
+<div id="1f76b9e6" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(hist95, hist99, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a> sigma, dates, ret )<span class="op">=</span> generate_backtest(historical_est, </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        df, NAME, ESTIMATION_WINSIZE)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>evaluate(plt, hist95, hist99, ret, dates,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using Empirical Distribution'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using Empirical Distribution'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="5-lecture_VaR_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="5-lecture_VaR_files/figure-html/cell-9-output-1.png" width="600" height="451" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -446,21 +447,21 @@ Backtesting (Realized VaR - % breaches): 7.0%
 
 VaR Estimation Using Empirical Distribution with 99% confidence interval:
 Breaches: 13
-Backtesting (Realized VaR - % breaches): 2.9%
+Backtesting (Realized VaR - % breaches): 2.8%
 </code></pre>
 </div>
 </div>
 <p>And at last, we use information about the previous period volatility.</p>
-<div id="50abed7e" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(last95, last99, </span>
+<div id="c618af1f" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(last95, last99, </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a> sigma, dates, ret )<span class="op">=</span> generate_backtest(last_volat, </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        df, NAME, ESTIMATION_WINSIZE)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>evaluate(plt, last95, last99, ret, dates,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using Past Volatility'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VaR Estimation Using Past Volatility'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="5-lecture_VaR_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="5-lecture_VaR_files/figure-html/cell-10-output-1.png" width="600" height="451" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -471,7 +472,7 @@ Backtesting (Realized VaR - % breaches): 5.9%
 
 VaR Estimation Using Past Volatility with 99% confidence interval:
 Breaches: 14
-Backtesting (Realized VaR - % breaches): 3.1%
+Backtesting (Realized VaR - % breaches): 3.0%
 </code></pre>
 </div>
 </div>
@@ -563,13 +564,14 @@ Ong, Michael K. 2007. <em>The Basel Handbook: A Guide for Financial Practitioner
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

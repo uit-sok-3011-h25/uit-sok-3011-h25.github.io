@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -66,10 +66,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="chatgpt_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="chatgpt_files/libs/quarto-html/anchor.min.js"></script>
 <link href="chatgpt_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="chatgpt_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="chatgpt_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="chatgpt_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="chatgpt_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="chatgpt_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="chatgpt_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="chatgpt.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="chatgpt.ipynb" download="chatgpt.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="chatgpt.ipynb" download="chatgpt.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li><li><a href="chatgpt.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="60ef3266" class="cell" data-execution_count="1">
+<div id="961e403c" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Setup ---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
@@ -349,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a><span class="co"># (Valgfritt) rullerende re-estimering kan implementeres for strengere backtest.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>[                       0%                       ][**********************50%                       ]  2 of 4 completed[**********************50%                       ]  2 of 4 completed[*********************100%***********************]  4 of 4 completed</code></pre>
+<pre><code>[                       0%                       ][**********************50%                       ]  2 of 4 completed[**********************75%***********            ]  3 of 4 completed[*********************100%***********************]  4 of 4 completed</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -380,28 +380,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Risk-averse mix: risky weight = 0.24604169696655698 Return= 0.14156495357227625 Vol= 0.1
-Risk-seeking mix: risky weight = 0.7381250908996709 Return= 0.3646948607168287 Vol= 0.3
-   Model  Alpha       VaR  Exceed   N     Rate  Kupiec p  Christoffersen p
- Hist_99   0.99  0.066875       5 181 0.027624  0.000000          0.109934
- Norm_99   0.99 -0.061480     179 181 0.988950  0.888991          0.832106
-StudT_99   0.99 -0.073337     180 181 0.994475  0.508573          0.915818
- EWMA_99   0.99 -0.041723     175 181 0.966851  0.013519          0.173287
- Hist_95   0.95  0.038785      12 181 0.066298  0.000000          0.816699
- Norm_95   0.95 -0.044032     177 181 0.977901  0.053922          0.669802</code></pre>
+<pre><code>Risk-averse mix: risky weight = 0.24604180265053557 Return= 0.1415649750248688 Vol= 0.1
+Risk-seeking mix: risky weight = 0.7381254079516066 Return= 0.36469492507460644 Vol= 0.3</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/q2/8w2n22tj35v95srlf90nqd440000gp/T/ipykernel_22136/2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+<pre><code>C:\Users\esi000\AppData\Local\Temp\ipykernel_21896\2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
   a,b = h[i-1], h[i]
-/var/folders/q2/8w2n22tj35v95srlf90nqd440000gp/T/ipykernel_22136/2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+C:\Users\esi000\AppData\Local\Temp\ipykernel_21896\2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  a,b = h[i-1], h[i]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Model  Alpha       VaR  Exceed   N     Rate  Kupiec p  Christoffersen p
+ Hist_99   0.99  0.066875       5 206 0.024272  0.000000          0.094671
+ Norm_99   0.99 -0.061480     204 206 0.990291  0.966324          0.842640
+StudT_99   0.99 -0.073337     205 206 0.995146  0.409556          0.921126
+ EWMA_99   0.99 -0.041723     200 206 0.970874  0.024980          0.149343
+ Hist_95   0.95  0.038785      13 206 0.063107  0.000000          0.840964
+ Norm_95   0.95 -0.044032     202 206 0.980583  0.022151          0.689881</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\esi000\AppData\Local\Temp\ipykernel_21896\2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
   a,b = h[i-1], h[i]
-/var/folders/q2/8w2n22tj35v95srlf90nqd440000gp/T/ipykernel_22136/2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+C:\Users\esi000\AppData\Local\Temp\ipykernel_21896\2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
   a,b = h[i-1], h[i]
-/var/folders/q2/8w2n22tj35v95srlf90nqd440000gp/T/ipykernel_22136/2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+C:\Users\esi000\AppData\Local\Temp\ipykernel_21896\2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
   a,b = h[i-1], h[i]
-/var/folders/q2/8w2n22tj35v95srlf90nqd440000gp/T/ipykernel_22136/2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  a,b = h[i-1], h[i]
-/var/folders/q2/8w2n22tj35v95srlf90nqd440000gp/T/ipykernel_22136/2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+C:\Users\esi000\AppData\Local\Temp\ipykernel_21896\2673897486.py:217: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
   a,b = h[i-1], h[i]</code></pre>
 </div>
 </div>
