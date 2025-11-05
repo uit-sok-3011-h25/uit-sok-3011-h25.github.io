@@ -43,39 +43,34 @@ Below is the function for generating the backtest:
 
 ```{python}
 import numpy as np
+import pandas as pd
 def generate_backtest(f, df, name, estimation_win_size):
-    # Initialize lists to store calculated values
-    datelist = []
-    sigmalist = []
-    d95list = []
-    d99list = []
-    ret = []
+    # Initialize a df to store calculated values
+    record = pd.DataFrame(columns=['Date', 'Return', 'VaR_95', 'VaR_99', 'Sigma'])
 
     # Iterate over returns to calculate and store VaR and volatility estimates
     # We need to start at the estimation window size to have enough data for the first calculation
     for t in range(estimation_win_size, len(df)):
         
         # Record date and current return
-        datelist.append(df.index[t].date())
-        ret.append(df[name].iloc[t])
+        record.loc[t, 'Date'] = df.index[t].date()
+        record.loc[t, 'Return'] = df[name].iloc[t]  
+
 
         # Extract data from the estimation window (t-estimation_win_size to t-1)
         x = df[name].iloc[t-estimation_win_size:t-1]
 
         # Apply the provided VaR estimation function using the historical data and past volatility
-        d95, d99, sigma = f(x, sigmalist)
+        d95, d99, sigma = f(x, record)
 
         # Append the estimates to their respective lists
-        sigmalist.append(sigma)
-        d95list.append(d95)
-        d99list.append(d99)
+        record.loc[t, 'VaR_95'] = d95
+        record.loc[t, 'VaR_99'] = d99
+        record.loc[t, 'Sigma'] = sigma
+
 
     # Return the results as numpy arrays for ease of analysis
-    return (np.array(d95list),
-            np.array(d99list),
-            np.array(sigmalist),
-            np.array(datelist),
-            np.array(ret))
+    return record
 ```
 
 This setup allows for a flexible approach to testing different VaR models by simply passing different VaR estimation functions into `generate_backtest`. The returned data can then be used to evaluate the model’s effectiveness by comparing predicted breaches against actual outcomes.
@@ -94,38 +89,40 @@ After generating the VaR time series, we need an `evaluate` function to assess t
 The function will produce an informative graph with bars wher there are breaches, and display the model's performance by calculating the percentage of breaches. Here’s the function:
 
 ```{python}
-from matplotlib import pyplot as plt
-def evaluate(plt, d95, d99, ret, dates, heading):
-    # Clear the plot area to avoid overlapping plots
-    plt.cla()
+import numpy as np
 
-    # Plot the 95% VaR, 99% VaR, and actual returns
-    plt.plot(dates, d95, label='95% Confidence Level')
-    plt.plot(dates, d99, label='99% Confidence Level')
-    plt.plot(dates, ret, label='Actual Return')
+def evaluate(df, heading):
+    # Compute breach columns directly in the DataFrame
+    df['breach_95'] = (df['VaR_95'] > df['Return']).astype(int)
+    df['breach_99'] = (df['VaR_99'] > df['Return']).astype(int)
+    df['breaches_95_height'] = df['breach_95'] * df['Return'].max()
 
-    # Highlight instances where returns breach the 95% VaR
-    maxret = max(ret)
-    breaches_95 = [maxret if d > r else 0 for d, r in zip(d95, ret)]
-    plt.bar(dates, breaches_95, color='gray', alpha=0.5, width=0.5, label='Breaches 95% VaR')
+    # Plot VaR and Return lines
+    ax = df.plot(x='Date', y=['VaR_95', 'VaR_99', 'Return'],
+                 label=['95% Confidence Level', '99% Confidence Level', 'Actual Return'])
 
-    # Set labels and title
-    plt.ylabel('VaR')
-    plt.xlabel('Date')
-    plt.title(heading)
-    plt.xticks(rotation=90)
-    plt.legend(loc="lower right")
-    plt.subplots_adjust(bottom=0.15)
-    plt.show()
+    # Overlay bars for 95% breaches
+    ax.bar(df['Date'], df['breaches_95_height'],
+           color='gray', alpha=0.5, width=0.5, label='Breaches 95% VaR')
 
-    # Calculate and print the breach percentage for each confidence level
-    backtest_results = [np.round(sum(d > ret) / len(ret) * 100, 1) for d in [d95, d99]]
+    # Labels and title
+    ax.set_ylabel('VaR')
+    ax.set_xlabel('Date')
+    ax.set_title(heading)
+    ax.legend(loc="lower right")
+    ax.figure.autofmt_xdate()
 
-    for i, level in enumerate([95, 99]):
-        breaches = sum([d95, d99][i] > ret)
+    # Backtesting stats
+    backtest_results = [
+        np.round(df['breach_95'].mean() * 100, 1),
+        np.round(df['breach_99'].mean() * 100, 1)
+    ]
+
+    for level, breaches, pct in zip([95, 99], ['breach_95', 'breach_99'], backtest_results):
         print(f"{heading} with {level}% confidence interval:\n"
-              f"Breaches: {breaches}\n"
-              f"Backtesting (Realized VaR - % breaches): {backtest_results[i]}%\n")
+              f"Breaches: {df[breaches].sum()}\n"
+              f"Backtesting (Realized VaR - % breaches): {pct}%\n")
+
 ```
 
 This function provides a visual and numerical evaluation of VaR accuracy. The plot shows the 95% and 99% VaR levels alongside the actual returns, with breaches of the 95% VaR highlighted. The function then calculates and prints the percentage of breaches, allowing us to assess how well the model aligns with expected outcomes.
@@ -143,11 +140,12 @@ The most straightforward approach is to assume that returns follow a normal dist
 ```{python}
 PVALS = [0.05, 0.01]  # Confidence intervals (95% and 99%)
 from scipy.stats import norm
-
-def normal_est(x, sigmalist):
+def normal_est(x, record):
     z = norm.ppf(PVALS)  # Z-scores for the specified confidence levels
     sigma = np.std(x, ddof=1)  # Sample standard deviation
     return z[0] * sigma, z[1] * sigma, sigma
+
+print(norm.ppf(PVALS))
 ```
 
 The global variable `PVALS` sets the confidence levels, making it easy to adjust later, though 95% and 99% are almost always used in practice.
@@ -157,10 +155,10 @@ The global variable `PVALS` sets the confidence levels, making it easy to adjust
 An alternative method is to rely on empirical data, using historical quantiles to set the VaR thresholds. This method establishes limits that would have perfectly predicted historical data breaches at the 95% and 99% levels:
 
 ```{python}
-def historical_est(x, sigmalist):
-    q95 = abs(np.quantile(x, PVALS[0]))  # 95th percentile of historical losses
-    q99 = abs(np.quantile(x, PVALS[1]))  # 99th percentile of historical losses
-    return -q95, -q99, None  # VaR values are negative to indicate potential loss
+def historical_est(x, record):
+    q95 = (np.quantile(x, PVALS[0]))  # 95th percentile of historical losses
+    q99 = (np.quantile(x, PVALS[1]))  # 99th percentile of historical losses
+    return q95, q99, None  # VaR values are negative to indicate potential loss
 ```
 
 This approach is straightforward and does not assume any specific distribution of returns.
@@ -172,13 +170,17 @@ A third method involves modeling volatility based on its past behavior. Using on
 After estimating the volatility, we can use the normal distribution to calculate VaR for each confidence interval. This type of volatility-based VaR estimation is required for financial firms under EU regulations [@Basel1996].
 
 ```{python}
-def last_volat(x, sigmalist):
+def last_volat(x, record):
     x = np.array(x)
+    sigmalist = np.array(record['Sigma'].dropna())
     z = norm.ppf(PVALS)
-    if not sigmalist:  # If sigmalist is empty, use initial standard deviation
+
+    if len(sigmalist) == 0:
         sigma = np.std(x, ddof=1)
-    else:  # Update sigma based on past volatility and recent error
-        sigma = (0.1 * (x[0] - np.mean(x))**2 + 0.9 * sigmalist[-1]**2)**0.5
+    else:
+        # EWMA-style update
+        sigma = (0.1 * (x[-1] - np.mean(x))**2 + 0.9 * sigmalist[-1]**2)**0.5
+
     return z[0] * sigma, z[1] * sigma, sigma
 ```
 
@@ -192,32 +194,29 @@ We can now easily evaluate the different methods. We first evalueat under the no
 NAME = 'EQNR'
 ESTIMATION_WINSIZE = 52
 
-(normal95, normal99, 
- sigma, dates, ret )= generate_backtest(normal_est, 
-		df, NAME, ESTIMATION_WINSIZE)
-evaluate(plt, normal95, normal99, ret, dates,
-		 'VaR Estimation Using the Normal Distribution Method')
+rec= generate_backtest(normal_est, 
+        df, NAME, ESTIMATION_WINSIZE)
+evaluate(rec,
+         'VaR Estimation Using the Normal Distribution Method')
 
 ```
 
 Then we apply the function that simply calculates the empirical distribution of passed returns:
 
 ```{python}
-(hist95, hist99, 
- sigma, dates, ret )= generate_backtest(historical_est, 
-		df, NAME, ESTIMATION_WINSIZE)
-evaluate(plt, hist95, hist99, ret, dates,
-		 'VaR Estimation Using Empirical Distribution')
+rec = generate_backtest(historical_est, 
+        df, NAME, ESTIMATION_WINSIZE)
+evaluate(rec,
+         'VaR Estimation Using Empirical Distribution')
 
 ```
 
 And at last, we use information about the previous period volatility. 
 ```{python}
-(last95, last99, 
- sigma, dates, ret )= generate_backtest(last_volat, 
-		df, NAME, ESTIMATION_WINSIZE)
-evaluate(plt, last95, last99, ret, dates,
-		 'VaR Estimation Using Past Volatility')
+rec = generate_backtest(last_volat, 
+        df, NAME, ESTIMATION_WINSIZE)
+evaluate(rec,
+         'VaR Estimation Using Past Volatility')
 ```
 
 
