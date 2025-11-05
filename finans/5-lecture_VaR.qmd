@@ -52,6 +52,7 @@ def generate_backtest(f, df, name, estimation_win_size):
     ret = []
 
     # Iterate over returns to calculate and store VaR and volatility estimates
+    # We need to start at the estimation window size to have enough data for the first calculation
     for t in range(estimation_win_size, len(df)):
         
         # Record date and current return
@@ -83,6 +84,7 @@ This setup allows for a flexible approach to testing different VaR models by sim
 # Evaluation Function
 
 After generating the VaR time series, we need an `evaluate` function to assess the model’s effectiveness. This function will take the following arguments:
+
 - A plot object `plt` to visualize the performance,
 - The estimated 95% and 99% VaR series,
 - The returns,
@@ -92,7 +94,7 @@ After generating the VaR time series, we need an `evaluate` function to assess t
 The function will produce an informative graph with bars wher there are breaches, and display the model's performance by calculating the percentage of breaches. Here’s the function:
 
 ```{python}
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 def evaluate(plt, d95, d99, ret, dates, heading):
     # Clear the plot area to avoid overlapping plots
     plt.cla()
@@ -132,7 +134,7 @@ This function provides a visual and numerical evaluation of VaR accuracy. The pl
 
 # Methods for Calculating VaR
 
-Calculating Value at Risk (VaR) fundamentally involves predicting volatility. A model that can accurately predict volatility will yield a more reliable VaR estimate. Here, we’ll explore three different methods for calculating VaR: using the normal distribution, empirical frequencies, and past volatility.
+Calculating Value at Risk (VaR) fundamentally involves predicting volatility. A model can more accurately predict volatility, it will also yield a more reliable VaR estimate. Here, we’ll explore three different methods for calculating VaR: using the normal distribution, empirical frequencies, and past volatility.
 
 ## The Normal Distribution Model
 
